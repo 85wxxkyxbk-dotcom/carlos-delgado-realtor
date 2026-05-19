@@ -321,6 +321,8 @@ h2{font-family:'Syne';font-size:clamp(2.2rem,4.5vw,4.4rem);line-height:.96;lette
   .hero-ctas{justify-content:center}
   .hero-micro{justify-content:center}
   .hero-visual{right:50%;transform:translateX(50%) translateY(var(--house-y,44px)) scale(var(--house-s,1));width:min(980px,108vw);bottom:-3vh;opacity:.85}
+  /* Service modal collapses to single column on tablet */
+  .service-modal-layout{grid-template-columns:1fr}
 }
 @media(max-width:760px){
   .nav{padding:1rem}.brand-sub{display:none}
@@ -352,6 +354,15 @@ h2{font-family:'Syne';font-size:clamp(2.2rem,4.5vw,4.4rem);line-height:.96;lette
   .about-card{padding:1rem}
   .portrait{min-height:300px}
   .story-photo{min-height:330px}
+  /* Modal tighter on small screens */
+  .modal{padding:.5rem}
+  .service-modal-shell{padding:.9rem}
+  .service-modal-head{padding:1rem}
+  .service-modal-head h3{font-size:clamp(1.6rem,8vw,2.4rem)}
+  .modal-intro{font-size:.88rem}
+  .modal-box{border-radius:var(--r-sm)}
+  /* Prevent form trust badges from wrapping awkwardly */
+  .form-trust{flex-direction:column;gap:.65rem;align-items:flex-start}
 }
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
