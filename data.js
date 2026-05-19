@@ -42,7 +42,7 @@ window.SITE_CONFIG = {
      Step 3: Paste it here, e.g.:
              'https://formspree.io/f/YOUR_FORM_ID'
      Leave empty '' → falls back to mailto (formFallbackMode below). */
-  formEndpoint: 'https://formspree.io/f/xpqbeypy',
+  formEndpoint: 'https://hook.us2.make.com/tphrappyukal3v4zpfb3uv1lqyucvvq7',
 
   /* ── FORM FALLBACK ───────────────────────────────────────────
      Used when formEndpoint is empty.
@@ -109,4 +109,4 @@ window.SITE_CONFIG = {
      link: '#contact'
    }
    ─────────────────────────────────────────────────────────────
-═══════════════════════�
+═══════════════════════�
