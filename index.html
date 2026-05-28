@@ -326,6 +326,7 @@ h2{font-family:'Syne';font-size:clamp(2.2rem,4.5vw,4.4rem);line-height:.96;lette
 }
 @media(max-width:760px){
   .nav{padding:1rem}.brand-sub{display:none}
+  .nav-actions{flex-shrink:0}
   .nav-links{position:fixed;left:1rem;right:1rem;top:72px;background:rgba(251,248,241,.96);backdrop-filter:blur(20px);border:1px solid var(--line);border-radius:var(--r);padding:1rem;display:none;flex-direction:column;align-items:stretch;gap:.2rem;box-shadow:var(--shadow)}
   .nav-links.open{display:flex}
   .nav-links a{padding:.9rem 1rem;color:rgba(19,17,15,.7)}
@@ -378,13 +379,13 @@ section[id]{scroll-margin-top:88px}
 /* Mobile header — prevents overflow at 375-430px (iPhone SE / 14 Pro) */
 @media(max-width:430px){
   .nav{gap:.3rem;padding:.75rem .9rem}
-  .brand{gap:.5rem}
-  .brand-mark{width:33px;height:33px;font-size:.7rem}
-  .brand-name{font-size:.8rem;letter-spacing:.01em}
-  .nav-actions{gap:.35rem}
+  .brand{gap:.5rem;min-width:0;flex-shrink:1;overflow:hidden}
+  .brand-mark{width:33px;height:33px;font-size:.7rem;flex-shrink:0}
+  .brand-name{font-size:.78rem;letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .nav-actions{gap:.35rem;flex-shrink:0}
   .lang-toggle{padding:.14rem}
   .lang-option{min-width:26px;height:24px;font-size:.57rem;letter-spacing:.06em}
-  .menu-btn{width:36px;height:36px}
+  .menu-btn{width:36px;height:36px;flex-shrink:0}
 }
 
 /* Mobile CTA — safe-area inset for iPhone notch/home-bar + prevent overlap */
@@ -1436,4 +1437,4 @@ applyContactConfig();
     /* ABOUT */
     txt('#about .label','About Carlos','Sobre Carlos');
     txt('#about h2','One clear point of contact to move better in Miami.','Un punto de contacto claro para moverte mejor en Miami.');
-    txt('.about-copy > p:not(.label)','Real estate agent focused on helping buyers, sellers, renters and investors make clear decisions. The idea is simple: less confusion, a better process and direct communication at every stage.','Agente inmobiliario enfocado en ayudar a compradores, vendedores, renters e inversionistas a tomar decisiones claras. La idea es simpl
+    txt('.about-copy > p:not(.label)','Real estate agent focused on helping buyers, sellers, renters and investors make clear decisions. The idea is simple: less confusion, a better process and 
