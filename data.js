@@ -36,12 +36,9 @@ window.SITE_CONFIG = {
   bookingLink: 'https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0Kwtr25cdm7Fy-T7eoQQnNbr7FiohkW5cIgn_6mgLgTaBAvyTrqY6CG2XPILqokubHs_zMs-c5',
   bookingUrl:  'https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ0Kwtr25cdm7Fy-T7eoQQnNbr7FiohkW5cIgn_6mgLgTaBAvyTrqY6CG2XPILqokubHs_zMs-c5', // legacy alias
 
-  /* ── FORM ENDPOINT (Formspree) ───────────────────────────────
-     Step 1: Create a free account at https://formspree.io
-     Step 2: Create a new form, get your endpoint URL
-     Step 3: Paste it here, e.g.:
-             'https://formspree.io/f/YOUR_FORM_ID'
-     Leave empty '' → falls back to mailto (formFallbackMode below). */
+  /* ── FORM ENDPOINT (Make.com Webhook → Notion CRM) ─────────────
+     Leads go directly to Make.com which creates a row in Notion.
+     To revert to Formspree: 'https://formspree.io/f/xpqbeypy'      */
   formEndpoint: 'https://hook.us2.make.com/tphrappyukal3v4zpfb3uv1lqyucvvq7',
 
   /* ── FORM FALLBACK ───────────────────────────────────────────
@@ -109,4 +106,7 @@ window.SITE_CONFIG = {
      link: '#contact'
    }
    ─────────────────────────────────────────────────────────────
-═══════════════════════�
+═══════════════════════════════════════════════════════════════ */
+window.PROPERTIES = [
+  /* Add real listings here when ready. */
+];
