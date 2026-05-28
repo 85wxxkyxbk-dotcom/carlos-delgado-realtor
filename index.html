@@ -325,8 +325,12 @@ h2{font-family:'Syne';font-size:clamp(2.2rem,4.5vw,4.4rem);line-height:.96;lette
   .service-modal-layout{grid-template-columns:1fr}
 }
 @media(max-width:760px){
-  .nav{padding:1rem}.brand-sub{display:none}
-  .nav-actions{flex-shrink:0}
+  .nav{padding:1rem;gap:.5rem}.brand-sub{display:none}
+  .brand{min-width:0;flex-shrink:1;overflow:hidden}
+  .brand-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .nav-actions{flex-shrink:0;gap:.4rem}
+  .lang-toggle{padding:.18rem}
+  .lang-option{min-width:30px;height:27px;font-size:.6rem;letter-spacing:.07em}
   .nav-links{position:fixed;left:1rem;right:1rem;top:72px;background:rgba(251,248,241,.96);backdrop-filter:blur(20px);border:1px solid var(--line);border-radius:var(--r);padding:1rem;display:none;flex-direction:column;align-items:stretch;gap:.2rem;box-shadow:var(--shadow)}
   .nav-links.open{display:flex}
   .nav-links a{padding:.9rem 1rem;color:rgba(19,17,15,.7)}
