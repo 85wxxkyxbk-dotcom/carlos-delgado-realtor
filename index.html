@@ -588,13 +588,13 @@ section[id]{scroll-margin-top:88px}
       <div class="section-top reveal">
         <div>
           <p class="label">Personalized property search</p>
-          <h2>Tell me what you’re looking for. I’ll prepare a curated search for you.</h2>
+          <h2>Tell me what you're looking for. I'll prepare a curated search for you.</h2>
         </div>
         <p class="lede">Buying, renting or investing in Miami starts with the right filters: budget, area, timing, financing, lifestyle and property type.</p>
       </div>
       <!-- Cards are generated from data.js. If PROPERTIES is empty, this shows custom search cards. -->
       <div class="featured-grid" id="featuredGrid" aria-live="polite"></div>
-      <p class="featured-foot">Share your criteria and I’ll help you narrow the search before you waste time on the wrong options. <a href="#contact">Start my search →</a></p>
+      <p class="featured-foot">Share your criteria and I'll help you narrow the search before you waste time on the wrong options. <a href="#contact">Start my search →</a></p>
     </div>
   </section>
 
@@ -726,7 +726,7 @@ section[id]{scroll-margin-top:88px}
     <div class="container contact-shell">
       <aside class="contact-aside reveal">
         <p class="label">Contact</p>
-        <h2>Let’s talk about your next move.</h2>
+        <h2>Let's talk about your next move.</h2>
         <p>Tell me what you are looking for and I will respond with clear next steps for buying, selling, renting or investing in Miami.</p>
         <div class="contact-actions">
           <a class="contact-action is-hidden" data-config="phone" href="#contact"><span>Call now<small></small></span><strong>→</strong></a>
@@ -957,13 +957,13 @@ function renderProperties(){
     const foot=document.querySelector('.featured-foot');
     if(mode==='empty'){
       if(label) label.textContent=isES?'Búsqueda personalizada':'Personalized property search';
-      if(title) title.textContent=isES?'Dime qué estás buscando y preparo una selección para ti.':'Tell me what you’re looking for. I’ll prepare a curated search for you.';
+      if(title) title.textContent=isES?'Dime qué estás buscando y preparo una selección para ti.':'Tell me what you're looking for. I'll prepare a curated search for you.';
       if(lede) lede.textContent=isES
         ? 'Comprar, rentar o invertir en Miami empieza con los filtros correctos: presupuesto, zona, tiempo, financiamiento, estilo de vida y tipo de propiedad.'
         : 'Buying, renting or investing in Miami starts with the right filters: budget, area, timing, financing, lifestyle and property type.';
       if(foot) foot.innerHTML=isES
         ? 'Comparte tus criterios y te ayudo a reducir opciones antes de perder tiempo con propiedades que no encajan. <a href="#contact">Iniciar mi búsqueda →</a>'
-        : 'Share your criteria and I’ll help you narrow the search before you waste time on the wrong options. <a href="#contact">Start my search →</a>';
+        : 'Share your criteria and I'll help you narrow the search before you waste time on the wrong options. <a href="#contact">Start my search →</a>';
     }else{
       if(label) label.textContent=isES?'Propiedades destacadas':'Featured properties';
       if(title) title.textContent=isES?'Selección actual y cierres recientes.':'Current selection and recent closings.';
@@ -980,10 +980,10 @@ function renderProperties(){
     setFeaturedCopy('empty');
     grid.innerHTML=`<div class="search-consult-block reveal on">
       <div class="search-icon">&#x2726;</div>
-      <h3>${isES?'Cuéntame qué estás buscando.':'Tell me what you’re looking for.'}</h3>
+      <h3>${isES?'Cuéntame qué estás buscando.':'Tell me what you're looking for.'}</h3>
       <p>${isES
         ?'Prepararé una búsqueda curada según tu presupuesto, zona, tiempo y objetivo inmobiliario.'
-        :'I’ll prepare a curated search based on your budget, area, timing and real estate goals.'
+        :'I'll prepare a curated search based on your budget, area, timing and real estate goals.'
       }</p>
       <button class="btn btn-dark" type="button" data-open-consult="">
         ${isES?'Solicitar consulta':'Request consultation'}
@@ -1219,43 +1219,43 @@ document.addEventListener('click',e=>{
 /* ── Quick Consultation Modal ──────────────────────────────── */
 const quickModal=document.getElementById('quickModal');
 
-let _qMode=’consult’;
+let _qMode='consult';
 function syncQuickModal(mode){
-  const es=typeof currentLang!==’undefined’&&currentLang===’es’;
-  const isBook=mode===’book’;
+  const es=typeof currentLang!=='undefined'&&currentLang==='es';
+  const isBook=mode==='book';
   const el=id=>document.getElementById(id);
   const ph=(id,en,ess)=>{const e2=el(id);if(e2)e2.placeholder=es?ess:en;};
-  if(el(‘qModalLabel’))el(‘qModalLabel’).textContent=isBook?(es?’Llamada de 15 min’:’15-min call’):(es?’Consulta rápida’:’Quick consultation’);
-  if(el(‘qModalTitle’))el(‘qModalTitle’).innerHTML=isBook?(es?’Agenda una llamada rápida.’:’Let\’s schedule a quick call.’):(es?’Cuéntame qué estás buscando.’:’Tell me what you\’re looking for.’);
-  if(el(‘qModalIntro’))el(‘qModalIntro’).innerHTML=isBook?(es?’Deja tu teléfono y te llamo para confirmar el horario.’:’Leave your phone and I\’ll call to confirm the time.’):(es?’Te responderé con pasos claros. Sin ruido, sin presión.’:’I\’ll respond with clear next steps. No noise, no pressure.’);
-  if(el(‘qLblName’))el(‘qLblName’).textContent=es?’Nombre’:’Name’;
-  ph(‘qFldName’,es?’Tu nombre’:’Your name’,es?’Tu nombre’:’Your name’);
-  if(el(‘qLblContact’))el(‘qLblContact’).textContent=isBook?(es?’Teléfono’:’Phone’):(es?’Teléfono o email’:’Phone or email’);
-  ph(‘qFldContact’,isBook?(es?’Tu número de teléfono’:’Your phone number’):(es?’¿Cómo prefieres que te contacte?’:’How should I reach you’),isBook?(es?’Tu número de teléfono’:’Your phone number’):(es?’¿Cómo prefieres que te contacte?’:’How should I reach you’));
-  const interestRow=el(‘qFldInterest’)?.closest(‘.field’);
-  if(interestRow)interestRow.style.display=isBook?’none’:’’;
+  if(el('qModalLabel'))el('qModalLabel').textContent=isBook?(es?'Llamada de 15 min':'15-min call'):(es?'Consulta rápida':'Quick consultation');
+  if(el('qModalTitle'))el('qModalTitle').innerHTML=isBook?(es?'Agenda una llamada rápida.':'Let\'s schedule a quick call.'):(es?'Cuéntame qué estás buscando.':'Tell me what you\'re looking for.');
+  if(el('qModalIntro'))el('qModalIntro').innerHTML=isBook?(es?'Deja tu teléfono y te llamo para confirmar el horario.':'Leave your phone and I\'ll call to confirm the time.'):(es?'Te responderé con pasos claros. Sin ruido, sin presión.':'I\'ll respond with clear next steps. No noise, no pressure.');
+  if(el('qLblName'))el('qLblName').textContent=es?'Nombre':'Name';
+  ph('qFldName',es?'Tu nombre':'Your name',es?'Tu nombre':'Your name');
+  if(el('qLblContact'))el('qLblContact').textContent=isBook?(es?'Teléfono':'Phone'):(es?'Teléfono o email':'Phone or email');
+  ph('qFldContact',isBook?(es?'Tu número de teléfono':'Your phone number'):(es?'¿Cómo prefieres que te contacte?':'How should I reach you'),isBook?(es?'Tu número de teléfono':'Your phone number'):(es?'¿Cómo prefieres que te contacte?':'How should I reach you'));
+  const interestRow=el('qFldInterest')?.closest('.field');
+  if(interestRow)interestRow.style.display=isBook?'none':'';
   if(!isBook){
-    if(el(‘qLblInterest’))el(‘qLblInterest’).textContent=es?’Me interesa’:’I\’m interested in’;
-    const sel=el(‘qFldInterest’);
+    if(el('qLblInterest'))el('qLblInterest').textContent=es?'Me interesa':'I\'m interested in';
+    const sel=el('qFldInterest');
     if(sel){
-      const opts=es?[‘Comprar’,’Vender’,’Rentar’,’Invertir’,’No estoy seguro/a’]:[‘Buy’,’Sell’,’Rent’,’Invest’,’Not sure yet’];
-      const vals=[‘Buy’,’Sell’,’Rent’,’Invest’,’Not sure’];
+      const opts=es?['Comprar','Vender','Rentar','Invertir','No estoy seguro/a']:['Buy','Sell','Rent','Invest','Not sure yet'];
+      const vals=['Buy','Sell','Rent','Invest','Not sure'];
       [...sel.options].forEach((o,i)=>{o.textContent=opts[i];o.value=vals[i];});
     }
   }
-  if(el(‘qLblMsg’))el(‘qLblMsg’).textContent=isBook?(es?’¿Cuándo puedes? (opcional)’:’When are you available? (optional)’):(es?’Mensaje (opcional)’:’Message (optional)’);
-  ph(‘qFldMsg’,isBook?(es?’Ej. mañanas, entre semana después de las 5 pm…’:’E.g. mornings, weekdays after 5 pm…’):(es?’Área, presupuesto, tiempo u otras preguntas…’:’Area, timing, budget or any questions…’),isBook?(es?’Ej. mañanas, entre semana después de las 5 pm…’:’E.g. mornings, weekdays after 5 pm…’):(es?’Área, presupuesto, tiempo u otras preguntas…’:’Area, timing, budget or any questions…’));
-  if(el(‘qTrust’))el(‘qTrust’).innerHTML=isBook?(es?’<span>Te llamo en menos de 24h</span><span>Sin presión</span><span>Solo 15 min</span>’:’<span>I\’ll call within 24h</span><span>No pressure</span><span>Just 15 min</span>’):(es?’<span>Respuesta en menos de 24h</span><span>Sin presión</span><span>Confidencial</span>’:’<span>Response under 24h</span><span>No pressure</span><span>Confidential</span>’);
-  if(el(‘qSubmitBtn’))el(‘qSubmitBtn’).innerHTML=isBook?(es?’Agendar llamada &rarr;’:’Schedule call &rarr;’):(es?’Enviar consulta &rarr;’:’Send consultation &rarr;’);
-  if(el(‘qNote’))el(‘qNote’).textContent=isBook?(es?’Solo te llamo para confirmar el horario. Sin venta.’:’I only call to confirm the time. No sales pitch.’):(es?’Tu información solo se usa para responder esta consulta.’:’Your information is only used to respond to this consultation.’);
-  const svc=el(‘quickForm’)?.querySelector(‘[name="service"]’);
-  if(svc)svc.value=isBook?(es?’Llamada 15 min’:’15-min Call’):’Consulta’;
+  if(el('qLblMsg'))el('qLblMsg').textContent=isBook?(es?'¿Cuándo puedes? (opcional)':'When are you available? (optional)'):(es?'Mensaje (opcional)':'Message (optional)');
+  ph('qFldMsg',isBook?(es?'Ej. mañanas, entre semana después de las 5 pm…':'E.g. mornings, weekdays after 5 pm…'):(es?'Área, presupuesto, tiempo u otras preguntas…':'Area, timing, budget or any questions…'),isBook?(es?'Ej. mañanas, entre semana después de las 5 pm…':'E.g. mornings, weekdays after 5 pm…'):(es?'Área, presupuesto, tiempo u otras preguntas…':'Area, timing, budget or any questions…'));
+  if(el('qTrust'))el('qTrust').innerHTML=isBook?(es?'<span>Te llamo en menos de 24h</span><span>Sin presión</span><span>Solo 15 min</span>':'<span>I\'ll call within 24h</span><span>No pressure</span><span>Just 15 min</span>'):(es?'<span>Respuesta en menos de 24h</span><span>Sin presión</span><span>Confidencial</span>':'<span>Response under 24h</span><span>No pressure</span><span>Confidential</span>');
+  if(el('qSubmitBtn'))el('qSubmitBtn').innerHTML=isBook?(es?'Agendar llamada &rarr;':'Schedule call &rarr;'):(es?'Enviar consulta &rarr;':'Send consultation &rarr;');
+  if(el('qNote'))el('qNote').textContent=isBook?(es?'Solo te llamo para confirmar el horario. Sin venta.':'I only call to confirm the time. No sales pitch.'):(es?'Tu información solo se usa para responder esta consulta.':'Your information is only used to respond to this consultation.');
+  const svc=el('quickForm')?.querySelector('[name="service"]');
+  if(svc)svc.value=isBook?(es?'Llamada 15 min':'15-min Call'):'Consulta';
 }
 
 function openQuickModal(mode){
-  _qMode=mode||’consult’;
+  _qMode=mode||'consult';
   syncQuickModal(_qMode);
-  if(quickModal){quickModal.classList.add(‘open’);document.body.style.overflow=’hidden’;}
+  if(quickModal){quickModal.classList.add('open');document.body.style.overflow='hidden';}
 }
 
 function closeQuickModal(){
@@ -1383,9 +1383,9 @@ applyContactConfig();
 
     /* PROPERTY SEARCH / FEATURED PROPERTIES */
     txt('#featured .label','Personalized property search','Búsqueda personalizada');
-    txt('#featured h2','Tell me what you’re looking for. I’ll prepare a curated search for you.','Dime qué estás buscando y preparo una selección para ti.');
+    txt('#featured h2','Tell me what you're looking for. I'll prepare a curated search for you.','Dime qué estás buscando y preparo una selección para ti.');
     txt('#featured .lede','Buying, renting or investing in Miami starts with the right filters: budget, area, timing, financing, lifestyle and property type.','Comprar, rentar o invertir en Miami empieza con los filtros correctos: presupuesto, zona, tiempo, financiamiento, estilo de vida y tipo de propiedad.');
-    html('.featured-foot','Share your criteria and I’ll help you narrow the search before you waste time on the wrong options. <a href="#contact">Start my search →</a>','Comparte tus criterios y te ayudo a reducir opciones antes de perder tiempo con propiedades que no encajan. <a href="#contact">Iniciar mi búsqueda →</a>');
+    html('.featured-foot','Share your criteria and I'll help you narrow the search before you waste time on the wrong options. <a href="#contact">Start my search →</a>','Comparte tus criterios y te ayudo a reducir opciones antes de perder tiempo con propiedades que no encajan. <a href="#contact">Iniciar mi búsqueda →</a>');
     if (typeof renderProperties === 'function') renderProperties();
 
     /* VALUE */
