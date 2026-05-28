@@ -957,13 +957,13 @@ function renderProperties(){
     const foot=document.querySelector('.featured-foot');
     if(mode==='empty'){
       if(label) label.textContent=isES?'Búsqueda personalizada':'Personalized property search';
-      if(title) title.textContent=isES?'Dime qué estás buscando y preparo una selección para ti.':'Tell me what you're looking for. I'll prepare a curated search for you.';
+      if(title) title.textContent=isES?'Dime qué estás buscando y preparo una selección para ti.':'Tell me what you\'re looking for. I\'ll prepare a curated search for you.';
       if(lede) lede.textContent=isES
         ? 'Comprar, rentar o invertir en Miami empieza con los filtros correctos: presupuesto, zona, tiempo, financiamiento, estilo de vida y tipo de propiedad.'
         : 'Buying, renting or investing in Miami starts with the right filters: budget, area, timing, financing, lifestyle and property type.';
       if(foot) foot.innerHTML=isES
         ? 'Comparte tus criterios y te ayudo a reducir opciones antes de perder tiempo con propiedades que no encajan. <a href="#contact">Iniciar mi búsqueda →</a>'
-        : 'Share your criteria and I'll help you narrow the search before you waste time on the wrong options. <a href="#contact">Start my search →</a>';
+        : 'Share your criteria and I\'ll help you narrow the search before you waste time on the wrong options. <a href="#contact">Start my search →</a>';
     }else{
       if(label) label.textContent=isES?'Propiedades destacadas':'Featured properties';
       if(title) title.textContent=isES?'Selección actual y cierres recientes.':'Current selection and recent closings.';
@@ -980,10 +980,10 @@ function renderProperties(){
     setFeaturedCopy('empty');
     grid.innerHTML=`<div class="search-consult-block reveal on">
       <div class="search-icon">&#x2726;</div>
-      <h3>${isES?'Cuéntame qué estás buscando.':'Tell me what you're looking for.'}</h3>
+      <h3>${isES?'Cuéntame qué estás buscando.':'Tell me what you\'re looking for.'}</h3>
       <p>${isES
         ?'Prepararé una búsqueda curada según tu presupuesto, zona, tiempo y objetivo inmobiliario.'
-        :'I'll prepare a curated search based on your budget, area, timing and real estate goals.'
+        :'I\'ll prepare a curated search based on your budget, area, timing and real estate goals.'
       }</p>
       <button class="btn btn-dark" type="button" data-open-consult="">
         ${isES?'Solicitar consulta':'Request consultation'}
@@ -1383,9 +1383,9 @@ applyContactConfig();
 
     /* PROPERTY SEARCH / FEATURED PROPERTIES */
     txt('#featured .label','Personalized property search','Búsqueda personalizada');
-    txt('#featured h2','Tell me what you're looking for. I'll prepare a curated search for you.','Dime qué estás buscando y preparo una selección para ti.');
+    txt('#featured h2','Tell me what you\'re looking for. I\'ll prepare a curated search for you.','Dime qué estás buscando y preparo una selección para ti.');
     txt('#featured .lede','Buying, renting or investing in Miami starts with the right filters: budget, area, timing, financing, lifestyle and property type.','Comprar, rentar o invertir en Miami empieza con los filtros correctos: presupuesto, zona, tiempo, financiamiento, estilo de vida y tipo de propiedad.');
-    html('.featured-foot','Share your criteria and I'll help you narrow the search before you waste time on the wrong options. <a href="#contact">Start my search →</a>','Comparte tus criterios y te ayudo a reducir opciones antes de perder tiempo con propiedades que no encajan. <a href="#contact">Iniciar mi búsqueda →</a>');
+    html('.featured-foot','Share your criteria and I\'ll help you narrow the search before you waste time on the wrong options. <a href="#contact">Start my search →</a>','Comparte tus criterios y te ayudo a reducir opciones antes de perder tiempo con propiedades que no encajan. <a href="#contact">Iniciar mi búsqueda →</a>');
     if (typeof renderProperties === 'function') renderProperties();
 
     /* VALUE */
@@ -1436,4 +1436,4 @@ applyContactConfig();
     /* ABOUT */
     txt('#about .label','About Carlos','Sobre Carlos');
     txt('#about h2','One clear point of contact to move better in Miami.','Un punto de contacto claro para moverte mejor en Miami.');
-    txt('.about-copy > p:not(.label)','Real estate agent focused on helping buyers, sellers, renters and investors make clear decisions. The idea is simple: less confusion, a better process and direct communication at every stage.','Agente inmobiliario enfocado en ayudar a compradores, vendedores, renters e inversionistas a tomar decisiones claras. La idea es simple: menos
+    txt('.about-copy > p:not(.label)','Real estate agent focused on helping buyers, sellers, renters and investors make clear decisions. The idea is simple: less confusion, a better process and direct communication at every stage.','Agente inmobiliario enfocado en ayudar a compradores, vendedores, renters e inversionistas a tomar decisiones claras. La idea es simpl
