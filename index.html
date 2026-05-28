@@ -899,7 +899,7 @@ function applyContactConfig(){
     if(el.matches('.contact-action')){
       el.classList.toggle('is-hidden', !hasPhone);
       el.innerHTML=`<span>${isES?'Llamar ahora':'Call now'}<small>${phoneDisplay || phoneTel}</small></span><strong>→</strong>`;
-    }else if(!el.closest('.contact-action') && !el.classList.contains('btn')){
+    }else if(!el.closest('.contact-action') && !el.classList.contains('btn') && !el.closest('.mobile-cta')){
       el.textContent=hasPhone ? (phoneDisplay || phoneTel) : '';
     }
   });
@@ -1210,45 +1210,52 @@ function closeModal(){modal.classList.remove('open');modal.setAttribute('aria-hi
 
 renderProperties();
 
-/* Event delegation for booking buttons (may open Calendar or modal) */
+/* Event delegation for booking buttons — opens quick booking form */
 document.addEventListener('click',e=>{
   const btn=e.target.closest('[data-open-modal]');
   if(!btn) return;
-  const bookingUrl=window.SITE_CONFIG?.bookingLink||window.SITE_CONFIG?.bookingUrl;
-  if(bookingUrl){ window.open(bookingUrl,'_blank','noopener'); return; }
-  openModal('Consulta');
+  openQuickModal('book');
 });
 /* ── Quick Consultation Modal ──────────────────────────────── */
 const quickModal=document.getElementById('quickModal');
 
-function syncQuickModal(){
-  const es=typeof currentLang!=='undefined'&&currentLang==='es';
+let _qMode=’consult’;
+function syncQuickModal(mode){
+  const es=typeof currentLang!==’undefined’&&currentLang===’es’;
+  const isBook=mode===’book’;
   const el=id=>document.getElementById(id);
   const ph=(id,en,ess)=>{const e2=el(id);if(e2)e2.placeholder=es?ess:en;};
-  if(el('qModalLabel'))el('qModalLabel').textContent=es?'Consulta rápida':'Quick consultation';
-  if(el('qModalTitle'))el('qModalTitle').innerHTML=es?'Cuéntame qué estás buscando.':'Tell me what you’re looking for.';
-  if(el('qModalIntro'))el('qModalIntro').innerHTML=es?'Te responderé con pasos claros. Sin ruido, sin presión.':'I’ll respond with clear next steps. No noise, no pressure.';
-  if(el('qLblName'))el('qLblName').textContent=es?'Nombre':'Name';
-  ph('qFldName','Your name','Tu nombre');
-  if(el('qLblContact'))el('qLblContact').textContent=es?'Teléfono o email':'Phone or email';
-  ph('qFldContact','How should I reach you','¿Cómo prefieres que te contacte?');
-  if(el('qLblInterest'))el('qLblInterest').textContent=es?'Me interesa':'I’m interested in';
-  const sel=el('qFldInterest');
-  if(sel){
-    const opts=es?['Comprar','Vender','Rentar','Invertir','No estoy seguro/a']:['Buy','Sell','Rent','Invest','Not sure yet'];
-    const vals=['Buy','Sell','Rent','Invest','Not sure'];
-    [...sel.options].forEach((o,i)=>{o.textContent=opts[i];o.value=vals[i];});
+  if(el(‘qModalLabel’))el(‘qModalLabel’).textContent=isBook?(es?’Llamada de 15 min’:’15-min call’):(es?’Consulta rápida’:’Quick consultation’);
+  if(el(‘qModalTitle’))el(‘qModalTitle’).innerHTML=isBook?(es?’Agenda una llamada rápida.’:’Let\’s schedule a quick call.’):(es?’Cuéntame qué estás buscando.’:’Tell me what you\’re looking for.’);
+  if(el(‘qModalIntro’))el(‘qModalIntro’).innerHTML=isBook?(es?’Deja tu teléfono y te llamo para confirmar el horario.’:’Leave your phone and I\’ll call to confirm the time.’):(es?’Te responderé con pasos claros. Sin ruido, sin presión.’:’I\’ll respond with clear next steps. No noise, no pressure.’);
+  if(el(‘qLblName’))el(‘qLblName’).textContent=es?’Nombre’:’Name’;
+  ph(‘qFldName’,es?’Tu nombre’:’Your name’,es?’Tu nombre’:’Your name’);
+  if(el(‘qLblContact’))el(‘qLblContact’).textContent=isBook?(es?’Teléfono’:’Phone’):(es?’Teléfono o email’:’Phone or email’);
+  ph(‘qFldContact’,isBook?(es?’Tu número de teléfono’:’Your phone number’):(es?’¿Cómo prefieres que te contacte?’:’How should I reach you’),isBook?(es?’Tu número de teléfono’:’Your phone number’):(es?’¿Cómo prefieres que te contacte?’:’How should I reach you’));
+  const interestRow=el(‘qFldInterest’)?.closest(‘.field’);
+  if(interestRow)interestRow.style.display=isBook?’none’:’’;
+  if(!isBook){
+    if(el(‘qLblInterest’))el(‘qLblInterest’).textContent=es?’Me interesa’:’I\’m interested in’;
+    const sel=el(‘qFldInterest’);
+    if(sel){
+      const opts=es?[‘Comprar’,’Vender’,’Rentar’,’Invertir’,’No estoy seguro/a’]:[‘Buy’,’Sell’,’Rent’,’Invest’,’Not sure yet’];
+      const vals=[‘Buy’,’Sell’,’Rent’,’Invest’,’Not sure’];
+      [...sel.options].forEach((o,i)=>{o.textContent=opts[i];o.value=vals[i];});
+    }
   }
-  if(el('qLblMsg'))el('qLblMsg').textContent=es?'Mensaje (opcional)':'Message (optional)';
-  ph('qFldMsg','Area, timing, budget or any questions…','Área, presupuesto, tiempo u otras preguntas…');
-  if(el('qTrust'))el('qTrust').innerHTML=es?'<span>Respuesta en menos de 24h</span><span>Sin presión</span><span>Confidencial</span>':'<span>Response under 24h</span><span>No pressure</span><span>Confidential</span>';
-  if(el('qSubmitBtn'))el('qSubmitBtn').innerHTML=es?'Enviar consulta &rarr;':'Send consultation &rarr;';
-  if(el('qNote'))el('qNote').textContent=es?'Tu información solo se usa para responder esta consulta.':'Your information is only used to respond to this consultation.';
+  if(el(‘qLblMsg’))el(‘qLblMsg’).textContent=isBook?(es?’¿Cuándo puedes? (opcional)’:’When are you available? (optional)’):(es?’Mensaje (opcional)’:’Message (optional)’);
+  ph(‘qFldMsg’,isBook?(es?’Ej. mañanas, entre semana después de las 5 pm…’:’E.g. mornings, weekdays after 5 pm…’):(es?’Área, presupuesto, tiempo u otras preguntas…’:’Area, timing, budget or any questions…’),isBook?(es?’Ej. mañanas, entre semana después de las 5 pm…’:’E.g. mornings, weekdays after 5 pm…’):(es?’Área, presupuesto, tiempo u otras preguntas…’:’Area, timing, budget or any questions…’));
+  if(el(‘qTrust’))el(‘qTrust’).innerHTML=isBook?(es?’<span>Te llamo en menos de 24h</span><span>Sin presión</span><span>Solo 15 min</span>’:’<span>I\’ll call within 24h</span><span>No pressure</span><span>Just 15 min</span>’):(es?’<span>Respuesta en menos de 24h</span><span>Sin presión</span><span>Confidencial</span>’:’<span>Response under 24h</span><span>No pressure</span><span>Confidential</span>’);
+  if(el(‘qSubmitBtn’))el(‘qSubmitBtn’).innerHTML=isBook?(es?’Agendar llamada &rarr;’:’Schedule call &rarr;’):(es?’Enviar consulta &rarr;’:’Send consultation &rarr;’);
+  if(el(‘qNote’))el(‘qNote’).textContent=isBook?(es?’Solo te llamo para confirmar el horario. Sin venta.’:’I only call to confirm the time. No sales pitch.’):(es?’Tu información solo se usa para responder esta consulta.’:’Your information is only used to respond to this consultation.’);
+  const svc=el(‘quickForm’)?.querySelector(‘[name="service"]’);
+  if(svc)svc.value=isBook?(es?’Llamada 15 min’:’15-min Call’):’Consulta’;
 }
 
-function openQuickModal(){
-  syncQuickModal();
-  if(quickModal){quickModal.classList.add('open');document.body.style.overflow='hidden';}
+function openQuickModal(mode){
+  _qMode=mode||’consult’;
+  syncQuickModal(_qMode);
+  if(quickModal){quickModal.classList.add(‘open’);document.body.style.overflow=’hidden’;}
 }
 
 function closeQuickModal(){
@@ -1429,24 +1436,4 @@ applyContactConfig();
     /* ABOUT */
     txt('#about .label','About Carlos','Sobre Carlos');
     txt('#about h2','One clear point of contact to move better in Miami.','Un punto de contacto claro para moverte mejor en Miami.');
-    txt('.about-copy > p:not(.label)','Real estate agent focused on helping buyers, sellers, renters and investors make clear decisions. The idea is simple: less confusion, a better process and direct communication at every stage.','Agente inmobiliario enfocado en ayudar a compradores, vendedores, renters e inversionistas a tomar decisiones claras. La idea es simple: menos confusión, mejor proceso y comunicación directa en cada etapa.');
-    html('.credential div:nth-child(1)','<strong>Licensed Real Estate Agent</strong> · Miami, FL','<strong>Licensed Real Estate Agent</strong> · Miami, FL');
-    html('[data-config="brokerage-line"] strong','Brokerage:','Brokerage:');
-    html('.credential div:nth-child(3)','<strong>Specialty:</strong> buying, selling, renting and residential investment.','<strong>Especialidad:</strong> compra, venta, renta e inversión residencial.');
-    html('.credential div:nth-child(4)','<strong>Languages:</strong> English · Español','<strong>Idiomas:</strong> English · Español');
-    attr('.portrait','data-portrait-note','Professional photo coming soon','Foto profesional próximamente');
-
-    /* CONTACT */
-    txt('#contact .label','Contact','Contacto');
-    txt('#contact h2','Let’s talk about your next move.','Hablemos de tu próximo movimiento.');
-    txt('.contact-aside > p:not(.label)','Tell me what you are looking for and I will respond with clear next steps for buying, selling, renting or investing in Miami.','Cuéntame qué estás buscando y te responderé con próximos pasos claros para compra, venta, renta o inversión en Miami.');
-    setLeadLabel('#leadForm [name="name"]','Name','Nombre');
-    setLeadLabel('#leadForm [name="contact"]','Phone or email','Teléfono o email');
-    setLeadLabel('#leadForm [name="service"]','I am interested in','Me interesa');
-    setLeadLabel('#leadForm [name="area"]','Approximate area','Zona aproximada');
-    setLeadLabel('#leadForm [name="budget"]','Approximate budget','Presupuesto aproximado');
-    setLeadLabel('#leadForm [name="pets"]','Do you have a pet?','¿Tienes mascota?');
-    setLeadLabel('#leadForm [name="message"]','Message','Mensaje');
-    ph('#leadForm [name="name"]','Your full name','Tu nombre completo');
-    ph('#leadForm [name="contact"]','Phone number or email','Número o correo');
-    ph('#leadForm [name="area"]','Ex. Br
+    txt('.about-copy > p:not(.label)','Real estate agent focused on helping buyers, sellers, renters and investors make clear decisions. The idea is simple: less confusion, a better process and direct communication at every stage.','Agente inmobiliario enfocado en ayudar a compradores, vendedores, renters e inversionistas a tomar decisiones claras. La idea es simple: menos
