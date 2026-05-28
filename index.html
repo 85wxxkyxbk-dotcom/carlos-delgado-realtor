@@ -369,10 +369,67 @@ h2{font-family:'Syne';font-size:clamp(2.2rem,4.5vw,4.4rem);line-height:.96;lette
   .reveal{opacity:1;transform:none}
 }
 
-/* Form feedback messages */
-.form-feedback{padding:.85rem 1rem;border-radius:var(--r-sm);font-size:.84rem;font-weight:600;line-height:1.6;margin-top:.6rem}
-.form-feedback--success{background:rgba(111,137,119,.12);border:1px solid rgba(111,137,119,.30);color:var(--olive)}
-.form-feedback--error{background:rgba(201,85,58,.08);border:1px solid rgba(201,85,58,.24);color:var(--terracotta)}
+/* ─── v4 PATCH ─────────────────────────────────────────────────────── */
+
+/* Scroll margin — compensates sticky header on anchor links */
+section[id]{scroll-margin-top:88px}
+#hero{scroll-margin-top:0}
+
+/* Mobile header — prevents overflow at 375-430px (iPhone SE / 14 Pro) */
+@media(max-width:430px){
+  .nav{gap:.3rem;padding:.75rem .9rem}
+  .brand{gap:.5rem}
+  .brand-mark{width:33px;height:33px;font-size:.7rem}
+  .brand-name{font-size:.8rem;letter-spacing:.01em}
+  .nav-actions{gap:.35rem}
+  .lang-toggle{padding:.14rem}
+  .lang-option{min-width:26px;height:24px;font-size:.57rem;letter-spacing:.06em}
+  .menu-btn{width:36px;height:36px}
+}
+
+/* Mobile CTA — safe-area inset for iPhone notch/home-bar + prevent overlap */
+.mobile-cta{bottom:calc(1rem + env(safe-area-inset-bottom,0px))}
+@media(max-width:760px){
+  body{padding-bottom:calc(80px + env(safe-area-inset-bottom,0px))}
+  .mobile-cta a,.mobile-cta button{color:inherit}
+  .mobile-cta button{color:#fff}
+}
+
+/* Consultation block — replaces the repeated Buy/Rent/Invest cards in search section */
+.search-consult-block{
+  background:#fff;border:1px solid var(--line);border-radius:var(--r);
+  padding:clamp(2.4rem,5vw,4rem) clamp(1.5rem,5vw,3.5rem);
+  box-shadow:var(--shadow-sm);
+  display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.4rem;
+  grid-column:1/-1;
+}
+.search-consult-block .search-icon{
+  width:56px;height:56px;border-radius:var(--r-sm);background:var(--terracotta-soft);
+  color:var(--terracotta);display:grid;place-items:center;font-size:1.5rem;line-height:1;
+}
+.search-consult-block h3{
+  font-family:'Syne';font-size:clamp(1.8rem,3.4vw,2.8rem);
+  letter-spacing:-.05em;color:var(--ink);line-height:1.02;text-wrap:balance
+}
+.search-consult-block p{
+  font-size:.98rem;line-height:1.78;color:var(--muted);max-width:520px
+}
+
+
+/* ─── v4b PATCH ──────────────────────────────────────── */
+
+/* Hero mobile — evita overlap de texto con imagen de casa */
+@media(max-width:760px){
+  .hero::after{height:66%}
+  .hero-visual{width:126vw;bottom:-22vw;opacity:.38}
+  .hero-inner{padding-bottom:8.5rem}
+}
+
+/* Quick consultation modal */
+.quick-modal-box{max-width:520px;padding:clamp(1.5rem,4vw,2.4rem)}
+.quick-modal-box .modal-head{margin-bottom:1.5rem}
+.quick-modal-box .modal-head h3{font-size:clamp(1.6rem,4vw,2.4rem)}
+
 </style>
 
 <!-- Schema.org — telephone/email omitted intentionally until real values are set
@@ -429,7 +486,7 @@ h2{font-family:'Syne';font-size:clamp(2.2rem,4.5vw,4.4rem);line-height:.96;lette
       <button aria-pressed="true" class="lang-option active" data-lang="en" type="button">EN</button>
     </div>
     <a class="btn btn-light" data-config="phone" href="#contact">Contact</a>
-    <button class="btn btn-dark" data-open-modal="">Book 15 min</button>
+    <button class="btn btn-dark" data-open-modal="">Schedule 15-min call</button>
     <button aria-label="Open menu" class="menu-btn" id="menuBtn"><span></span></button>
   </div>
 </header>
@@ -444,7 +501,7 @@ h2{font-family:'Syne';font-size:clamp(2.2rem,4.5vw,4.4rem);line-height:.96;lette
         <h1 class="hero-title">Find What<br/>Moves You</h1>
         <p class="hero-sub">Buy, sell, rent or invest in Miami with an agent who <strong>filters first, sells second</strong> — clear decisions, an organized process, direct communication through closing.</p>
         <div class="hero-ctas">
-          <button class="btn btn-dark" data-open-modal="">Book 15 min</button>
+          <button class="btn btn-dark" data-open-modal="">Schedule 15-min call</button>
           <a class="btn btn-ghost" href="#featured">Start search</a>
         </div>
         <div class="hero-micro">Response in <b>under 24h</b> · English &amp; Español · No pressure</div>
@@ -516,7 +573,7 @@ h2{font-family:'Syne';font-size:clamp(2.2rem,4.5vw,4.4rem);line-height:.96;lette
           <div class="service-img" style="background-image:url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=700&amp;q=80&amp;fit=crop')"></div>
           <div class="service-body"><h3>Rent</h3><p>Practical rental search by area, budget, requirements, pets and lifestyle.</p><span class="text-link">Start search →</span></div>
         </a>
-        <a class="service-card reveal" data-service="Inversión" href="#contact">
+        <a class="service-card reveal" href="#invest">
           <div class="service-num">04</div>
           <div class="service-img" style="background-image:url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=700&amp;q=80&amp;fit=crop')"></div>
           <div class="service-body"><h3>Invest</h3><p>Area analysis, rent comps, exit strategy, risk and the economic logic of the deal.</p><span class="text-link">See analysis →</span></div>
@@ -757,9 +814,61 @@ h2{font-family:'Syne';font-size:clamp(2.2rem,4.5vw,4.4rem);line-height:.96;lette
   </div>
 </div>
 
+
+<!-- QUICK CONSULTATION MODAL ─ formulario simplificado -->
+<div class="modal" id="quickModal" aria-hidden="true">
+  <div class="modal-box quick-modal-box" role="dialog" aria-modal="true" aria-labelledby="qModalTitle">
+    <div class="modal-head">
+      <div>
+        <p class="label" id="qModalLabel">Quick consultation</p>
+        <h3 id="qModalTitle">Tell me what you&rsquo;re looking for.</h3>
+        <p class="modal-intro" id="qModalIntro">I&rsquo;ll respond with clear next steps. No noise, no pressure.</p>
+      </div>
+      <button class="close" id="closeQuickModal" aria-label="Close">&times;</button>
+    </div>
+    <form class="form" id="quickForm">
+      <input type="hidden" name="service" value="Consulta"/>
+      <div class="field-row">
+        <div class="field">
+          <label id="qLblName">Name</label>
+          <input name="name" id="qFldName" placeholder="Your name" required autocomplete="name"/>
+        </div>
+        <div class="field">
+          <label id="qLblContact">Phone or email</label>
+          <input name="contact" id="qFldContact" placeholder="How should I reach you" required autocomplete="email"/>
+        </div>
+      </div>
+      <div class="field">
+        <label id="qLblInterest">I&rsquo;m interested in</label>
+        <select name="interest" id="qFldInterest">
+          <option value="Buy">Buy</option>
+          <option value="Sell">Sell</option>
+          <option value="Rent">Rent</option>
+          <option value="Invest">Invest</option>
+          <option value="Not sure">Not sure yet</option>
+        </select>
+      </div>
+      <div class="field">
+        <label id="qLblMsg">Message (optional)</label>
+        <textarea name="message" id="qFldMsg" rows="4"
+          placeholder="Area, timing, budget or any questions…"></textarea>
+      </div>
+      <div class="form-trust" id="qTrust">
+        <span>Response under 24h</span><span>No pressure</span><span>Confidential</span>
+      </div>
+      <button class="btn btn-dark submit" id="qSubmitBtn" type="submit">
+        Send consultation &rarr;
+      </button>
+      <p class="form-note" id="qNote">
+        Your information is only used to respond to this consultation.
+      </p>
+    </form>
+  </div>
+</div>
+
 <div class="mobile-cta">
   <a data-config="phone" href="#contact">Contact</a>
-  <button data-open-modal="">Consultation</button>
+  <button data-open-consult="">Request consultation</button>
 </div>
 
 <script src="data.js"></script>
@@ -769,21 +878,14 @@ h2{font-family:'Syne';font-size:clamp(2.2rem,4.5vw,4.4rem);line-height:.96;lette
 let currentLang = 'en';
 
 function applyContactConfig(){
-  const cfg=window.SITE_CONFIG||{};
-  const clean=v=>typeof v==='string'?v.trim():'';
+  const cfg=window.SITE_CONFIG || {};
+  const clean=v=>typeof v==='string' ? v.trim() : '';
   const phoneDisplay=clean(cfg.phoneDisplay);
-  /* phoneHref ('tel:…') or legacy phoneTel */
-  const phoneTelRaw=clean(cfg.phoneTel||(cfg.phoneHref||'').replace('tel:',''));
-  const phoneTel=phoneTelRaw.replace(/[^+\d]/g,'');
-  /* whatsappHref ('https://wa.me/…') or legacy whatsappNumber */
-  const whatsappRaw=clean(cfg.whatsappNumber||(cfg.whatsappHref||'').replace('https://wa.me/',''));
-  const whatsapp=whatsappRaw.replace(/[^\d]/g,'');
-  const whatsappDisplay=clean(cfg.whatsappDisplay||cfg.phoneDisplay);
-  const whatsappHref=clean(cfg.whatsappHref)||(whatsapp?'https://wa.me/'+whatsapp:'');
+  const phoneTel=clean(cfg.phoneTel).replace(/[^+\d]/g,'');
+  const whatsapp=clean(cfg.whatsappNumber).replace(/[^\d]/g,'');
   const email=clean(cfg.email);
-  /* brokerage (new) or legacy brokerageName */
-  const brokerageName=clean(cfg.brokerage||cfg.brokerageName||'');
-  const isES=currentLang==='es';
+  const brokerageName=clean(cfg.brokerageName);
+  const isES = currentLang==='es';
 
   const hasPhone=Boolean(phoneTel);
   const hasWhatsApp=Boolean(whatsapp);
@@ -791,48 +893,48 @@ function applyContactConfig(){
 
   document.querySelectorAll('[data-config="phone"]').forEach(el=>{
     if(el.tagName==='A'){
-      el.href=hasPhone?'tel:'+phoneTel:'#contact';
-      if(el.classList.contains('btn')||el.closest('.mobile-cta')) el.textContent=hasPhone?(isES?'Llamar':'Call'):(isES?'Contacto':'Contact');
+      el.href=hasPhone ? 'tel:'+phoneTel : '#contact';
+      if(el.classList.contains('btn') || el.closest('.mobile-cta')) el.textContent=hasPhone ? (isES?'Llamar':'Call') : (isES?'Contacto':'Contact');
     }
     if(el.matches('.contact-action')){
-      el.classList.toggle('is-hidden',!hasPhone);
-      el.innerHTML=`<span>${isES?'Llamar ahora':'Call now'}<small>${phoneDisplay||phoneTel}</small></span><strong>→</strong>`;
-    }else if(!el.closest('.contact-action')&&!el.classList.contains('btn')){
-      el.textContent=hasPhone?(phoneDisplay||phoneTel):'';
+      el.classList.toggle('is-hidden', !hasPhone);
+      el.innerHTML=`<span>${isES?'Llamar ahora':'Call now'}<small>${phoneDisplay || phoneTel}</small></span><strong>→</strong>`;
+    }else if(!el.closest('.contact-action') && !el.classList.contains('btn')){
+      el.textContent=hasPhone ? (phoneDisplay || phoneTel) : '';
     }
   });
 
   document.querySelectorAll('[data-config="email"]').forEach(el=>{
-    if(el.tagName==='A') el.href=hasEmail?'mailto:'+email:'';
+    if(el.tagName==='A') el.href=hasEmail ? 'mailto:'+email : '';
     if(el.matches('.contact-action')){
-      el.classList.toggle('is-hidden',!hasEmail);
+      el.classList.toggle('is-hidden', !hasEmail);
       el.innerHTML=`<span>${isES?'Email directo':'Direct email'}<small>${email}</small></span><strong>→</strong>`;
     }else{
-      el.textContent=hasEmail?email:'';
+      el.textContent=hasEmail ? email : '';
     }
   });
 
   document.querySelectorAll('[data-config="whatsapp"]').forEach(el=>{
-    if(el.tagName==='A') el.href=whatsappHref||'#contact';
+    if(el.tagName==='A') el.href=hasWhatsApp ? 'https://wa.me/'+whatsapp : '#contact';
     if(el.matches('.contact-action')){
-      el.classList.toggle('is-hidden',!hasWhatsApp);
-      el.innerHTML=`<span>WhatsApp<small>${whatsappDisplay}</small></span><strong>→</strong>`;
+      el.classList.toggle('is-hidden', !hasWhatsApp);
+      el.innerHTML=`<span>WhatsApp<small>${isES?'Respuesta rápida':'Fast response'}</small></span><strong>→</strong>`;
     }
   });
 
-  const anyDirectContact=hasPhone||hasEmail||hasWhatsApp;
+  const anyDirectContact=hasPhone || hasEmail || hasWhatsApp;
   document.querySelectorAll('[data-config="contact-hint"]').forEach(el=>{
-    el.classList.toggle('is-hidden',anyDirectContact);
+    el.classList.toggle('is-hidden', anyDirectContact);
     el.innerHTML=`<span>${isES?'Usa el formulario':'Use the form'}<small>${isES?'Agrega teléfono, WhatsApp o email real en data.js':'Add real phone, WhatsApp or email in data.js'}</small></span><strong>→</strong>`;
   });
 
   document.querySelectorAll('[data-config="brokerage-name"]').forEach(el=>{el.textContent=brokerageName;});
-  document.querySelectorAll('[data-config="brokerage-line"],[data-config="footer-brokerage-line"]').forEach(el=>{el.classList.toggle('is-hidden',!brokerageName);});
+  document.querySelectorAll('[data-config="brokerage-line"],[data-config="footer-brokerage-line"]').forEach(el=>{el.classList.toggle('is-hidden', !brokerageName);});
 
   const footerLine=document.querySelector('[data-config="footer-contact-line"]');
-  if(footerLine){ footerLine.classList.toggle('is-hidden',!anyDirectContact); }
+  if(footerLine){ footerLine.classList.toggle('is-hidden', !anyDirectContact); }
   const divider=document.querySelector('[data-config="footer-divider"]');
-  if(divider){ divider.classList.toggle('is-hidden',!(hasPhone&&hasEmail)); }
+  if(divider){ divider.classList.toggle('is-hidden', !(hasPhone && hasEmail)); }
 }
 window.applyContactConfig = applyContactConfig;
 
@@ -876,32 +978,17 @@ function renderProperties(){
 
   if(!properties.length){
     setFeaturedCopy('empty');
-    const cards=[
-      {
-        service:'Compra', icon:'01',
-        title:isES?'Comprar':'Buy',
-        body:isES?'Para quien busca casa, condo o townhouse con presupuesto, zona, financiamiento y fecha objetivo.':'For buyers looking for a home, condo or townhouse with budget, area, financing and timeline in mind.',
-        cta:isES?'Iniciar búsqueda de compra →':'Start buyer search →'
-      },
-      {
-        service:'Renta', icon:'02',
-        title:isES?'Rentar':'Rent',
-        body:isES?'Para quien busca alquiler por zona, presupuesto mensual, requisitos, mascotas, parqueo y fecha de mudanza.':'For renters searching by area, monthly budget, requirements, pets, parking and move-in date.',
-        cta:isES?'Iniciar búsqueda de renta →':'Start rental search →'
-      },
-      {
-        service:'Inversión', icon:'03',
-        title:isES?'Invertir':'Invest',
-        body:isES?'Para analizar oportunidades por renta comparable, retorno, riesgo, zona, estrategia de salida y margen de seguridad.':'For investors evaluating rent comps, return, risk, area, exit strategy and margin of safety.',
-        cta:isES?'Analizar oportunidad →':'Analyze opportunities →'
-      }
-    ];
-    grid.innerHTML=cards.map(card=>`<button class="search-card reveal on" type="button" data-service="${card.service}">
-      <span class="search-icon">${card.icon}</span>
-      <h3>${card.title}</h3>
-      <p>${card.body}</p>
-      <span class="text-link">${card.cta}</span>
-    </button>`).join('');
+    grid.innerHTML=`<div class="search-consult-block reveal on">
+      <div class="search-icon">&#x2726;</div>
+      <h3>${isES?'Cuéntame qué estás buscando.':'Tell me what you’re looking for.'}</h3>
+      <p>${isES
+        ?'Prepararé una búsqueda curada según tu presupuesto, zona, tiempo y objetivo inmobiliario.'
+        :'I’ll prepare a curated search based on your budget, area, timing and real estate goals.'
+      }</p>
+      <button class="btn btn-dark" type="button" data-open-consult="">
+        ${isES?'Solicitar consulta':'Request consultation'}
+      </button>
+    </div>`;
     return;
   }
 
@@ -941,84 +1028,36 @@ window.renderProperties = renderProperties;
 
 function leadPayloadFromForm(form, source){
   const data=Object.fromEntries(new FormData(form).entries());
-  return { source, page:'Carlos Delgado Real Estate Landing', language:document.documentElement.lang||'en', submitted_at:new Date().toISOString(), ...data };
+  return { source, page:'Carlos Delgado Real Estate Landing', language:document.documentElement.lang || 'en', submitted_at:new Date().toISOString(), ...data };
 }
 function leadMessage(payload){
   const labels={name:'Name',contact:'Contact',service:'Service',area:'Area',budget:'Budget',pets:'Pets',message:'Message',interest:'Interest',property_type:'Property type',financing:'Financing',timing:'Timing',beds:'Beds',property_address:'Property address',condition:'Condition',occupancy:'Occupancy',monthly_budget:'Monthly budget',move_date:'Move-in date',parking:'Parking',capital:'Capital',strategy:'Strategy',horizon:'Horizon',risk:'Risk profile'};
-  return Object.entries(payload).map(([k,v])=>`${labels[k]||k}: ${v||'-'}`).join('\n');
+  return Object.entries(payload).map(([k,v])=>`${labels[k]||k}: ${v || '-'}`).join('\n');
 }
-
-/* ── Inline form feedback — no alert() ── */
-function showFormFeedback(form, type, en, es){
-  let fb=form.querySelector('.form-feedback');
-  if(!fb){
-    fb=document.createElement('p');
-    fb.className='form-feedback';
-    const btn=form.querySelector('button[type="submit"]');
-    if(btn) btn.after(fb); else form.appendChild(fb);
-  }
-  fb.className='form-feedback form-feedback--'+type;
-  fb.textContent=currentLang==='es'?es:en;
-  fb.scrollIntoView({behavior:'smooth',block:'nearest'});
-}
-
 async function submitLead(form, source){
-  const cfg=window.SITE_CONFIG||{};
+  const cfg=window.SITE_CONFIG || {};
   const payload=leadPayloadFromForm(form, source);
   const submitButton=form.querySelector('button[type="submit"]');
   const originalText=submitButton?.textContent;
   const isES=currentLang==='es';
-  /* Clear previous feedback */
-  const oldFb=form.querySelector('.form-feedback');
-  if(oldFb) oldFb.remove();
   if(submitButton){ submitButton.disabled=true; submitButton.textContent=isES?'Enviando…':'Sending…'; }
   try{
-    /* ── Formspree / custom endpoint ── */
     if(cfg.formEndpoint){
-      const res=await fetch(cfg.formEndpoint,{
-        method:'POST',
-        headers:{'Content-Type':'application/json','Accept':'application/json'},
-        body:JSON.stringify(payload)
-      });
-      if(!res.ok) throw new Error('endpoint_error');
+      const res=await fetch(cfg.formEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+      if(!res.ok) throw new Error('Lead endpoint failed');
+      alert(isES?'Mensaje enviado. Te responderé pronto.':'Message sent. I will respond soon.');
       form.reset();
-      showFormFeedback(form,'success',
-        '✓ Message sent. I will get back to you within 24 hours.',
-        '✓ Mensaje enviado. Te respondo en menos de 24 horas.');
       return true;
     }
-    /* ── WhatsApp fallback ── */
-    const fallbackMode=cfg.formFallbackMode||'email';
-    if(fallbackMode==='whatsapp'){
-      const waRaw=(cfg.whatsappNumber||(cfg.whatsappHref||'').replace('https://wa.me/','')||'').replace(/[^\d]/g,'');
-      if(waRaw){
-        const text=encodeURIComponent(leadMessage(payload));
-        window.open('https://wa.me/'+waRaw+'?text='+text,'_blank','noopener');
-        showFormFeedback(form,'success',
-          '✓ WhatsApp opened with your message. Send it to confirm.',
-          '✓ WhatsApp abierto con tu mensaje. Envíalo para confirmar.');
-        return true;
-      }
-    }
-    /* ── Email mailto fallback ── */
-    if(!cfg.email){
-      showFormFeedback(form,'error',
-        'Contact not configured yet. Reach out directly via phone or WhatsApp.',
-        'Contacto no configurado. Comunícate por teléfono o WhatsApp.');
-      return false;
-    }
-    const subject=encodeURIComponent(cfg.formSubject||'New real estate lead · Carlos Delgado');
+    const subject=encodeURIComponent('New real estate lead · Carlos Delgado website');
     const body=encodeURIComponent(leadMessage(payload));
+    if(!cfg.email){ alert(isES?'Conecta un email o formEndpoint en data.js antes de publicar.':'Connect an email or formEndpoint in data.js before publishing.'); return false; }
     window.location.href=`mailto:${encodeURIComponent(cfg.email)}?subject=${subject}&body=${body}`;
-    showFormFeedback(form,'success',
-      'Your email app will open with the message ready to send.',
-      'Tu app de email se abrirá con el mensaje listo para enviar.');
+    alert(isES?'Se abrirá tu app de email con el mensaje listo. Para automatizarlo al 100%, conecta formEndpoint.':'Your email app will open with the message ready to send. To automate this 100%, connect formEndpoint.');
     return true;
   }catch(err){
-    console.error('[submitLead]',err);
-    showFormFeedback(form,'error',
-      'Could not send automatically. Please use WhatsApp or email directly.',
-      'No se pudo enviar. Por favor usa WhatsApp o email directo.');
+    console.error(err);
+    alert(isES?'No se pudo enviar automáticamente. Usa llamada, WhatsApp o email directo.':'Automatic sending failed. Please use call, WhatsApp or direct email.');
     return false;
   }finally{
     if(submitButton){ submitButton.disabled=false; submitButton.textContent=originalText; }
@@ -1171,16 +1210,74 @@ function closeModal(){modal.classList.remove('open');modal.setAttribute('aria-hi
 
 renderProperties();
 
-document.querySelectorAll('[data-open-modal]').forEach(btn=>btn.addEventListener('click',()=>{
-  /* bookingLink (new) or bookingUrl (legacy) */
-  const bookingLink=(window.SITE_CONFIG?.bookingLink||window.SITE_CONFIG?.bookingUrl||'').trim();
-  if(bookingLink){ window.open(bookingLink,'_blank','noopener,noreferrer'); return; }
+/* Event delegation for booking buttons (may open Calendar or modal) */
+document.addEventListener('click',e=>{
+  const btn=e.target.closest('[data-open-modal]');
+  if(!btn) return;
+  const bookingUrl=window.SITE_CONFIG?.bookingLink||window.SITE_CONFIG?.bookingUrl;
+  if(bookingUrl){ window.open(bookingUrl,'_blank','noopener'); return; }
   openModal('Consulta');
-}));
+});
+/* ── Quick Consultation Modal ──────────────────────────────── */
+const quickModal=document.getElementById('quickModal');
+
+function syncQuickModal(){
+  const es=typeof currentLang!=='undefined'&&currentLang==='es';
+  const el=id=>document.getElementById(id);
+  const ph=(id,en,ess)=>{const e2=el(id);if(e2)e2.placeholder=es?ess:en;};
+  if(el('qModalLabel'))el('qModalLabel').textContent=es?'Consulta rápida':'Quick consultation';
+  if(el('qModalTitle'))el('qModalTitle').innerHTML=es?'Cuéntame qué estás buscando.':'Tell me what you’re looking for.';
+  if(el('qModalIntro'))el('qModalIntro').innerHTML=es?'Te responderé con pasos claros. Sin ruido, sin presión.':'I’ll respond with clear next steps. No noise, no pressure.';
+  if(el('qLblName'))el('qLblName').textContent=es?'Nombre':'Name';
+  ph('qFldName','Your name','Tu nombre');
+  if(el('qLblContact'))el('qLblContact').textContent=es?'Teléfono o email':'Phone or email';
+  ph('qFldContact','How should I reach you','¿Cómo prefieres que te contacte?');
+  if(el('qLblInterest'))el('qLblInterest').textContent=es?'Me interesa':'I’m interested in';
+  const sel=el('qFldInterest');
+  if(sel){
+    const opts=es?['Comprar','Vender','Rentar','Invertir','No estoy seguro/a']:['Buy','Sell','Rent','Invest','Not sure yet'];
+    const vals=['Buy','Sell','Rent','Invest','Not sure'];
+    [...sel.options].forEach((o,i)=>{o.textContent=opts[i];o.value=vals[i];});
+  }
+  if(el('qLblMsg'))el('qLblMsg').textContent=es?'Mensaje (opcional)':'Message (optional)';
+  ph('qFldMsg','Area, timing, budget or any questions…','Área, presupuesto, tiempo u otras preguntas…');
+  if(el('qTrust'))el('qTrust').innerHTML=es?'<span>Respuesta en menos de 24h</span><span>Sin presión</span><span>Confidencial</span>':'<span>Response under 24h</span><span>No pressure</span><span>Confidential</span>';
+  if(el('qSubmitBtn'))el('qSubmitBtn').innerHTML=es?'Enviar consulta &rarr;':'Send consultation &rarr;';
+  if(el('qNote'))el('qNote').textContent=es?'Tu información solo se usa para responder esta consulta.':'Your information is only used to respond to this consultation.';
+}
+
+function openQuickModal(){
+  syncQuickModal();
+  if(quickModal){quickModal.classList.add('open');document.body.style.overflow='hidden';}
+}
+
+function closeQuickModal(){
+  if(quickModal){quickModal.classList.remove('open');document.body.style.overflow='';}
+}
+
+document.getElementById('closeQuickModal')?.addEventListener('click',closeQuickModal);
+quickModal?.addEventListener('click',e=>{if(e.target===quickModal)closeQuickModal();});
+document.getElementById('quickForm')?.addEventListener('submit',async e=>{
+  e.preventDefault();
+  const form=e.currentTarget;
+  const btn=document.getElementById('qSubmitBtn');
+  const es=typeof currentLang!=='undefined'&&currentLang==='es';
+  if(btn){btn.disabled=true;btn.textContent=es?'Enviando…':'Sending…';}
+  const ok=await submitLead(form,'Quick consultation modal');
+  if(ok){closeQuickModal();form.reset();}
+  else{if(btn){btn.disabled=false;btn.innerHTML=es?'Enviar consulta &rarr;':'Send consultation &rarr;';}}
+});
+
+/* Event delegation for consultation modal buttons (always opens quick modal) */
+document.addEventListener('click',e=>{
+  const btn=e.target.closest('[data-open-consult]');
+  if(!btn) return;
+  openQuickModal();
+});
 document.addEventListener('click',e=>{const el=e.target.closest('[data-service]');if(!el)return;e.preventDefault();openModal(el.dataset.service);});
 document.getElementById('closeModal')?.addEventListener('click',closeModal);
 modal?.addEventListener('click',e=>{if(e.target===modal)closeModal()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape') closeModal();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();if(typeof closeQuickModal==='function')closeQuickModal();}});
 
 const serviceSelect=document.getElementById('serviceSelect');
 const petField=document.getElementById('petField');
@@ -1230,8 +1327,8 @@ applyContactConfig();
     txt('.nav-links a[href="#invest"]','Investment','Inversión');
     txt('.nav-links a[href="#contact"]','Contact','Contacto');
     txt('.nav-actions .btn-light','Call','Llamar');
-    txt('[data-open-modal]','Book 15 min','Agendar 15 min');
-    txt('.mobile-cta button','Consultation','Consulta');
+    txt('[data-open-modal]','Schedule 15-min call','Agendar llamada de 15 min');
+    txt('.mobile-cta button','Request consultation','Solicitar consulta');
     txt('.mobile-cta a','Call','Llamar');
     attr('#menuBtn','aria-label','Open menu','Abrir menú');
 
@@ -1275,7 +1372,7 @@ applyContactConfig();
     txt('.service-grid .service-card:nth-child(3) .text-link','Start search →','Iniciar búsqueda →');
     txt('.service-grid .service-card:nth-child(4) h3','Invest','Invertir');
     txt('.service-grid .service-card:nth-child(4) p','Area analysis, rent comps, exit strategy, risk and the economic logic of the deal.','Análisis de zona, renta comparable, salida posible, riesgo y lógica económica del deal.');
-    txt('.service-grid .service-card:nth-child(4) .text-link','See analysis →','Ver análisis →');
+    txt('.service-grid .service-card:nth-child(4) .text-link','See investment options →','Ver oportunidades de inversión →');
 
     /* PROPERTY SEARCH / FEATURED PROPERTIES */
     txt('#featured .label','Personalized property search','Búsqueda personalizada');
@@ -1352,54 +1449,4 @@ applyContactConfig();
     setLeadLabel('#leadForm [name="message"]','Message','Mensaje');
     ph('#leadForm [name="name"]','Your full name','Tu nombre completo');
     ph('#leadForm [name="contact"]','Phone number or email','Número o correo');
-    ph('#leadForm [name="area"]','Ex. Brickell, Doral, Coral Gables','Ej. Brickell, Doral, Coral Gables');
-    ph('#leadForm [name="budget"]','Ex. $500,000 · $3,000/mo','Ej. $500,000 · $3,000/mes');
-    ph('#leadForm textarea[name="message"]','Tell me what you need, your timing and any important detail…','Cuéntame qué buscas, tu timing y cualquier detalle importante…');
-    setOptionLabels(document.getElementById('serviceSelect'),[
-      {value:'',es:'Selecciona una opción',en:'Select an option'},
-      {value:'Comprar',es:'Comprar',en:'Buy'},
-      {value:'Vender',es:'Vender',en:'Sell'},
-      {value:'Rentar',es:'Rentar',en:'Rent'},
-      {value:'Invertir',es:'Invertir',en:'Invest'}
-    ]);
-    setOptionLabels(document.querySelector('#petField select'),[
-      {value:'No',es:'No',en:'No'},{value:'Perro',es:'Perro',en:'Dog'},{value:'Gato',es:'Gato',en:'Cat'},{value:'Otro',es:'Otro',en:'Other'}
-    ]);
-    html('#leadForm .form-trust','<span>Response under 24h</span><span>No pressure</span><span>Confidential information</span>','<span>Respondo en menos de 24h</span><span>Sin presión</span><span>Datos confidenciales</span>');
-    txt('#leadForm .submit','Send message →','Enviar mensaje →');
-
-    /* FOOTER */
-    txt('.footer-links a[href="#services"]','Services','Servicios');
-    txt('.footer-links a[href="#featured"]','Search','Búsqueda');
-    txt('.footer-links a[href="#process"]','Process','Proceso');
-    txt('.footer-links a[href="#contact"]','Contact','Contacto');
-    txt('[data-i18n="footerLine1"]','Carlos Delgado · Licensed Real Estate Agent · Florida','Carlos Delgado · Licensed Real Estate Agent · Florida');
-    txt('[data-i18n="footerBrokerageLabel"]','Affiliated brokerage:','Brokerage afiliada:');
-    
-    txt('[data-i18n="legalCopy"]','© 2026 Carlos Delgado Real Estate. All rights reserved.','© 2026 Carlos Delgado Real Estate. Todos los derechos reservados.');
-    txt('[data-i18n="legalFair"]','Equal Housing Opportunity · Fair Housing Act compliant','Igualdad de Oportunidades de Vivienda · Cumple con Fair Housing Act');
-
-    /* MODAL static labels */
-    txt('[data-i18n="modalSection1"]','How this tab works','Cómo trabajamos esta pestaña');
-    txt('[data-i18n="modalSection2"]','Useful information to have ready','Datos que conviene tener listos');
-    txt('[data-i18n="modalMessageLabel"]','Optional message','Mensaje opcional');
-
-    langButtons.forEach(b=>{const active=b.dataset.lang===currentLang;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
-    if(window.applyContactConfig) window.applyContactConfig();
-  }
-
-  langButtons.forEach(btn=>btn.addEventListener('click',()=>{
-    currentLang=btn.dataset.lang || 'en';
-    applyStaticLanguage();
-    /* Re-render abierto: modal */
-    if(modal?.classList.contains('open')){
-      setModalContent(modalServiceValue?.value || 'Consulta');
-    }
-  }));
-
-  /* No-op initial run (HTML ya está en EN) — solo sincroniza estado de botones y contact config */
-  applyStaticLanguage();
-})();
-</script>
-</body>
-</html>
+    ph('#leadForm [name="area"]','Ex. Br
