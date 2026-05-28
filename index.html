@@ -1437,4 +1437,108 @@ applyContactConfig();
     /* ABOUT */
     txt('#about .label','About Carlos','Sobre Carlos');
     txt('#about h2','One clear point of contact to move better in Miami.','Un punto de contacto claro para moverte mejor en Miami.');
-    txt('.about-copy > p:not(.label)','Real estate agent focused on helping buyers, sellers, renters and investors make clear decisions. The idea is simple: less confusion, a better process 
+    txt('.about-copy > p:not(.label)','Real estate agent focused on helping buyers, sellers, renters and investors make clear decisions. The idea is simple: less confusion, a better process and direct communication at every stage.','Agente inmobiliario enfocado en ayudar a compradores, vendedores, renters e inversionistas a tomar decisiones claras. La idea es simple: menos confusión, mejor proceso y comunicación directa en cada etapa.');
+    txt('.credential div:nth-child(3)','Specialty: buying, selling, renting and residential investment.','Especialidad: compra, venta, renta e inversión residencial.');
+    txt('.credential div:nth-child(4)','Languages: English · Español','Idiomas: English · Español');
+
+    /* CONTACT */
+    txt('#contact .label','Contact','Contacto');
+    txt('#contact h2','Let\'s talk about your next move.','Hablemos sobre tu próximo movimiento.');
+    txt('.contact-aside > p','Tell me what you are looking for and I will respond with clear next steps for buying, selling, renting or investing in Miami.','Díme qué buscas y respondo con los próximos pasos claros para comprar, vender, rentar o invertir en Miami.');
+    txt('.contact-action[data-config="phone"] span:first-child','Call now','Llamar ahora');
+    txt('.contact-action[data-config="email"] span:first-child','Direct email','Email directo');
+    txt('.contact-action[data-config="whatsapp"] span:first-child','WhatsApp','WhatsApp');
+
+    /* LEAD FORM */
+    txt('#leadForm .field-row:nth-child(1) .field:nth-child(1) label','Name','Nombre');
+    ph('#leadForm [name="name"]','Your full name','Tu nombre completo');
+    txt('#leadForm .field-row:nth-child(1) .field:nth-child(2) label','Phone or email','Teléfono o email');
+    ph('#leadForm [name="contact"]','Phone number or email','Número de teléfono o email');
+    txt('#leadForm .field-row:nth-child(2) .field:nth-child(1) label','I am interested in','Me interesa');
+    txt('#leadForm .field-row:nth-child(2) .field:nth-child(2) label','Approximate area','Zona aproximada');
+    ph('#leadForm [name="area"]','Ex. Brickell, Doral, Coral Gables','Ej. Brickell, Doral, Coral Gables');
+    txt('#leadForm .field-row:nth-child(3) .field:nth-child(1) label','Approximate budget','Presupuesto aproximado');
+    ph('#leadForm [name="budget"]','Ex. $500,000 \xb7 $3,000/mo','Ej. $500,000 \xb7 $3,000/mes');
+    ph('#leadForm [name="message"]','Tell me what you need, your timing and any important detail…','Cuéntame qué buscas, tu timing y cualquier detalle importante…');
+    setOptionLabels(document.getElementById('serviceSelect'),[
+      {value:'',en:'Select an option',es:'Selecciona una opción'},
+      {value:'Comprar',en:'Buy',es:'Comprar'},
+      {value:'Vender',en:'Sell',es:'Vender'},
+      {value:'Rentar',en:'Rent',es:'Rentar'},
+      {value:'Invertir',en:'Invest',es:'Invertir'}
+    ]);
+    txt('#leadForm .submit','Send message →','Enviar mensaje →');
+
+    /* FOOTER */
+    txt('[data-i18n="footerLine1"]','Carlos Delgado · Licensed Real Estate Agent · Florida','Carlos Delgado · Agente Inmobiliario con Licencia · Florida');
+    txt('[data-i18n="footerBrokerageLabel"]','Affiliated brokerage:','Agencia afiliada:');
+    txt('.footer-links a[href="#services"]','Services','Servicios');
+    txt('.footer-links a[href="#featured"]','Search','Búsqueda');
+    txt('.footer-links a[href="#process"]','Process','Proceso');
+    txt('.footer-links a[href="#contact"]','Contact','Contacto');
+    txt('[data-i18n="legalCopy"]','© 2026 Carlos Delgado Real Estate. All rights reserved.','© 2026 Carlos Delgado Real Estate. Todos los derechos reservados.');
+    txt('[data-i18n="legalFair"]','Equal Housing Opportunity · Fair Housing Act compliant','Igualdad de oportunidades de vivienda · Cumple con la Ley de Vivienda Justa');
+
+    /* QUICK MODAL */
+    txt('#qModalLabel','Quick consultation','Consulta rápida');
+    txt('#qModalTitle','Tell me what you\'re looking for.','Díme qué estás buscando.');
+    txt('#qModalIntro','I\'ll respond with clear next steps. No noise, no pressure.','Respondo con los próximos pasos claros. Sin presión.');
+    txt('#qLblName','Name','Nombre');
+    ph('#qFldName','Your name','Tu nombre');
+    txt('#qLblContact','Phone or email','Teléfono o email');
+    ph('#qFldContact','How should I reach you','Cómo te contacto');
+    txt('#qLblInterest','I\'m interested in','Me interesa');
+    setOptionLabels(document.getElementById('qFldInterest'),[
+      {value:'Buy',en:'Buy',es:'Comprar'},
+      {value:'Sell',en:'Sell',es:'Vender'},
+      {value:'Rent',en:'Rent',es:'Rentar'},
+      {value:'Invest',en:'Invest',es:'Invertir'},
+      {value:'Not sure',en:'Not sure yet',es:'No estoy seguro'}
+    ]);
+    txt('#qLblMsg','Message (optional)','Mensaje (opcional)');
+    ph('#qFldMsg','Area, timing, budget or any questions…','Zona, timing, presupuesto o preguntas…');
+    txt('#qTrust span:nth-child(1)','Response under 24h','Respuesta en menos de 24h');
+    txt('#qTrust span:nth-child(2)','No pressure','Sin presión');
+    txt('#qTrust span:nth-child(3)','Confidential','Confidencial');
+    txt('#qModalSubmit','Send consultation →','Enviar consulta →');
+    txt('#qModalNote','Your information is used only to respond to this consultation.','Tu información solo se usa para responder a esta consulta.');
+
+    /* MOBILE MENU */
+    txt('#mobileNav a[href="#services"]','Services','Servicios');
+    txt('#mobileNav a[href="#featured"]','Search','Búsqueda');
+    txt('#mobileNav a[href="#process"]','Process','Proceso');
+    txt('#mobileNav a[href="#invest"]','Investment','Inversión');
+    txt('#mobileNav a[href="#contact"]','Contact','Contacto');
+
+    /* UPDATE LANG BUTTONS */
+    langButtons.forEach(b=>{
+      b.setAttribute('aria-pressed', b.dataset.lang===currentLang ? 'true' : 'false');
+      b.classList.toggle('active', b.dataset.lang===currentLang);
+    });
+  }
+
+  function setLang(lang){
+    if(lang!=='en'&&lang!=='es') return;
+    currentLang=lang;
+    if(window.SITE_CONFIG) window.SITE_CONFIG.currentLang=lang;
+    try{localStorage.setItem('cd_lang',lang);}catch(e){}
+    applyStaticLanguage();
+    if(typeof applyContactConfig==='function') applyContactConfig();
+  }
+
+  langButtons.forEach(btn=>{
+    btn.addEventListener('click',()=>setLang(btn.dataset.lang));
+  });
+
+  /* Init: restore saved language preference */
+  (function(){
+    let saved=null;
+    try{saved=localStorage.getItem('cd_lang');}catch(e){}
+    if(saved==='es'||saved==='en') currentLang=saved;
+  })();
+  applyStaticLanguage();
+  if(typeof applyContactConfig==='function') applyContactConfig();
+})();
+</script>
+</body>
+</html>
