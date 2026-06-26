@@ -1,0 +1,703 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#13110f"/>
+<!-- Zona privada: nunca indexar -->
+<meta name="robots" content="noindex,nofollow"/>
+<title>Panel privado · Carlos Delgado Realty</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2313110f'/%3E%3Ctext x='50' y='66' font-family='Arial,sans-serif' font-size='38' font-weight='800' text-anchor='middle' fill='%23c9553a'%3ECD%3C/text%3E%3C/svg%3E"/>
+<!-- Instalable en iPhone/Android ("Agregar a inicio") -->
+<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+<meta name="apple-mobile-web-app-title" content="CD Admin"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<link rel="manifest" href="manifest.webmanifest"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --ink:#13110f; --ink-2:#2b2722; --olive:#1c2a22; --olive-2:#26352b;
+  --soft:#fbf8f1; --sand:#efe6d7; --line:rgba(19,17,15,.10);
+  --muted:rgba(19,17,15,.58); --muted-2:rgba(19,17,15,.40);
+  --terracotta:#c9553a; --terracotta-d:#b1462e; --sage:#6f8977;
+  --green:#2f7d54; --green-bg:rgba(47,125,84,.12);
+  --amber:#b8791f; --amber-bg:rgba(184,121,31,.14);
+  --blue:#3a6ea5; --blue-bg:rgba(58,110,165,.12);
+  --red:#b1462e; --red-bg:rgba(177,70,46,.12);
+  --grey-bg:rgba(19,17,15,.07);
+  --r:16px; --r-sm:10px; --shadow:0 18px 50px rgba(31,25,17,.10);
+  --shadow-sm:0 8px 24px rgba(31,25,17,.06);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--soft)}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--soft);color:var(--ink);-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+button{border:0;background:none;cursor:pointer}
+a{color:inherit;text-decoration:none}
+.hidden{display:none!important}
+::selection{background:rgba(201,85,58,.22)}
+
+/* ───── LOGIN ───── */
+#login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem;
+  background:radial-gradient(1200px 600px at 70% -10%,rgba(201,85,58,.18),transparent),var(--ink)}
+.login-card{width:100%;max-width:400px;background:var(--soft);border-radius:24px;padding:2.4rem 2.2rem;box-shadow:var(--shadow)}
+.login-badge{display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--terracotta);background:var(--terracotta-soft,rgba(201,85,58,.10));padding:.32rem .7rem;border-radius:999px;margin-bottom:1rem;border:1px solid rgba(201,85,58,.25)}
+.login-card h1{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;line-height:1.1;margin-bottom:.35rem}
+.login-card p.sub{color:var(--muted);font-size:.9rem;margin-bottom:1.6rem}
+.field{margin-bottom:1rem}
+.field label{display:block;font-size:.78rem;font-weight:600;color:var(--ink-2);margin-bottom:.4rem}
+.field input,.field select,.field textarea{width:100%;padding:.72rem .85rem;border:1px solid var(--line);border-radius:var(--r-sm);
+  background:#fff;outline:none;transition:border-color .2s,box-shadow .2s;font-size:.92rem}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--terracotta);box-shadow:0 0 0 3px rgba(201,85,58,.12)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:600;font-size:.9rem;
+  padding:.72rem 1.1rem;border-radius:var(--r-sm);transition:transform .12s,background .2s,opacity .2s}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--terracotta);color:#fff;width:100%}
+.btn-primary:hover{background:var(--terracotta-d)}
+.btn-ghost{background:var(--grey-bg);color:var(--ink)}
+.btn-ghost:hover{background:rgba(19,17,15,.12)}
+.btn-sm{padding:.42rem .7rem;font-size:.8rem}
+.login-msg{font-size:.84rem;margin-top:.9rem;min-height:1.1rem}
+.login-msg.err{color:var(--red)} .login-msg.ok{color:var(--green)}
+
+/* ───── APP SHELL ───── */
+#app{display:grid;grid-template-columns:248px 1fr;min-height:100vh}
+.sidebar{background:var(--olive);color:#e9e2d4;padding:1.5rem 1rem;display:flex;flex-direction:column;gap:.3rem;position:sticky;top:0;height:100vh}
+.sb-brand{display:flex;align-items:center;gap:.6rem;padding:.2rem .6rem 1.3rem}
+.sb-logo{width:38px;height:38px;border-radius:11px;background:var(--terracotta);color:#fff;font-family:'Syne';font-weight:800;display:flex;align-items:center;justify-content:center;font-size:1.05rem}
+.sb-brand b{font-family:'Syne';font-size:1rem;line-height:1.05;display:block}
+.sb-brand span{font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--terracotta);font-weight:700}
+.nav-item{display:flex;align-items:center;gap:.7rem;padding:.7rem .8rem;border-radius:var(--r-sm);color:#cfc6b4;font-weight:500;font-size:.92rem;width:100%;text-align:left;transition:background .18s,color .18s}
+.nav-item:hover{background:var(--olive-2);color:#fff}
+.nav-item.active{background:var(--terracotta);color:#fff}
+.nav-item .ic{width:18px;text-align:center;font-size:1rem;opacity:.95}
+.sb-foot{margin-top:auto;font-size:.72rem;color:rgba(233,226,212,.5);padding:.6rem}
+.main{min-width:0;display:flex;flex-direction:column}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.1rem clamp(1rem,3vw,2rem);
+  border-bottom:1px solid var(--line);background:rgba(251,248,241,.85);backdrop-filter:blur(8px);position:sticky;top:0;z-index:20}
+.topbar h2{font-family:'Syne';font-size:1.3rem;font-weight:800}
+.topbar .who{display:flex;align-items:center;gap:.7rem;font-size:.84rem;color:var(--muted)}
+.avatar{width:32px;height:32px;border-radius:50%;background:var(--sage);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem}
+.content{padding:clamp(1rem,3vw,2rem);flex:1}
+
+/* ───── CARDS / GRID ───── */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:1rem;margin-bottom:1.6rem}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:1.1rem 1.2rem;box-shadow:var(--shadow-sm)}
+.card .k{font-size:.74rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;display:flex;align-items:center;gap:.4rem}
+.card .v{font-family:'Syne';font-size:1.7rem;font-weight:800;margin-top:.45rem;line-height:1}
+.card .v.sm{font-size:1.18rem}
+.card .sub{font-size:.78rem;color:var(--muted-2);margin-top:.35rem}
+.card.accent{background:linear-gradient(135deg,#1c2a22,#26352b);color:#f3ede0;border:0}
+.card.accent .k{color:rgba(243,237,224,.7)} .card.accent .sub{color:rgba(243,237,224,.55)}
+.card.terra{background:linear-gradient(135deg,var(--terracotta),#a23e29);color:#fff;border:0}
+.card.terra .k{color:rgba(255,255,255,.8)} .card.terra .sub{color:rgba(255,255,255,.7)}
+
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem;flex-wrap:wrap}
+.section-head h3{font-family:'Syne';font-size:1.15rem;font-weight:800}
+.toolbar{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.toolbar select,.toolbar input{padding:.5rem .7rem;border:1px solid var(--line);border-radius:var(--r-sm);background:#fff;font-size:.85rem}
+
+/* ───── TABLE ───── */
+.panel{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow-sm);overflow:hidden}
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.86rem}
+thead th{text-align:left;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;
+  padding:.85rem 1rem;border-bottom:1px solid var(--line);white-space:nowrap;background:#fcfaf5}
+tbody td{padding:.8rem 1rem;border-bottom:1px solid var(--line);vertical-align:middle}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:#fcfaf5}
+.row-main{font-weight:600}
+.row-sub{font-size:.76rem;color:var(--muted)}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.pos{color:var(--green);font-weight:600}.neg{color:var(--red);font-weight:600}
+
+.badge{display:inline-flex;align-items:center;gap:.3rem;font-size:.72rem;font-weight:600;padding:.26rem .6rem;border-radius:999px;white-space:nowrap}
+.b-green{background:var(--green-bg);color:var(--green)}
+.b-amber{background:var(--amber-bg);color:var(--amber)}
+.b-blue{background:var(--blue-bg);color:var(--blue)}
+.b-red{background:var(--red-bg);color:var(--red)}
+.b-grey{background:var(--grey-bg);color:var(--muted)}
+.b-terra{background:rgba(201,85,58,.12);color:var(--terracotta)}
+
+.rowact{display:flex;gap:.35rem}
+.iconbtn{padding:.35rem .55rem;border-radius:8px;background:var(--grey-bg);font-size:.78rem;font-weight:600;color:var(--ink-2)}
+.iconbtn:hover{background:rgba(19,17,15,.13)}
+.iconbtn.danger:hover{background:var(--red-bg);color:var(--red)}
+
+/* ───── EMPTY / LOADING ───── */
+.state{padding:3rem 1.5rem;text-align:center;color:var(--muted)}
+.state .big{font-size:2.2rem;margin-bottom:.6rem}
+.state h4{font-family:'Syne';font-size:1.05rem;color:var(--ink);margin-bottom:.3rem}
+.spinner{width:34px;height:34px;border:3px solid var(--line);border-top-color:var(--terracotta);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto .8rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ───── MODAL ───── */
+.overlay{position:fixed;inset:0;background:rgba(19,17,15,.55);backdrop-filter:blur(3px);display:flex;align-items:flex-start;justify-content:center;padding:2.5rem 1rem;z-index:100;overflow-y:auto}
+.modal{background:var(--soft);border-radius:20px;width:100%;max-width:680px;box-shadow:var(--shadow);overflow:hidden}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.4rem;border-bottom:1px solid var(--line)}
+.modal-head h3{font-family:'Syne';font-size:1.1rem;font-weight:800}
+.modal-body{padding:1.3rem 1.4rem;max-height:62vh;overflow-y:auto}
+.modal-foot{display:flex;justify-content:space-between;align-items:center;gap:.6rem;padding:1rem 1.4rem;border-top:1px solid var(--line);background:#fff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.9rem}
+.full{grid-column:1/-1}
+.hint{font-size:.74rem;color:var(--muted-2);margin-top:.3rem}
+.calc-box{background:var(--sand);border-radius:var(--r-sm);padding:.8rem 1rem;font-size:.82rem;display:grid;grid-template-columns:1fr 1fr;gap:.4rem .9rem}
+.calc-box b{font-variant-numeric:tabular-nums}
+.x{font-size:1.3rem;color:var(--muted);line-height:1}
+
+/* ───── REPORTS ───── */
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.6rem}
+.chart-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:1.2rem;box-shadow:var(--shadow-sm)}
+.chart-card h4{font-family:'Syne';font-size:.98rem;margin-bottom:.9rem}
+.chart-card .cv{position:relative;height:240px}
+.rank-list{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.rank-list li{display:flex;justify-content:space-between;gap:1rem;padding:.6rem .2rem;border-bottom:1px solid var(--line);font-size:.88rem}
+.rank-list li:last-child{border-bottom:0}
+
+.toast{position:fixed;bottom:1.4rem;right:1.4rem;background:var(--ink);color:#fff;padding:.8rem 1.1rem;border-radius:12px;font-size:.86rem;box-shadow:var(--shadow);z-index:200;opacity:0;transform:translateY(10px);transition:.25s}
+.toast.show{opacity:1;transform:none}
+.toast.err{background:var(--red)}
+
+/* ───── RESPONSIVE ───── */
+.menu-btn{display:none}
+@media(max-width:900px){
+  #app{grid-template-columns:1fr}
+  .sidebar{position:fixed;left:0;top:0;z-index:60;transform:translateX(-100%);transition:transform .25s;width:240px;box-shadow:var(--shadow)}
+  .sidebar.open{transform:none}
+  .menu-btn{display:inline-flex}
+  .grid2,.grid3,.charts{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════ LOGIN ══════════ -->
+<div id="login-screen">
+  <form class="login-card" id="login-form" autocomplete="on">
+    <span class="login-badge">● Zona privada</span>
+    <h1>Panel de administración</h1>
+    <p class="sub">Carlos Delgado Realty · acceso solo para el equipo.</p>
+    <div class="field">
+      <label for="li-email">Email</label>
+      <input id="li-email" type="email" required autocomplete="username" placeholder="tu@email.com"/>
+    </div>
+    <div class="field">
+      <label for="li-pass">Contraseña</label>
+      <input id="li-pass" type="password" required autocomplete="current-password" placeholder="••••••••"/>
+    </div>
+    <button class="btn btn-primary" type="submit" id="li-btn">Entrar</button>
+    <div class="login-msg" id="li-msg"></div>
+  </form>
+</div>
+
+<!-- ══════════ APP ══════════ -->
+<div id="app" class="hidden">
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-brand">
+      <div class="sb-logo">CD</div>
+      <div><b>Carlos Delgado</b><span>Admin · Privado</span></div>
+    </div>
+    <button class="nav-item active" data-view="dashboard"><span class="ic">▦</span> Dashboard</button>
+    <button class="nav-item" data-view="properties"><span class="ic">⌂</span> Propiedades</button>
+    <button class="nav-item" data-view="leads"><span class="ic">◷</span> Leads</button>
+    <button class="nav-item" data-view="reports"><span class="ic">▤</span> Reportes</button>
+    <div class="sb-foot">v1.0 · datos en Supabase</div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:.7rem">
+        <button class="btn btn-ghost btn-sm menu-btn" id="menu-btn">☰</button>
+        <h2 id="view-title">Dashboard</h2>
+      </div>
+      <div class="who">
+        <button class="btn btn-ghost btn-sm" id="refresh-btn" title="Actualizar datos">↻ Actualizar</button>
+        <div class="avatar" id="avatar">–</div>
+        <span id="who-email" class="row-sub"></span>
+        <button class="btn btn-ghost btn-sm" id="logout-btn">Salir</button>
+      </div>
+    </header>
+    <div class="content" id="content"><!-- vistas inyectadas aquí --></div>
+  </div>
+</div>
+
+<div id="modal-root"></div>
+<div class="toast" id="toast"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script src="admin-config.js"></script>
+<script>
+/* ════════════════ SETUP ════════════════ */
+const CFG = window.ADMIN_CONFIG;
+const sb = window.supabase.createClient(CFG.SUPABASE_URL, CFG.SUPABASE_ANON_KEY);
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const state = { properties:[], leads:[], session:null, profile:null, view:'dashboard',
+  filters:{propStatus:'',propSearch:'',leadStatus:''} };
+
+/* ─── Catálogos (valor → etiqueta) ─── */
+const PROP_STATUS = {activa:'Activa',pendiente:'Pendiente',bajo_contrato:'Bajo contrato',vendida:'Vendida',rentada:'Rentada',archivada:'Archivada'};
+const PROP_STATUS_BADGE = {activa:'b-green',pendiente:'b-amber',bajo_contrato:'b-blue',vendida:'b-terra',rentada:'b-blue',archivada:'b-grey'};
+const PROP_TYPE = {casa:'Casa',condo:'Condo',townhouse:'Townhouse',multifamily:'Multifamily',terreno:'Terreno',comercial:'Comercial',otro:'Otro'};
+const DEAL_NATURE = {realtor:'Realtor (comisión)',investment:'Inversión propia'};
+const LEAD_SOURCE = {website:'Website',instagram:'Instagram',facebook:'Facebook',google:'Google',referido:'Referido',zillow:'Zillow','realtor.com':'Realtor.com',llamada:'Llamada',otro:'Otro'};
+const LEAD_STATUS = {nuevo:'Nuevo',contactado:'Contactado',interesado:'Interesado',cliente_activo:'Cliente activo',cerrado:'Cerrado',perdido:'Perdido'};
+const LEAD_STATUS_BADGE = {nuevo:'b-blue',contactado:'b-amber',interesado:'b-terra',cliente_activo:'b-green',cerrado:'b-green',perdido:'b-red'};
+const INTEREST = {comprar:'Comprar',vender:'Vender',rentar:'Rentar',invertir:'Invertir'};
+const WON_STATES = ['cliente_activo','cerrado'];
+
+/* ─── Helpers ─── */
+const money = n => (n==null||isNaN(n)) ? '—' : '$'+Number(n).toLocaleString('en-US',{maximumFractionDigits:0});
+const money2 = n => (n==null||isNaN(n)) ? '—' : '$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0});
+const numOrNull = v => (v===''||v==null) ? null : Number(v);
+const txtOrNull = v => (v===''||v==null) ? null : v;
+const fmtDate = d => d ? new Date(d+'T00:00:00').toLocaleDateString('es-ES',{day:'2-digit',month:'short',year:'numeric'}) : '—';
+const esc = s => (s==null?'':String(s)).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const initials = e => (e||'?').slice(0,2).toUpperCase();
+function toast(msg,isErr=false){const t=$('#toast');t.textContent=msg;t.className='toast show'+(isErr?' err':'');clearTimeout(t._t);t._t=setTimeout(()=>t.className='toast',2600);}
+
+/* ════════════════ AUTH ════════════════ */
+$('#login-form').addEventListener('submit', async e=>{
+  e.preventDefault();
+  const btn=$('#li-btn'), msg=$('#li-msg');
+  msg.className='login-msg'; msg.textContent='';
+  btn.disabled=true; btn.textContent='Entrando…';
+  const {data,error}=await sb.auth.signInWithPassword({email:$('#li-email').value.trim(),password:$('#li-pass').value});
+  btn.disabled=false; btn.textContent='Entrar';
+  if(error){msg.className='login-msg err';msg.textContent='No se pudo entrar: '+error.message;return;}
+  await onSignedIn(data.session);
+});
+
+$('#logout-btn').addEventListener('click', async ()=>{ await sb.auth.signOut(); location.reload(); });
+
+async function onSignedIn(session){
+  state.session=session;
+  // Verifica que el usuario esté autorizado (existe en admin_users)
+  const {data:prof,error}=await sb.from('admin_users').select('*').eq('id',session.user.id).maybeSingle();
+  if(error || !prof){
+    $('#li-msg').className='login-msg err';
+    $('#li-msg').textContent='Tu usuario no está autorizado como administrador.';
+    await sb.auth.signOut(); state.session=null; return;
+  }
+  state.profile=prof;
+  $('#login-screen').classList.add('hidden');
+  $('#app').classList.remove('hidden');
+  $('#who-email').textContent=session.user.email;
+  $('#avatar').textContent=initials(session.user.email);
+  await loadAll();
+  renderView('dashboard');
+}
+
+/* ════════════════ DATA ════════════════ */
+async function loadAll(){
+  const [p,l]=await Promise.all([
+    sb.from('properties').select('*').order('created_at',{ascending:false}),
+    sb.from('leads').select('*').order('created_at',{ascending:false})
+  ]);
+  if(p.error){toast('Error cargando propiedades',true);console.error(p.error);}
+  if(l.error){toast('Error cargando leads',true);console.error(l.error);}
+  state.properties=p.data||[];
+  state.leads=l.data||[];
+}
+$('#refresh-btn').addEventListener('click', async ()=>{ await loadAll(); renderView(state.view); toast('Datos actualizados'); });
+
+/* leads por propiedad */
+function leadCountByProp(){const m={};state.leads.forEach(l=>{if(l.property_id)m[l.property_id]=(m[l.property_id]||0)+1;});return m;}
+function propAddr(id){const p=state.properties.find(x=>x.id===id);return p?p.address:'—';}
+
+/* ════════════════ NAV ════════════════ */
+$$('.nav-item').forEach(b=>b.addEventListener('click',()=>{ renderView(b.dataset.view); $('#sidebar').classList.remove('open'); }));
+$('#menu-btn').addEventListener('click',()=>$('#sidebar').classList.toggle('open'));
+const TITLES={dashboard:'Dashboard',properties:'Propiedades',leads:'Leads',reports:'Reportes y estadísticas'};
+function renderView(v){
+  state.view=v;
+  $$('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.view===v));
+  $('#view-title').textContent=TITLES[v];
+  if(v==='dashboard')renderDashboard();
+  if(v==='properties')renderProperties();
+  if(v==='leads')renderLeads();
+  if(v==='reports')renderReports();
+}
+
+/* ════════════════ DASHBOARD ════════════════ */
+function renderDashboard(){
+  const P=state.properties, L=state.leads;
+  const by=s=>P.filter(p=>p.status===s);
+  const sold=by('vendida');
+  const totalSold=sold.reduce((a,p)=>a+(+p.sold_price||0),0);
+  const totalComm=sold.reduce((a,p)=>a+(+p.commission_calc||0),0);
+  const domVals=sold.map(p=>p.days_on_market).filter(d=>d!=null&&!isNaN(d));
+  const avgDom=domVals.length?Math.round(domVals.reduce((a,b)=>a+b,0)/domVals.length):null;
+  const newLeads=L.filter(l=>l.status==='nuevo').length;
+
+  const maxSold=sold.slice().sort((a,b)=>(+b.sold_price||0)-(+a.sold_price||0))[0];
+  const withProfit=P.filter(p=>p.estimated_profit!=null);
+  const maxProfit=withProfit.slice().sort((a,b)=>(+b.estimated_profit)-(+a.estimated_profit))[0];
+  const lc=leadCountByProp();
+  const mostLeadsId=Object.keys(lc).sort((a,b)=>lc[b]-lc[a])[0];
+
+  // Fuente más efectiva = la que más leads ganados (cliente_activo/cerrado) produce; fallback: más leads
+  const wonBySrc={}, allBySrc={};
+  L.forEach(l=>{allBySrc[l.source]=(allBySrc[l.source]||0)+1; if(WON_STATES.includes(l.status))wonBySrc[l.source]=(wonBySrc[l.source]||0)+1;});
+  let bestSrc=Object.keys(wonBySrc).sort((a,b)=>wonBySrc[b]-wonBySrc[a])[0];
+  let bestSrcLabel, bestSrcSub;
+  if(bestSrc){bestSrcLabel=LEAD_SOURCE[bestSrc]||bestSrc;bestSrcSub=wonBySrc[bestSrc]+' leads ganados';}
+  else{bestSrc=Object.keys(allBySrc).sort((a,b)=>allBySrc[b]-allBySrc[a])[0];
+    bestSrcLabel=bestSrc?(LEAD_SOURCE[bestSrc]||bestSrc):'—';bestSrcSub=bestSrc?allBySrc[bestSrc]+' leads (sin cierres aún)':'';}
+
+  const card=(k,v,sub,cls='')=>`<div class="card ${cls}"><div class="k">${k}</div><div class="v ${String(v).length>9?'sm':''}">${v}</div>${sub?`<div class="sub">${sub}</div>`:''}</div>`;
+
+  if(!P.length && !L.length){
+    $('#content').innerHTML = emptyState('▦','Aún no hay datos',
+      'Empieza creando tu primera propiedad o lead para ver las métricas aquí.',
+      `<button class="btn btn-primary btn-sm" style="width:auto;margin-top:1rem" onclick="renderView('properties')">+ Crear propiedad</button>`);
+    return;
+  }
+
+  $('#content').innerHTML = `
+  <div class="cards">
+    ${card('Total propiedades',P.length,'En el sistema')}
+    ${card('Activas',by('activa').length,'En el mercado')}
+    ${card('Bajo contrato',by('bajo_contrato').length,'En proceso')}
+    ${card('Vendidas',sold.length,'Cerradas')}
+    ${card('Leads nuevos',newLeads,'Sin contactar')}
+  </div>
+  <div class="cards">
+    ${card('Total vendido',money(totalSold),sold.length+' propiedades','terra')}
+    ${card('Comisión estimada',money(totalComm),'Generada en ventas','accent')}
+    ${card('Días promedio en vender',avgDom!=null?avgDom+' días':'—','Sobre ventas con fechas')}
+    ${card('Venta más cara',maxSold?money(maxSold.sold_price):'—',maxSold?esc(maxSold.address):'')}
+  </div>
+  <div class="cards">
+    ${card('Mayor beneficio',maxProfit&&maxProfit.estimated_profit!=null?money(maxProfit.estimated_profit):'—',maxProfit?esc(maxProfit.address):'Solo inversiones propias')}
+    ${card('Propiedad con más leads',mostLeadsId?lc[mostLeadsId]+' leads':'—',mostLeadsId?esc(propAddr(mostLeadsId)):'')}
+    ${card('Fuente más efectiva',bestSrcLabel,bestSrcSub)}
+    ${card('Total leads',L.length,L.filter(l=>WON_STATES.includes(l.status)).length+' ganados')}
+  </div>`;
+}
+function emptyState(icon,title,desc,extra=''){
+  return `<div class="panel"><div class="state"><div class="big">${icon}</div><h4>${title}</h4><div>${desc}</div>${extra}</div></div>`;
+}
+
+/* ════════════════ PROPERTIES ════════════════ */
+function renderProperties(){
+  const f=state.filters;
+  let rows=state.properties.slice();
+  if(f.propStatus)rows=rows.filter(p=>p.status===f.propStatus);
+  if(f.propSearch){const q=f.propSearch.toLowerCase();rows=rows.filter(p=>(p.address+' '+(p.city||'')).toLowerCase().includes(q));}
+  const lc=leadCountByProp();
+  const opts=Object.entries(PROP_STATUS).map(([k,v])=>`<option value="${k}" ${f.propStatus===k?'selected':''}>${v}</option>`).join('');
+
+  const head=`<div class="section-head">
+    <h3>${rows.length} propiedad${rows.length===1?'':'es'}</h3>
+    <div class="toolbar">
+      <input id="prop-search" placeholder="Buscar dirección/ciudad…" value="${esc(f.propSearch)}"/>
+      <select id="prop-filter"><option value="">Todos los estados</option>${opts}</select>
+      <button class="btn btn-primary btn-sm" style="width:auto" onclick="openPropModal()">+ Nueva propiedad</button>
+    </div></div>`;
+
+  let body;
+  if(!rows.length){
+    body=emptyState('⌂','Sin propiedades','No hay propiedades que coincidan. Crea una nueva para empezar.');
+  }else{
+    body=`<div class="panel"><div class="tbl-wrap"><table>
+      <thead><tr><th>Dirección</th><th>Tipo</th><th>Estado</th><th>Listado</th><th>Vendido</th><th>Beneficio</th><th>Comisión</th><th>Días</th><th>Leads</th><th></th></tr></thead>
+      <tbody>${rows.map(p=>{
+        const profit=p.estimated_profit;
+        const profitCell = p.deal_nature==='realtor'&&p.sold_price==null ? '<span class="row-sub">n/a</span>'
+          : (profit==null?'—':`<span class="${profit>=0?'pos':'neg'}">${money(profit)}</span>`);
+        return `<tr>
+          <td><div class="row-main">${esc(p.address)}</div><div class="row-sub">${esc(p.city||'')}${p.city&&p.state?', ':''}${esc(p.state||'')} ${esc(p.zip||'')}</div></td>
+          <td>${PROP_TYPE[p.property_type]||p.property_type||'—'}<div class="row-sub">${DEAL_NATURE[p.deal_nature]?.split(' ')[0]||''}</div></td>
+          <td><span class="badge ${PROP_STATUS_BADGE[p.status]||'b-grey'}">${PROP_STATUS[p.status]||p.status}</span></td>
+          <td class="num">${money(p.list_price)}</td>
+          <td class="num">${money(p.sold_price)}</td>
+          <td class="num">${profitCell}</td>
+          <td class="num">${money(p.commission_calc)}</td>
+          <td class="num">${p.days_on_market!=null?p.days_on_market:'—'}</td>
+          <td class="num">${lc[p.id]||0}</td>
+          <td><div class="rowact">
+            <button class="iconbtn" onclick="openPropModal('${p.id}')">Editar</button>
+            <button class="iconbtn danger" onclick="deleteProp('${p.id}')">✕</button>
+          </div></td>
+        </tr>`;}).join('')}</tbody></table></div></div>`;
+  }
+  $('#content').innerHTML=head+body;
+  $('#prop-search').addEventListener('input',e=>{f.propSearch=e.target.value;clearTimeout(window._ps);window._ps=setTimeout(renderProperties,200);});
+  $('#prop-filter').addEventListener('change',e=>{f.propStatus=e.target.value;renderProperties();});
+}
+
+function openPropModal(id){
+  const p = id ? state.properties.find(x=>x.id===id) : {};
+  const isEdit=!!id;
+  const sel=(obj,cur)=>Object.entries(obj).map(([k,v])=>`<option value="${k}" ${cur===k?'selected':''}>${v}</option>`).join('');
+  const val=k=>p[k]??'';
+  $('#modal-root').innerHTML=`<div class="overlay" onclick="if(event.target===this)closeModal()">
+   <form class="modal" id="prop-form">
+    <div class="modal-head"><h3>${isEdit?'Editar propiedad':'Nueva propiedad'}</h3><button type="button" class="iconbtn" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="grid2">
+        <div class="field full"><label>Dirección *</label><input name="address" required value="${esc(val('address'))}"/></div>
+        <div class="field"><label>Ciudad</label><input name="city" value="${esc(val('city'))}"/></div>
+        <div class="field"><label>Estado</label><input name="state" value="${esc(p.state??'FL')}"/></div>
+        <div class="field"><label>Código postal</label><input name="zip" value="${esc(val('zip'))}"/></div>
+        <div class="field"><label>Tipo</label><select name="property_type">${sel(PROP_TYPE,p.property_type||'casa')}</select></div>
+        <div class="field"><label>Estado de la propiedad</label><select name="status">${sel(PROP_STATUS,p.status||'activa')}</select></div>
+        <div class="field"><label>Naturaleza del deal</label><select name="deal_nature">${sel(DEAL_NATURE,p.deal_nature||'realtor')}</select>
+          <div class="hint">"Inversión propia" activa el cálculo de beneficio.</div></div>
+        <div class="field"><label>Fuente del deal</label><input name="deal_source" value="${esc(val('deal_source'))}" placeholder="MLS, off-market, referido…"/></div>
+      </div>
+      <h4 style="font-family:Syne;margin:1.1rem 0 .6rem;font-size:.95rem">Precios y costos</h4>
+      <div class="grid3">
+        <div class="field"><label>Precio de compra</label><input name="purchase_price" type="number" step="any" value="${val('purchase_price')}" placeholder="solo inversión"/></div>
+        <div class="field"><label>Precio listado</label><input name="list_price" type="number" step="any" value="${val('list_price')}"/></div>
+        <div class="field"><label>Precio vendido</label><input name="sold_price" type="number" step="any" value="${val('sold_price')}"/></div>
+        <div class="field"><label>Reparaciones</label><input name="repair_costs" type="number" step="any" value="${val('repair_costs')}"/></div>
+        <div class="field"><label>Closing costs</label><input name="closing_costs" type="number" step="any" value="${val('closing_costs')}"/></div>
+        <div class="field"><label>Otros gastos</label><input name="other_costs" type="number" step="any" value="${val('other_costs')}"/></div>
+        <div class="field"><label>Comisión %</label><input name="commission_pct" type="number" step="any" value="${p.commission_pct??(isEdit?'':CFG.DEFAULT_COMMISSION_PCT)}"/></div>
+        <div class="field"><label>Comisión monto fijo</label><input name="commission_amount" type="number" step="any" value="${val('commission_amount')}" placeholder="opcional, anula %"/></div>
+      </div>
+      <h4 style="font-family:Syne;margin:1.1rem 0 .6rem;font-size:.95rem">Fechas y extras</h4>
+      <div class="grid2">
+        <div class="field"><label>Fecha de listado</label><input name="list_date" type="date" value="${val('list_date')}"/></div>
+        <div class="field"><label>Fecha de cierre/venta</label><input name="close_date" type="date" value="${val('close_date')}"/></div>
+        <div class="field full"><label>Link público (MLS/Zillow…)</label><input name="public_link" value="${esc(val('public_link'))}"/></div>
+        <div class="field full"><label>Fotos (URLs, separadas por coma)</label><input name="photos" value="${esc(val('photos'))}"/></div>
+        <div class="field full"><label>Notas internas</label><textarea name="internal_notes" rows="2">${esc(val('internal_notes'))}</textarea></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <div>${isEdit?`<button type="button" class="iconbtn danger" onclick="deleteProp('${id}')">Eliminar</button>`:''}</div>
+      <div style="display:flex;gap:.5rem">
+        <button type="button" class="btn btn-ghost btn-sm" onclick="closeModal()">Cancelar</button>
+        <button type="submit" class="btn btn-primary btn-sm" style="width:auto">${isEdit?'Guardar cambios':'Crear propiedad'}</button>
+      </div>
+    </div>
+   </form></div>`;
+  $('#prop-form').addEventListener('submit',e=>savePropForm(e,id));
+}
+
+async function savePropForm(e,id){
+  e.preventDefault();
+  const fd=new FormData(e.target);
+  const numFields=['purchase_price','list_price','sold_price','repair_costs','closing_costs','other_costs','commission_pct','commission_amount'];
+  const rec={};
+  ['address','city','state','zip','property_type','status','deal_nature','deal_source','public_link','photos','internal_notes'].forEach(k=>rec[k]=txtOrNull(fd.get(k)));
+  numFields.forEach(k=>rec[k]=numOrNull(fd.get(k)));
+  ['list_date','close_date'].forEach(k=>rec[k]=txtOrNull(fd.get(k)));
+  const btn=e.submitter; btn.disabled=true; btn.textContent='Guardando…';
+  let res;
+  if(id) res=await sb.from('properties').update(rec).eq('id',id);
+  else res=await sb.from('properties').insert(rec);
+  btn.disabled=false;
+  if(res.error){toast('Error: '+res.error.message,true);return;}
+  logActivity(id?'update':'create','property',id||'nueva',{address:rec.address});
+  closeModal(); await loadAll(); renderProperties(); toast(id?'Propiedad actualizada':'Propiedad creada');
+}
+async function deleteProp(id){
+  if(!confirm('¿Eliminar esta propiedad? Esta acción no se puede deshacer.\n(Sugerencia: también puedes cambiar su estado a "Archivada").'))return;
+  const {error}=await sb.from('properties').delete().eq('id',id);
+  if(error){toast('Error: '+error.message,true);return;}
+  logActivity('delete','property',id,{});
+  closeModal(); await loadAll(); renderProperties(); toast('Propiedad eliminada');
+}
+
+/* ════════════════ LEADS ════════════════ */
+function renderLeads(){
+  const f=state.filters;
+  let rows=state.leads.slice();
+  if(f.leadStatus)rows=rows.filter(l=>l.status===f.leadStatus);
+  const opts=Object.entries(LEAD_STATUS).map(([k,v])=>`<option value="${k}" ${f.leadStatus===k?'selected':''}>${v}</option>`).join('');
+  const head=`<div class="section-head">
+    <h3>${rows.length} lead${rows.length===1?'':'s'}</h3>
+    <div class="toolbar">
+      <select id="lead-filter"><option value="">Todos los estados</option>${opts}</select>
+      <button class="btn btn-primary btn-sm" style="width:auto" onclick="openLeadModal()">+ Nuevo lead</button>
+    </div></div>`;
+  let body;
+  if(!rows.length){
+    body=emptyState('◷','Sin leads','No hay leads que coincidan. Crea uno manualmente o llegarán desde el formulario público.');
+  }else{
+    body=`<div class="panel"><div class="tbl-wrap"><table>
+      <thead><tr><th>Nombre</th><th>Contacto</th><th>Interés</th><th>Fuente</th><th>Estado</th><th>Propiedad</th><th>Seguimiento</th><th>Creado</th><th></th></tr></thead>
+      <tbody>${rows.map(l=>`<tr>
+        <td><div class="row-main">${esc(l.name)}</div>${l.budget?`<div class="row-sub">${money(l.budget)}</div>`:''}</td>
+        <td>${l.email?`<div class="row-sub">${esc(l.email)}</div>`:''}${l.phone?`<div class="row-sub">${esc(l.phone)}</div>`:''}${!l.email&&!l.phone?'—':''}</td>
+        <td>${INTEREST[l.interest_type]||'—'}</td>
+        <td>${LEAD_SOURCE[l.source]||l.source||'—'}</td>
+        <td><span class="badge ${LEAD_STATUS_BADGE[l.status]||'b-grey'}">${LEAD_STATUS[l.status]||l.status}</span></td>
+        <td>${l.property_id?`<span class="row-sub">${esc(propAddr(l.property_id))}</span>`:'—'}</td>
+        <td class="num">${l.next_followup?fmtDate(l.next_followup):'—'}</td>
+        <td class="num row-sub">${fmtDate((l.created_at||'').slice(0,10))}</td>
+        <td><div class="rowact">
+          <button class="iconbtn" onclick="openLeadModal('${l.id}')">Editar</button>
+          <button class="iconbtn danger" onclick="deleteLead('${l.id}')">✕</button>
+        </div></td>
+      </tr>`).join('')}</tbody></table></div></div>`;
+  }
+  $('#content').innerHTML=head+body;
+  $('#lead-filter').addEventListener('change',e=>{f.leadStatus=e.target.value;renderLeads();});
+}
+
+function openLeadModal(id){
+  const l = id ? state.leads.find(x=>x.id===id) : {};
+  const isEdit=!!id;
+  const sel=(obj,cur)=>Object.entries(obj).map(([k,v])=>`<option value="${k}" ${cur===k?'selected':''}>${v}</option>`).join('');
+  const propOpts=`<option value="">— Ninguna —</option>`+state.properties.map(p=>`<option value="${p.id}" ${l.property_id===p.id?'selected':''}>${esc(p.address)}</option>`).join('');
+  const val=k=>l[k]??'';
+  $('#modal-root').innerHTML=`<div class="overlay" onclick="if(event.target===this)closeModal()">
+   <form class="modal" id="lead-form">
+    <div class="modal-head"><h3>${isEdit?'Editar lead':'Nuevo lead'}</h3><button type="button" class="iconbtn" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="grid2">
+        <div class="field"><label>Nombre *</label><input name="name" required value="${esc(val('name'))}"/></div>
+        <div class="field"><label>Email</label><input name="email" type="email" value="${esc(val('email'))}"/></div>
+        <div class="field"><label>Teléfono</label><input name="phone" value="${esc(val('phone'))}"/></div>
+        <div class="field"><label>Presupuesto aprox.</label><input name="budget" type="number" step="any" value="${val('budget')}"/></div>
+        <div class="field"><label>Tipo de interés</label><select name="interest_type"><option value="">—</option>${sel(INTEREST,l.interest_type)}</select></div>
+        <div class="field"><label>Fuente</label><select name="source">${sel(LEAD_SOURCE,l.source||'website')}</select></div>
+        <div class="field"><label>Estado</label><select name="status">${sel(LEAD_STATUS,l.status||'nuevo')}</select></div>
+        <div class="field"><label>Próximo seguimiento</label><input name="next_followup" type="date" value="${val('next_followup')}"/></div>
+        <div class="field full"><label>Propiedad de interés</label><select name="property_id">${propOpts}</select></div>
+        <div class="field full"><label>Notas internas</label><textarea name="internal_notes" rows="3">${esc(val('internal_notes'))}</textarea></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <div>${isEdit?`<button type="button" class="iconbtn danger" onclick="deleteLead('${id}')">Eliminar</button>`:''}</div>
+      <div style="display:flex;gap:.5rem">
+        <button type="button" class="btn btn-ghost btn-sm" onclick="closeModal()">Cancelar</button>
+        <button type="submit" class="btn btn-primary btn-sm" style="width:auto">${isEdit?'Guardar':'Crear lead'}</button>
+      </div>
+    </div>
+   </form></div>`;
+  $('#lead-form').addEventListener('submit',e=>saveLeadForm(e,id));
+}
+async function saveLeadForm(e,id){
+  e.preventDefault();
+  const fd=new FormData(e.target);
+  const rec={
+    name:fd.get('name'), email:txtOrNull(fd.get('email')), phone:txtOrNull(fd.get('phone')),
+    budget:numOrNull(fd.get('budget')), interest_type:txtOrNull(fd.get('interest_type')),
+    source:fd.get('source')||'website', status:fd.get('status')||'nuevo',
+    next_followup:txtOrNull(fd.get('next_followup')), property_id:txtOrNull(fd.get('property_id')),
+    internal_notes:txtOrNull(fd.get('internal_notes'))
+  };
+  const btn=e.submitter; btn.disabled=true; btn.textContent='Guardando…';
+  let res;
+  if(id) res=await sb.from('leads').update(rec).eq('id',id);
+  else res=await sb.from('leads').insert(rec);
+  btn.disabled=false;
+  if(res.error){toast('Error: '+res.error.message,true);return;}
+  logActivity(id?'update':'create','lead',id||'nuevo',{name:rec.name});
+  closeModal(); await loadAll(); renderLeads(); toast(id?'Lead actualizado':'Lead creado');
+}
+async function deleteLead(id){
+  if(!confirm('¿Eliminar este lead?'))return;
+  const {error}=await sb.from('leads').delete().eq('id',id);
+  if(error){toast('Error: '+error.message,true);return;}
+  logActivity('delete','lead',id,{});
+  closeModal(); await loadAll(); renderLeads(); toast('Lead eliminado');
+}
+
+/* ════════════════ REPORTS ════════════════ */
+let charts={};
+function destroyCharts(){Object.values(charts).forEach(c=>c&&c.destroy());charts={};}
+function renderReports(){
+  const P=state.properties, L=state.leads;
+  const sold=P.filter(p=>p.status==='vendida');
+  const lc=leadCountByProp();
+  // rankings
+  const maxSold=sold.slice().sort((a,b)=>(+b.sold_price||0)-(+a.sold_price||0))[0];
+  const wp=P.filter(p=>p.estimated_profit!=null).sort((a,b)=>(+b.estimated_profit)-(+a.estimated_profit))[0];
+  const wc=P.filter(p=>p.commission_calc!=null).sort((a,b)=>(+b.commission_calc)-(+a.commission_calc))[0];
+  const mlId=Object.keys(lc).sort((a,b)=>lc[b]-lc[a])[0];
+  const domVals=sold.map(p=>p.days_on_market).filter(d=>d!=null);
+  const avgDom=domVals.length?Math.round(domVals.reduce((a,b)=>a+b,0)/domVals.length):null;
+  const listVals=P.map(p=>+p.list_price).filter(v=>v>0);
+  const soldVals=sold.map(p=>+p.sold_price).filter(v=>v>0);
+  const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:null;
+  const avgList=avg(listVals), avgSold=avg(soldVals);
+  const diffs=sold.map(p=>p.price_diff).filter(v=>v!=null);
+  const avgDiff=avg(diffs);
+
+  $('#content').innerHTML=`
+    <div class="cards">
+      <div class="card"><div class="k">Precio listado prom.</div><div class="v sm">${money(avgList)}</div></div>
+      <div class="card"><div class="k">Precio vendido prom.</div><div class="v sm">${money(avgSold)}</div></div>
+      <div class="card"><div class="k">Dif. listado vs vendido</div><div class="v sm ${avgDiff>=0?'pos':'neg'}">${avgDiff!=null?money(avgDiff):'—'}</div></div>
+      <div class="card"><div class="k">Días promedio en mercado</div><div class="v sm">${avgDom!=null?avgDom+' días':'—'}</div></div>
+    </div>
+    <div class="charts">
+      <div class="chart-card"><h4>Total vendido por mes</h4><div class="cv"><canvas id="ch-sold"></canvas></div></div>
+      <div class="chart-card"><h4>Comisión estimada por mes</h4><div class="cv"><canvas id="ch-comm"></canvas></div></div>
+      <div class="chart-card"><h4>Leads por fuente</h4><div class="cv"><canvas id="ch-src"></canvas></div></div>
+      <div class="chart-card"><h4>Conversión de leads por estado</h4><div class="cv"><canvas id="ch-stat"></canvas></div></div>
+    </div>
+    <div class="panel" style="padding:1.3rem 1.5rem">
+      <h3 style="font-family:Syne;font-size:1.05rem;margin-bottom:.8rem">Rankings</h3>
+      <ul class="rank-list">
+        <li><span>🏆 Propiedad vendida más cara</span><span>${maxSold?esc(maxSold.address)+' · '+money(maxSold.sold_price):'—'}</span></li>
+        <li><span>📈 Mayor beneficio estimado</span><span>${wp&&wp.estimated_profit!=null?esc(wp.address)+' · '+money(wp.estimated_profit):'—'}</span></li>
+        <li><span>💵 Mayor comisión generada</span><span>${wc&&wc.commission_calc!=null?esc(wc.address)+' · '+money(wc.commission_calc):'—'}</span></li>
+        <li><span>👥 Propiedad con más leads</span><span>${mlId?esc(propAddr(mlId))+' · '+lc[mlId]+' leads':'—'}</span></li>
+      </ul>
+    </div>`;
+
+  destroyCharts();
+  const TERRA='#c9553a', SAGE='#6f8977', OLIVE='#2f4437', AMBER='#b8791f', BLUE='#3a6ea5';
+  const gridc='rgba(19,17,15,.08)';
+  const baseOpts={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:gridc},beginAtZero:true}}};
+
+  // monthly sold + commission
+  const months={}, comm={};
+  sold.forEach(p=>{ if(p.close_date){const m=p.close_date.slice(0,7);months[m]=(months[m]||0)+(+p.sold_price||0);comm[m]=(comm[m]||0)+(+p.commission_calc||0);} });
+  const mk=Object.keys(months).sort();
+  const mLabels=mk.map(m=>new Date(m+'-01T00:00:00').toLocaleDateString('es-ES',{month:'short',year:'2-digit'}));
+
+  if(mk.length){
+    charts.sold=new Chart($('#ch-sold'),{type:'bar',data:{labels:mLabels,datasets:[{data:mk.map(m=>months[m]),backgroundColor:TERRA,borderRadius:6}]},options:{...baseOpts,plugins:{...baseOpts.plugins,tooltip:{callbacks:{label:c=>money(c.parsed.y)}}}}});
+    charts.comm=new Chart($('#ch-comm'),{type:'line',data:{labels:mLabels,datasets:[{data:mk.map(m=>comm[m]),borderColor:OLIVE,backgroundColor:'rgba(47,68,55,.12)',fill:true,tension:.3,pointBackgroundColor:OLIVE}]},options:{...baseOpts,plugins:{...baseOpts.plugins,tooltip:{callbacks:{label:c=>money(c.parsed.y)}}}}});
+  } else { noChart('ch-sold'); noChart('ch-comm'); }
+
+  // leads by source
+  const bySrc={}; L.forEach(l=>bySrc[l.source]=(bySrc[l.source]||0)+1);
+  const sk=Object.keys(bySrc);
+  if(sk.length){
+    charts.src=new Chart($('#ch-src'),{type:'doughnut',data:{labels:sk.map(s=>LEAD_SOURCE[s]||s),datasets:[{data:sk.map(s=>bySrc[s]),backgroundColor:[TERRA,SAGE,AMBER,BLUE,OLIVE,'#a23e29','#9a8557','#5a7a6a','#b0b0b0']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:12,font:{size:11}}}}}});
+  } else noChart('ch-src');
+
+  // leads by status
+  const byStat={}; Object.keys(LEAD_STATUS).forEach(k=>byStat[k]=0); L.forEach(l=>byStat[l.status]=(byStat[l.status]||0)+1);
+  const stk=Object.keys(LEAD_STATUS);
+  if(L.length){
+    charts.stat=new Chart($('#ch-stat'),{type:'bar',data:{labels:stk.map(s=>LEAD_STATUS[s]),datasets:[{data:stk.map(s=>byStat[s]),backgroundColor:[BLUE,AMBER,TERRA,SAGE,OLIVE,'#b1462e'],borderRadius:6}]},options:baseOpts});
+  } else noChart('ch-stat');
+}
+function noChart(id){const c=$('#'+id);if(c)c.parentElement.innerHTML='<div class="state" style="padding:2rem 0"><div class="row-sub">Sin datos suficientes todavía</div></div>';}
+
+/* ════════════════ MISC ════════════════ */
+function closeModal(){$('#modal-root').innerHTML='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+async function logActivity(action,entity,entity_id,details){
+  try{ await sb.from('activity_logs').insert({actor_email:state.session?.user?.email,action,entity,entity_id:String(entity_id),details}); }catch(_){}
+}
+
+/* ════════════════ BOOT ════════════════ */
+(async()=>{
+  const {data}=await sb.auth.getSession();
+  if(data.session){ await onSignedIn(data.session); }
+})();
+window.openPropModal=openPropModal; window.deleteProp=deleteProp;
+window.openLeadModal=openLeadModal; window.deleteLead=deleteLead;
+window.renderView=renderView; window.closeModal=closeModal;
+</script>
+</body>
+</html>
