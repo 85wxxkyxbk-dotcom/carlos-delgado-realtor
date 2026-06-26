@@ -435,6 +435,16 @@ section[id]{scroll-margin-top:88px}
 .quick-modal-box .modal-head{margin-bottom:1.5rem}
 .quick-modal-box .modal-head h3{font-size:clamp(1.6rem,4vw,2.4rem)}
 
+/* ─── Fix: título hero en español (palabras largas no deben cortarse) ───
+   El inglés cabe ("Find/What/Moves/You"), pero "Encuentra" es más ancho.
+   Reducimos un poco el tamaño SOLO en español por breakpoint y permitimos
+   que la palabra baje de línea antes que salirse de la pantalla.          */
+h1,h2,h3,h4,.hero-title,.story-copy blockquote,.process-title,.service-card h3,.value-item h3,.invest-card h3{overflow-wrap:break-word}
+html[lang="es"] .hero-title{font-size:clamp(2.4rem,4.6vw,4.4rem)}
+@media(max-width:1040px){ html[lang="es"] .hero-title{font-size:clamp(2.3rem,7vw,4rem)} }
+@media(max-width:760px){  html[lang="es"] .hero-title{font-size:clamp(2rem,9vw,3.3rem)} }
+@media(max-width:430px){  html[lang="es"] .hero-title{font-size:clamp(1.9rem,9.5vw,2.9rem)} }
+
 </style>
 
 <!-- Schema.org — telephone/email omitted intentionally until real values are set
@@ -1384,7 +1394,7 @@ applyContactConfig();
     attr('#menuBtn','aria-label','Open menu','Abrir menú');
 
     /* HERO */
-    html('.hero-title','Find What<br/>Moves You','Encuentra lo que<br/>te mueve');
+    html('.hero-title','Find What<br/>Moves You','Encuentra<br/>lo que<br/>te mueve');
     html('.hero-kicker','<i></i> Bilingual Realtor · Miami, FL','<i></i> Realtor bilingüe · Miami, FL');
     html('.hero-sub',
       'Buy, sell, rent or invest in Miami with an agent who <strong>filters first, sells second</strong> — clear decisions, an organized process, direct communication through closing.',
