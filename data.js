@@ -62,6 +62,15 @@ window.SITE_CONFIG = {
      Displayed in the About credentials block.                   */
   license: 'Licensed Real Estate Agent · Florida',
 
+  /* ── SUPABASE (panel privado /admin) ─────────────────────────
+     Hace que los leads del formulario público también entren al
+     panel /admin. La anon key es PÚBLICA por diseño (la seguridad
+     la da RLS); nunca pongas aquí la service_role key.
+     Si dejas estos campos vacíos, el formulario sigue funcionando
+     igual (solo Make.com/Notion) sin enviar nada a Supabase.     */
+  supabaseUrl:     'https://alrspggdnsghnltiioaj.supabase.co',
+  supabaseAnonKey: 'sb_publishable_ifSJ5gQr0uCADqCrteimbA_ZMyYpGyl',
+
 };
 
 

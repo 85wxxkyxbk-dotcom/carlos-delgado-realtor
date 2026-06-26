@@ -1039,9 +1039,48 @@ function leadMessage(payload){
   const labels={name:'Name',contact:'Contact',service:'Service',area:'Area',budget:'Budget',pets:'Pets',message:'Message',interest:'Interest',property_type:'Property type',financing:'Financing',timing:'Timing',beds:'Beds',property_address:'Property address',condition:'Condition',occupancy:'Occupancy',monthly_budget:'Monthly budget',move_date:'Move-in date',parking:'Parking',capital:'Capital',strategy:'Strategy',horizon:'Horizon',risk:'Risk profile'};
   return Object.entries(payload).map(([k,v])=>`${labels[k]||k}: ${v || '-'}`).join('\n');
 }
+/* Envía el lead al panel privado (Supabase) de forma aditiva y a prueba de fallos.
+   Nunca lanza errores ni bloquea: si falla, el flujo Make.com/Notion sigue intacto. */
+function sendLeadToSupabase(payload){
+  try{
+    const cfg=window.SITE_CONFIG||{};
+    if(!cfg.supabaseUrl||!cfg.supabaseAnonKey) return;
+    const contact=(payload.contact||'').trim();
+    const isEmail=/@/.test(contact);
+    const svcMap={Comprar:'comprar',Vender:'vender',Rentar:'rentar',Invertir:'invertir'};
+    const notes=[
+      payload.service?('Servicio: '+payload.service):'',
+      payload.area?('Zona: '+payload.area):'',
+      payload.budget?('Presupuesto: '+payload.budget):'',
+      payload.pets?('Mascota: '+payload.pets):'',
+      payload.interest?('Interés: '+payload.interest):'',
+      payload.message?('Mensaje: '+payload.message):'',
+      payload.source?('Origen form: '+payload.source):'',
+      payload.language?('Idioma: '+payload.language):''
+    ].filter(Boolean).join('\n');
+    const budgetNum=(()=>{const m=(payload.budget||'').replace(/[, ]/g,'').match(/\d+/);return m?Number(m[0]):null;})();
+    const rec={
+      name: payload.name||'(sin nombre)',
+      email: isEmail?contact:null,
+      phone: isEmail?null:(contact||null),
+      source: 'website',
+      status: 'nuevo',
+      interest_type: svcMap[payload.service]||null,
+      budget: budgetNum,
+      internal_notes: notes||null
+    };
+    fetch(cfg.supabaseUrl.replace(/\/$/,'')+'/rest/v1/leads',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','apikey':cfg.supabaseAnonKey,'Authorization':'Bearer '+cfg.supabaseAnonKey,'Prefer':'return=minimal'},
+      body:JSON.stringify(rec)
+    }).catch(()=>{});
+  }catch(_){/* silencioso a propósito */}
+}
+
 async function submitLead(form, source){
   const cfg=window.SITE_CONFIG || {};
   const payload=leadPayloadFromForm(form, source);
+  sendLeadToSupabase(payload); // aditivo: alimenta el panel /admin sin afectar el envío principal
   const submitButton=form.querySelector('button[type="submit"]');
   const originalText=submitButton?.textContent;
   const isES=currentLang==='es';
@@ -1345,6 +1384,7 @@ applyContactConfig();
     attr('#menuBtn','aria-label','Open menu','Abrir menú');
 
     /* HERO */
+    html('.hero-title','Find What<br/>Moves You','Encuentra lo que<br/>te mueve');
     html('.hero-kicker','<i></i> Bilingual Realtor · Miami, FL','<i></i> Realtor bilingüe · Miami, FL');
     html('.hero-sub',
       'Buy, sell, rent or invest in Miami with an agent who <strong>filters first, sells second</strong> — clear decisions, an organized process, direct communication through closing.',
@@ -1506,6 +1546,19 @@ applyContactConfig();
     txt('#qTrust span:nth-child(3)','Confidential','Confidencial');
     txt('#qModalSubmit','Send consultation →','Enviar consulta →');
     txt('#qModalNote','Your information is used only to respond to this consultation.','Tu información solo se usa para responder a esta consulta.');
+
+    /* SERVICE MODAL (marco fijo — el contenido dinámico lo traduce setModalContent) */
+    attr('#closeModal','aria-label','Close','Cerrar');
+    txt('[data-i18n="modalSection1"]','How this tab works','Cómo funciona esta sección');
+    txt('[data-i18n="modalSection2"]','Useful information to have ready','Información útil para tener a mano');
+    txt('#modalForm > .field-row .field:nth-child(1) label','Name','Nombre');
+    ph('#modalForm [name="name"]','Your name','Tu nombre');
+    txt('#modalForm > .field-row .field:nth-child(2) label','Phone or email','Teléfono o email');
+    ph('#modalForm [name="contact"]','How should I contact you','Cómo te contacto');
+    txt('[data-i18n="modalMessageLabel"]','Optional message','Mensaje opcional');
+    ph('#modalMessage','Tell me area, timing, questions or important details…','Cuéntame zona, timing, preguntas o detalles importantes…');
+    txt('#modalForm .form-trust span:nth-child(1)','Response <24h','Respuesta <24h');
+    txt('#modalForm .form-trust span:nth-child(2)','No pressure','Sin presión');
 
     /* MOBILE MENU */
     txt('#mobileNav a[href="#services"]','Services','Servicios');
