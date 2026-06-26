@@ -166,13 +166,45 @@ tbody tr:hover{background:#fcfaf5}
 
 /* ───── RESPONSIVE ───── */
 .menu-btn{display:none}
+.sidebar-backdrop{display:none}
+
+/* Tablet y móvil: barra lateral colapsable con botón ☰ */
 @media(max-width:900px){
   #app{grid-template-columns:1fr}
-  .sidebar{position:fixed;left:0;top:0;z-index:60;transform:translateX(-100%);transition:transform .25s;width:240px;box-shadow:var(--shadow)}
+  .sidebar{position:fixed;left:0;top:0;z-index:60;transform:translateX(-100%);transition:transform .25s;width:250px;height:100dvh;box-shadow:var(--shadow)}
   .sidebar.open{transform:none}
   .menu-btn{display:inline-flex}
-  .grid2,.grid3,.charts{grid-template-columns:1fr}
+  .grid3,.charts{grid-template-columns:1fr}
+  .sidebar-backdrop{display:block;position:fixed;inset:0;background:rgba(19,17,15,.45);z-index:55;opacity:0;visibility:hidden;transition:.25s}
+  .sidebar-backdrop.show{opacity:1;visibility:visible}
+  .topbar{padding:.8rem 1rem}
+  .topbar h2{font-size:1.12rem}
+  #who-email{display:none}
+  .content{padding:1rem}
 }
+/* Tablet: 2 columnas de gráficos */
+@media(min-width:620px) and (max-width:900px){ .charts{grid-template-columns:1fr 1fr} }
+
+/* Teléfono */
+@media(max-width:560px){
+  .cards{grid-template-columns:1fr 1fr;gap:.7rem}
+  .card{padding:.85rem .9rem}
+  .card .v{font-size:1.35rem}
+  .card .v.sm{font-size:1.05rem}
+  .grid2{grid-template-columns:1fr}
+  .section-head .toolbar{width:100%}
+  .toolbar input,.toolbar select{flex:1;min-width:0}
+  .toolbar .btn{width:100%}
+  /* Formularios/modales a pantalla completa en móvil */
+  .overlay{padding:0;align-items:stretch}
+  .modal{max-width:100%;border-radius:0;min-height:100dvh;display:flex;flex-direction:column}
+  .modal-body{max-height:none;flex:1}
+  .tbl-wrap{-webkit-overflow-scrolling:touch}
+  thead th,tbody td{padding:.7rem .65rem}
+  .topbar h2{font-size:1rem}
+  .who{gap:.4rem}
+}
+@media(max-width:380px){ .cards{grid-template-columns:1fr} }
 </style>
 </head>
 <body>
@@ -198,6 +230,7 @@ tbody tr:hover{background:#fcfaf5}
 
 <!-- ══════════ APP ══════════ -->
 <div id="app" class="hidden">
+  <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
   <aside class="sidebar" id="sidebar">
     <div class="sb-brand">
       <div class="sb-logo">CD</div>
@@ -313,8 +346,10 @@ function leadCountByProp(){const m={};state.leads.forEach(l=>{if(l.property_id)m
 function propAddr(id){const p=state.properties.find(x=>x.id===id);return p?p.address:'—';}
 
 /* ════════════════ NAV ════════════════ */
-$$('.nav-item').forEach(b=>b.addEventListener('click',()=>{ renderView(b.dataset.view); $('#sidebar').classList.remove('open'); }));
-$('#menu-btn').addEventListener('click',()=>$('#sidebar').classList.toggle('open'));
+function setSidebar(open){ $('#sidebar').classList.toggle('open',open); $('#sidebar-backdrop').classList.toggle('show',open); }
+$$('.nav-item').forEach(b=>b.addEventListener('click',()=>{ renderView(b.dataset.view); setSidebar(false); }));
+$('#menu-btn').addEventListener('click',()=>setSidebar(!$('#sidebar').classList.contains('open')));
+$('#sidebar-backdrop').addEventListener('click',()=>setSidebar(false));
 const TITLES={dashboard:'Dashboard',properties:'Propiedades',leads:'Leads',reports:'Reportes y estadísticas'};
 function renderView(v){
   state.view=v;
