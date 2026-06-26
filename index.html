@@ -1,1616 +1,738 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="#13110f" name="theme-color"/>
-<title>Carlos Delgado · Miami Realtor | Buy, Sell, Rent &amp; Invest</title>
-<meta content="Carlos Delgado, bilingual Miami realtor. Clear real estate guidance for buyers, sellers, renters and investors across Miami-Dade." name="description"/>
-<meta content="index,follow" name="robots"/>
-<link href="https://carlosdelgado.realestate/" rel="canonical"/>
-
-<!-- Favicon (inline SVG, no extra request) -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2313110f'/%3E%3Ctext x='50' y='66' font-family='Arial,sans-serif' font-size='42' font-weight='800' text-anchor='middle' fill='%23fbf8f1'%3ECD%3C/text%3E%3C/svg%3E" />
-
-<!-- Open Graph / WhatsApp / Slack preview
-     CONFIG: replace og:image URL with a 1200×630 brand image hosted on your domain -->
-<meta content="website" property="og:type"/>
-<meta content="en_US" property="og:locale"/>
-<meta content="es_ES" property="og:locale:alternate"/>
-<meta content="Carlos Delgado · Miami Realtor" property="og:title"/>
-<meta content="Buy, sell, rent or invest in Miami with a bilingual realtor. Clear decisions, organized process and direct communication." property="og:description"/>
-<meta content="https://carlosdelgado.realestate/" property="og:url"/>
-<meta content="https://carlosdelgado.realestate/og-image.jpg" property="og:image"/>
-<meta name="twitter:card" content="summary_large_image" />
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta name="theme-color" content="#13110f"/>
+<!-- Zona privada: nunca indexar -->
+<meta name="robots" content="noindex,nofollow"/>
+<title>Panel privado · Carlos Delgado Realty</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2313110f'/%3E%3Ctext x='50' y='66' font-family='Arial,sans-serif' font-size='38' font-weight='800' text-anchor='middle' fill='%23c9553a'%3ECD%3C/text%3E%3C/svg%3E"/>
+<!-- Instalable en iPhone/Android ("Agregar a inicio") -->
+<link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+<meta name="apple-mobile-web-app-title" content="CD Admin"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<link rel="manifest" href="manifest.webmanifest"/>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&amp;family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
-
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
-/* ═══════════════════════════════════════════════════════
-   DESIGN TOKENS
-═══════════════════════════════════════════════════════ */
 :root{
-  --ink:#13110f; --ink-2:#2b2722;
-  --soft:#fbf8f1; --sand:#efe6d7; --sand-2:#e4d6c3;
-  --line:rgba(19,17,15,.10);
-  --muted:rgba(19,17,15,.60); --muted-2:rgba(19,17,15,.42);
-  --white:#fff;
-  --terracotta:#c9553a; --terracotta-soft:rgba(201,85,58,.10);
-  --sage:#6f8977; --olive:#2f4437;
-  --deep:#151713;
-  --r-sm:14px; --r:24px; --r-pill:999px;
-  --shadow:0 24px 80px rgba(31,25,17,.12);
-  --shadow-sm:0 14px 40px rgba(31,25,17,.07);
-  --h-card-md:1.25rem; --h-card-lg:1.85rem;
+  --ink:#13110f; --ink-2:#2b2722; --olive:#1c2a22; --olive-2:#26352b;
+  --soft:#fbf8f1; --sand:#efe6d7; --line:rgba(19,17,15,.10);
+  --muted:rgba(19,17,15,.58); --muted-2:rgba(19,17,15,.40);
+  --terracotta:#c9553a; --terracotta-d:#b1462e; --sage:#6f8977;
+  --green:#2f7d54; --green-bg:rgba(47,125,84,.12);
+  --amber:#b8791f; --amber-bg:rgba(184,121,31,.14);
+  --blue:#3a6ea5; --blue-bg:rgba(58,110,165,.12);
+  --red:#b1462e; --red-bg:rgba(177,70,46,.12);
+  --grey-bg:rgba(19,17,15,.07);
+  --r:16px; --r-sm:10px; --shadow:0 18px 50px rgba(31,25,17,.10);
+  --shadow-sm:0 8px 24px rgba(31,25,17,.06);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;background:var(--soft)}
-body{font-family:'Inter',system-ui,-apple-system,BlinkMacSystemFont,sans-serif;background:var(--soft);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+html{background:var(--soft)}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--soft);color:var(--ink);-webkit-font-smoothing:antialiased}
+button,input,select,textarea{font:inherit;color:inherit}
+button{border:0;background:none;cursor:pointer}
 a{color:inherit;text-decoration:none}
-button,input,select,textarea{font:inherit}
-button{border:0;background:none;cursor:pointer;color:inherit}
-img{display:block;max-width:100%}
+.hidden{display:none!important}
 ::selection{background:rgba(201,85,58,.22)}
-.is-hidden{display:none!important}
-.scroll-progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--terracotta),var(--sage));z-index:1500;transition:width .1s linear}
 
-/* NAV */
-.nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;gap:2rem;padding:1.25rem clamp(1.2rem,4vw,4rem);transition:background .35s,box-shadow .35s,padding .35s,border-color .35s;border-bottom:1px solid transparent}
-.nav.scrolled{background:rgba(251,248,241,.86);backdrop-filter:blur(22px);border-color:var(--line);box-shadow:0 10px 40px rgba(0,0,0,.04);padding-top:.85rem;padding-bottom:.85rem}
-.brand{display:flex;align-items:center;gap:.9rem;min-width:max-content}
-.brand-mark{width:42px;height:42px;border-radius:50%;background:var(--ink);color:var(--soft);display:grid;place-items:center;font-family:'Syne';font-weight:800;font-size:.85rem;letter-spacing:.08em}
-.brand-text{line-height:1.05}
-.brand-name{font-family:'Syne';font-weight:800;font-size:.98rem;letter-spacing:.02em;text-transform:uppercase}
-.brand-sub{font-size:.68rem;color:var(--muted-2);letter-spacing:.15em;text-transform:uppercase;margin-top:.18rem}
-.nav-links{display:flex;align-items:center;gap:1.7rem;list-style:none}
-.nav-links a{font-size:.72rem;text-transform:uppercase;letter-spacing:.16em;font-weight:700;color:rgba(19,17,15,.52);transition:color .25s;position:relative}
-.nav-links a:hover,.nav-links a.active{color:var(--ink)}
-.nav-links a.active::after{content:'';position:absolute;left:0;right:0;bottom:-8px;height:2px;background:var(--terracotta);border-radius:2px}
-.nav-actions{display:flex;align-items:center;gap:.75rem}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;border-radius:var(--r-pill);padding:.82rem 1.35rem;font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;transition:transform .25s,background .25s,color .25s,border-color .25s,box-shadow .25s;white-space:nowrap}
-.btn:hover{transform:translateY(-2px)}
-.btn-dark{background:var(--ink);color:var(--soft);box-shadow:0 14px 34px rgba(19,17,15,.16)}
-.btn-dark:hover{background:var(--terracotta);box-shadow:0 16px 36px rgba(201,85,58,.22)}
-.btn-light{background:rgba(255,255,255,.72);border:1px solid var(--line);color:var(--ink)}
-.btn-ghost{border:1px solid rgba(19,17,15,.18);background:transparent;color:var(--ink)}
-.btn-ghost:hover{background:var(--ink);color:var(--soft);border-color:var(--ink)}
+/* ───── LOGIN ───── */
+#login-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1.5rem;
+  background:radial-gradient(1200px 600px at 70% -10%,rgba(201,85,58,.18),transparent),var(--ink)}
+.login-card{width:100%;max-width:400px;background:var(--soft);border-radius:24px;padding:2.4rem 2.2rem;box-shadow:var(--shadow)}
+.login-badge{display:inline-block;font-size:.66rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--terracotta);background:var(--terracotta-soft,rgba(201,85,58,.10));padding:.32rem .7rem;border-radius:999px;margin-bottom:1rem;border:1px solid rgba(201,85,58,.25)}
+.login-card h1{font-family:'Syne',sans-serif;font-size:1.5rem;font-weight:800;line-height:1.1;margin-bottom:.35rem}
+.login-card p.sub{color:var(--muted);font-size:.9rem;margin-bottom:1.6rem}
+.field{margin-bottom:1rem}
+.field label{display:block;font-size:.78rem;font-weight:600;color:var(--ink-2);margin-bottom:.4rem}
+.field input,.field select,.field textarea{width:100%;padding:.72rem .85rem;border:1px solid var(--line);border-radius:var(--r-sm);
+  background:#fff;outline:none;transition:border-color .2s,box-shadow .2s;font-size:.92rem}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--terracotta);box-shadow:0 0 0 3px rgba(201,85,58,.12)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-weight:600;font-size:.9rem;
+  padding:.72rem 1.1rem;border-radius:var(--r-sm);transition:transform .12s,background .2s,opacity .2s}
+.btn:active{transform:translateY(1px)}
+.btn-primary{background:var(--terracotta);color:#fff;width:100%}
+.btn-primary:hover{background:var(--terracotta-d)}
+.btn-ghost{background:var(--grey-bg);color:var(--ink)}
+.btn-ghost:hover{background:rgba(19,17,15,.12)}
+.btn-sm{padding:.42rem .7rem;font-size:.8rem}
+.login-msg{font-size:.84rem;margin-top:.9rem;min-height:1.1rem}
+.login-msg.err{color:var(--red)} .login-msg.ok{color:var(--green)}
 
-.lang-toggle{display:inline-flex;align-items:center;gap:.25rem;border:1px solid var(--line);background:rgba(255,255,255,.68);border-radius:var(--r-pill);padding:.22rem;backdrop-filter:blur(12px)}
-.lang-option{min-width:34px;height:30px;border-radius:var(--r-pill);font-size:.66rem;font-weight:800;letter-spacing:.08em;color:rgba(19,17,15,.50);transition:background .25s,color .25s,transform .25s}
-.lang-option:hover{transform:translateY(-1px);color:var(--ink)}
-.lang-option.active{background:var(--ink);color:var(--soft)}
-.menu-btn{display:none;width:42px;height:42px;border-radius:50%;border:1px solid var(--line);background:rgba(255,255,255,.64);align-items:center;justify-content:center}
-.menu-btn span{width:17px;height:2px;background:var(--ink);display:block;position:relative;border-radius:3px}
-.menu-btn span:before,.menu-btn span:after{content:'';position:absolute;left:0;width:17px;height:2px;background:var(--ink);border-radius:3px;transition:.25s}
-.menu-btn span:before{top:-6px}.menu-btn span:after{top:6px}
+/* ───── APP SHELL ───── */
+#app{display:grid;grid-template-columns:248px 1fr;min-height:100vh}
+.sidebar{background:var(--olive);color:#e9e2d4;padding:1.5rem 1rem;display:flex;flex-direction:column;gap:.3rem;position:sticky;top:0;height:100vh}
+.sb-brand{display:flex;align-items:center;gap:.6rem;padding:.2rem .6rem 1.3rem}
+.sb-logo{width:38px;height:38px;border-radius:11px;background:var(--terracotta);color:#fff;font-family:'Syne';font-weight:800;display:flex;align-items:center;justify-content:center;font-size:1.05rem}
+.sb-brand b{font-family:'Syne';font-size:1rem;line-height:1.05;display:block}
+.sb-brand span{font-size:.64rem;letter-spacing:.14em;text-transform:uppercase;color:var(--terracotta);font-weight:700}
+.nav-item{display:flex;align-items:center;gap:.7rem;padding:.7rem .8rem;border-radius:var(--r-sm);color:#cfc6b4;font-weight:500;font-size:.92rem;width:100%;text-align:left;transition:background .18s,color .18s}
+.nav-item:hover{background:var(--olive-2);color:#fff}
+.nav-item.active{background:var(--terracotta);color:#fff}
+.nav-item .ic{width:18px;text-align:center;font-size:1rem;opacity:.95}
+.sb-foot{margin-top:auto;font-size:.72rem;color:rgba(233,226,212,.5);padding:.6rem}
+.main{min-width:0;display:flex;flex-direction:column}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.1rem clamp(1rem,3vw,2rem);
+  border-bottom:1px solid var(--line);background:rgba(251,248,241,.85);backdrop-filter:blur(8px);position:sticky;top:0;z-index:20}
+.topbar h2{font-family:'Syne';font-size:1.3rem;font-weight:800}
+.topbar .who{display:flex;align-items:center;gap:.7rem;font-size:.84rem;color:var(--muted)}
+.avatar{width:32px;height:32px;border-radius:50%;background:var(--sage);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.8rem}
+.content{padding:clamp(1rem,3vw,2rem);flex:1}
 
-/* HERO */
-.hero{position:relative;min-height:100vh;overflow:hidden;background:radial-gradient(ellipse 70% 38% at 72% 46%,rgba(255,255,255,.45),transparent 66%),linear-gradient(180deg,#cfe1e6 0%,#dde9e8 38%,#ece4d4 78%,var(--soft) 100%)}
-.hero::before{content:'';position:absolute;inset:-15%;background:radial-gradient(ellipse 46% 26% at 16% 24%,rgba(255,255,255,.55),transparent 68%),radial-gradient(ellipse 35% 18% at 86% 18%,rgba(255,255,255,.32),transparent 70%);pointer-events:none}
-.hero::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:42%;background:linear-gradient(to top,var(--soft) 0%,rgba(251,248,241,.88) 36%,transparent 100%);z-index:5;pointer-events:none}
-.hero-inner{position:relative;z-index:12;min-height:100vh;width:min(1180px,100%);margin:0 auto;display:grid;grid-template-columns:minmax(360px,.92fr) minmax(420px,1.08fr);align-items:center;gap:clamp(2rem,5vw,5rem);padding:clamp(7.2rem,12vh,9.2rem) clamp(1.25rem,4vw,4rem) 5rem}
-.hero-copy{max-width:560px}
-.hero-kicker{display:inline-flex;align-items:center;gap:.65rem;border:1px solid rgba(19,17,15,.12);background:rgba(255,255,255,.55);backdrop-filter:blur(10px);border-radius:var(--r-pill);padding:.5rem .9rem;margin-bottom:1.1rem;color:rgba(19,17,15,.62);font-size:.66rem;font-weight:700;letter-spacing:.17em;text-transform:uppercase}
-.hero-kicker i{width:7px;height:7px;border-radius:50%;background:var(--sage);box-shadow:0 0 0 4px rgba(111,137,119,.14);display:inline-block}
-.hero-title{font-family:'Syne';font-size:clamp(3.25rem,6.8vw,7.25rem);line-height:.88;letter-spacing:-.065em;font-weight:800;max-width:760px;margin:0 0 1.1rem;color:#141310;text-wrap:balance;text-shadow:0 2px 24px rgba(255,255,255,.4)}
-.hero-sub{max-width:520px;margin:0 0 1.6rem;color:rgba(19,17,15,.72);font-size:clamp(1rem,1.2vw,1.12rem);line-height:1.65;font-weight:400;text-wrap:balance}
-.hero-sub strong{color:var(--ink);font-weight:700}
-.hero-ctas{display:flex;align-items:center;gap:.85rem;flex-wrap:wrap;margin-bottom:1.4rem}
-.hero-micro{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;color:var(--muted-2);font-size:.74rem;font-weight:600}
-.hero-micro::before{content:'';width:6px;height:6px;background:var(--sage);border-radius:50%}
-.hero-micro b{color:var(--ink);font-weight:700}
-.hero-visual{position:absolute;right:clamp(-7rem,-4vw,-2rem);bottom:-2.5vh;z-index:6;width:min(900px,58vw);transform:translateY(var(--house-y,30px)) scale(var(--house-s,1));transform-origin:center bottom;transition:filter .2s;will-change:transform,filter}
-.hero-house{width:100%;height:auto;object-fit:cover;filter:saturate(.9) contrast(.96) brightness(1.02);-webkit-mask-image:linear-gradient(to bottom,transparent 0%,#000 7%,#000 76%,transparent 99%);mask-image:linear-gradient(to bottom,transparent 0%,#000 7%,#000 76%,transparent 99%)}
-.scroll-cue{position:absolute;z-index:20;left:50%;bottom:2.2rem;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.5rem;color:rgba(19,17,15,.34);font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;transition:opacity .25s}
-.scroll-cue::after{content:'';width:1px;height:34px;background:linear-gradient(to bottom,rgba(19,17,15,.18),transparent);animation:cue 1.9s infinite}
-@keyframes cue{0%,100%{transform:scaleY(.55);opacity:.3}50%{transform:scaleY(1);opacity:1}}
+/* ───── CARDS / GRID ───── */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(195px,1fr));gap:1rem;margin-bottom:1.6rem}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:1.1rem 1.2rem;box-shadow:var(--shadow-sm)}
+.card .k{font-size:.74rem;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;display:flex;align-items:center;gap:.4rem}
+.card .v{font-family:'Syne';font-size:1.7rem;font-weight:800;margin-top:.45rem;line-height:1}
+.card .v.sm{font-size:1.18rem}
+.card .sub{font-size:.78rem;color:var(--muted-2);margin-top:.35rem}
+.card.accent{background:linear-gradient(135deg,#1c2a22,#26352b);color:#f3ede0;border:0}
+.card.accent .k{color:rgba(243,237,224,.7)} .card.accent .sub{color:rgba(243,237,224,.55)}
+.card.terra{background:linear-gradient(135deg,var(--terracotta),#a23e29);color:#fff;border:0}
+.card.terra .k{color:rgba(255,255,255,.8)} .card.terra .sub{color:rgba(255,255,255,.7)}
 
-/* PROOF STRIP */
-.proof-strip{background:var(--soft);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:1.6rem clamp(1.25rem,4vw,4rem)}
-.proof-inner{width:min(1180px,100%);margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;align-items:center}
-.proof-item{display:flex;flex-direction:column;gap:.25rem}
-.proof-num{font-family:'Syne';font-size:clamp(1.6rem,2.6vw,2.2rem);font-weight:800;color:var(--ink);letter-spacing:-.04em;line-height:1}
-.proof-label{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2)}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:1rem;flex-wrap:wrap}
+.section-head h3{font-family:'Syne';font-size:1.15rem;font-weight:800}
+.toolbar{display:flex;gap:.5rem;align-items:center;flex-wrap:wrap}
+.toolbar select,.toolbar input{padding:.5rem .7rem;border:1px solid var(--line);border-radius:var(--r-sm);background:#fff;font-size:.85rem}
 
-/* SECTIONS */
-.section{position:relative;padding:clamp(5rem,9vw,8.5rem) clamp(1.25rem,4vw,4rem)}
-.container{width:min(1160px,100%);margin:0 auto}
-.section-top{display:flex;align-items:end;justify-content:space-between;gap:2rem;margin-bottom:2.6rem;flex-wrap:wrap}
-.label{font-size:.68rem;font-weight:700;letter-spacing:.20em;text-transform:uppercase;color:var(--terracotta);margin-bottom:.8rem}
-h2{font-family:'Syne';font-size:clamp(2.2rem,4.5vw,4.4rem);line-height:.96;letter-spacing:-.05em;font-weight:800;text-wrap:balance;max-width:620px}
-.lede{max-width:420px;color:var(--muted);line-height:1.75;font-size:.96rem}
-.reveal{opacity:0;transform:translateY(28px);transition:opacity .75s cubic-bezier(.16,1,.3,1),transform .75s cubic-bezier(.16,1,.3,1)}
-.reveal.on{opacity:1;transform:translateY(0)}
+/* ───── TABLE ───── */
+.panel{background:#fff;border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow-sm);overflow:hidden}
+.tbl-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.86rem}
+thead th{text-align:left;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:700;
+  padding:.85rem 1rem;border-bottom:1px solid var(--line);white-space:nowrap;background:#fcfaf5}
+tbody td{padding:.8rem 1rem;border-bottom:1px solid var(--line);vertical-align:middle}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:#fcfaf5}
+.row-main{font-weight:600}
+.row-sub{font-size:.76rem;color:var(--muted)}
+.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+.pos{color:var(--green);font-weight:600}.neg{color:var(--red);font-weight:600}
 
-/* STORY */
-.story{background:var(--soft);overflow:hidden}
-.story-inner{display:grid;grid-template-columns:.95fr 1.05fr;gap:clamp(2rem,5vw,5rem);align-items:center}
-.story-photo{border-radius:var(--r);min-height:500px;background:url('https://images.unsplash.com/photo-1600566753151-384129cf4e3e?w=900&q=85&fit=crop') center/cover;position:relative;overflow:hidden;box-shadow:var(--shadow);filter:saturate(.9) contrast(.96)}
-.story-photo:after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(19,17,15,.18),transparent 62%)}
-.story-copy blockquote{font-family:'Syne';font-size:clamp(2.2rem,4.6vw,4.6rem);line-height:.94;letter-spacing:-.06em;font-weight:800;text-wrap:balance}
-.story-copy blockquote em{font-style:italic;color:var(--terracotta)}
-.story-copy p{margin-top:1.5rem;color:var(--muted);line-height:1.85;max-width:560px}
+.badge{display:inline-flex;align-items:center;gap:.3rem;font-size:.72rem;font-weight:600;padding:.26rem .6rem;border-radius:999px;white-space:nowrap}
+.b-green{background:var(--green-bg);color:var(--green)}
+.b-amber{background:var(--amber-bg);color:var(--amber)}
+.b-blue{background:var(--blue-bg);color:var(--blue)}
+.b-red{background:var(--red-bg);color:var(--red)}
+.b-grey{background:var(--grey-bg);color:var(--muted)}
+.b-terra{background:rgba(201,85,58,.12);color:var(--terracotta)}
 
-/* SERVICES */
-.services{background:var(--soft)}
-.service-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.15rem}
-.service-card{position:relative;display:grid;grid-template-columns:42% 58%;min-height:282px;background:rgba(255,255,255,.86);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm);transition:transform .35s,box-shadow .35s,border-color .35s;isolation:isolate}
-.service-card:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:rgba(19,17,15,.18)}
-.service-num{position:absolute;top:1rem;left:1rem;z-index:4;display:inline-flex;align-items:center;justify-content:center;min-width:42px;height:32px;border-radius:var(--r-pill);color:rgba(255,255,255,.88);background:rgba(19,17,15,.48);border:1px solid rgba(255,255,255,.20);backdrop-filter:blur(10px);font-size:.68rem;font-weight:700;letter-spacing:.12em}
-.service-img{position:relative;grid-column:1;height:100%;min-height:282px;background-size:cover;background-position:center;filter:saturate(.86) contrast(.94) brightness(1.02);transform:scale(1.01);transition:transform .7s cubic-bezier(.16,1,.3,1),filter .7s cubic-bezier(.16,1,.3,1)}
-.service-card:hover .service-img{transform:scale(1.055);filter:saturate(.92) contrast(.98) brightness(1.02)}
-.service-img::before{content:'';position:absolute;inset:0;background:linear-gradient(to right,rgba(19,17,15,.20),transparent 58%),linear-gradient(to top,rgba(19,17,15,.18),transparent 54%);pointer-events:none}
-.service-img::after{content:'';position:absolute;top:0;right:-1px;bottom:0;width:42%;background:linear-gradient(to right,transparent,rgba(255,255,255,.86));pointer-events:none}
-.service-body{position:relative;grid-column:2;align-self:stretch;display:flex;flex-direction:column;justify-content:center;padding:clamp(1.45rem,2.4vw,2.25rem);background:linear-gradient(135deg,rgba(255,255,255,.96),rgba(251,248,241,.90))}
-.service-body::before{content:'';width:42px;height:2px;border-radius:3px;background:var(--ink);margin-bottom:1rem;opacity:.85}
-.service-card h3{font-family:'Syne';font-size:var(--h-card-lg);line-height:.95;margin-bottom:.7rem;letter-spacing:-.04em}
-.service-card p{font-size:.91rem;line-height:1.7;color:var(--muted);margin-bottom:1.15rem;max-width:360px}
-.text-link{width:max-content;display:inline-flex;align-items:center;gap:.45rem;padding:.55rem .9rem;border-radius:var(--r-pill);background:transparent;border:1px solid rgba(19,17,15,.16);color:var(--ink);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;transition:background .25s,transform .25s,border-color .25s,color .25s}
-.service-card:hover .text-link{background:var(--ink);color:var(--soft);border-color:var(--ink);transform:translateX(2px)}
+.rowact{display:flex;gap:.35rem}
+.iconbtn{padding:.35rem .55rem;border-radius:8px;background:var(--grey-bg);font-size:.78rem;font-weight:600;color:var(--ink-2)}
+.iconbtn:hover{background:rgba(19,17,15,.13)}
+.iconbtn.danger:hover{background:var(--red-bg);color:var(--red)}
 
-/* FEATURED PROPERTIES */
-.featured{background:linear-gradient(180deg,var(--soft) 0%,#f5eddf 100%)}
-.featured-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.15rem}
-.property-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow-sm);transition:transform .35s,box-shadow .35s;display:flex;flex-direction:column}
-.property-card:hover{transform:translateY(-5px);box-shadow:var(--shadow)}
-.property-photo{height:240px;background-size:cover;background-position:center;position:relative;filter:saturate(.92) contrast(.97)}
-.property-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.30),transparent 40%)}
-.property-status{position:absolute;top:1rem;left:1rem;z-index:2;font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;padding:.4rem .7rem;border-radius:var(--r-pill);background:rgba(255,255,255,.92);color:var(--ink)}
-.property-status.sold{background:var(--ink);color:var(--soft)}
-.property-status.new{background:var(--terracotta);color:#fff}
-.property-price{position:absolute;bottom:1rem;left:1rem;z-index:2;font-family:'Syne';font-size:1.55rem;font-weight:800;color:#fff;letter-spacing:-.03em;text-shadow:0 2px 14px rgba(0,0,0,.4)}
-.property-body{padding:1.4rem;display:flex;flex-direction:column;gap:.7rem;flex:1}
-.property-loc{font-size:.7rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted-2)}
-.property-title{font-family:'Syne';font-size:var(--h-card-md);font-weight:800;color:var(--ink);letter-spacing:-.02em}
-.property-specs{display:flex;gap:1rem;font-size:.82rem;color:var(--muted);margin-top:auto;padding-top:.7rem;border-top:1px solid var(--line)}
-.property-specs span{display:flex;align-items:center;gap:.3rem}
-.property-specs span b{color:var(--ink);font-weight:700}
-.featured-foot{margin-top:2rem;text-align:center;color:var(--muted-2);font-size:.84rem}
-.featured-foot a{color:var(--terracotta);font-weight:700;border-bottom:1px solid currentColor}
+/* ───── EMPTY / LOADING ───── */
+.state{padding:3rem 1.5rem;text-align:center;color:var(--muted)}
+.state .big{font-size:2.2rem;margin-bottom:.6rem}
+.state h4{font-family:'Syne';font-size:1.05rem;color:var(--ink);margin-bottom:.3rem}
+.spinner{width:34px;height:34px;border:3px solid var(--line);border-top-color:var(--terracotta);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto .8rem}
+@keyframes spin{to{transform:rotate(360deg)}}
 
-/* EMPTY PROPERTY STATE / CUSTOM SEARCH */
-.search-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:1.65rem;box-shadow:var(--shadow-sm);display:flex;flex-direction:column;gap:1rem;transition:transform .35s,box-shadow .35s,border-color .35s;text-align:left;min-height:260px}
-.search-card:hover{transform:translateY(-5px);box-shadow:var(--shadow);border-color:rgba(19,17,15,.18)}
-.search-icon{width:52px;height:52px;border-radius:var(--r-sm);background:var(--terracotta-soft);color:var(--terracotta);display:grid;place-items:center;font-family:'Syne';font-weight:800;font-size:.95rem;letter-spacing:.02em}
-.search-card h3{font-family:'Syne';font-size:var(--h-card-md);line-height:1.05;letter-spacing:-.02em;color:var(--ink)}
-.search-card p{font-size:.92rem;line-height:1.7;color:var(--muted)}
-.search-card .text-link{margin-top:auto}
+/* ───── MODAL ───── */
+.overlay{position:fixed;inset:0;background:rgba(19,17,15,.55);backdrop-filter:blur(3px);display:flex;align-items:flex-start;justify-content:center;padding:2.5rem 1rem;z-index:100;overflow-y:auto}
+.modal{background:var(--soft);border-radius:20px;width:100%;max-width:680px;box-shadow:var(--shadow);overflow:hidden}
+.modal-head{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 1.4rem;border-bottom:1px solid var(--line)}
+.modal-head h3{font-family:'Syne';font-size:1.1rem;font-weight:800}
+.modal-body{padding:1.3rem 1.4rem;max-height:62vh;overflow-y:auto}
+.modal-foot{display:flex;justify-content:space-between;align-items:center;gap:.6rem;padding:1rem 1.4rem;border-top:1px solid var(--line);background:#fff}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
+.grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.9rem}
+.full{grid-column:1/-1}
+.hint{font-size:.74rem;color:var(--muted-2);margin-top:.3rem}
+.calc-box{background:var(--sand);border-radius:var(--r-sm);padding:.8rem 1rem;font-size:.82rem;display:grid;grid-template-columns:1fr 1fr;gap:.4rem .9rem}
+.calc-box b{font-variant-numeric:tabular-nums}
+.x{font-size:1.3rem;color:var(--muted);line-height:1}
 
-/* VALUE */
-.value{background:var(--soft)}
-.value-layout{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(2rem,5vw,5rem);align-items:start}
-.value-intro{position:sticky;top:7rem}
-.value-intro h2{margin-bottom:1.2rem}
-.value-intro p{color:var(--muted);line-height:1.78;max-width:420px;font-size:.96rem;margin-bottom:1.4rem}
-.value-list{display:grid;gap:1rem}
-.value-item{display:grid;grid-template-columns:48px 1fr;gap:1.15rem;align-items:start;padding:1.5rem;border-radius:var(--r);background:#fff;border:1px solid var(--line);box-shadow:var(--shadow-sm)}
-.value-icon{width:48px;height:48px;border-radius:var(--r-sm);background:var(--terracotta-soft);color:var(--terracotta);display:grid;place-items:center;font-weight:800;font-family:'Syne';font-size:.88rem}
-.value-item h3{font-family:'Syne';font-size:var(--h-card-md);margin-bottom:.4rem;letter-spacing:-.02em}
-.value-item p{font-size:.92rem;color:var(--muted);line-height:1.75}
+/* ───── REPORTS ───── */
+.charts{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:1.6rem}
+.chart-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:1.2rem;box-shadow:var(--shadow-sm)}
+.chart-card h4{font-family:'Syne';font-size:.98rem;margin-bottom:.9rem}
+.chart-card .cv{position:relative;height:240px}
+.rank-list{list-style:none;display:flex;flex-direction:column;gap:.6rem}
+.rank-list li{display:flex;justify-content:space-between;gap:1rem;padding:.6rem .2rem;border-bottom:1px solid var(--line);font-size:.88rem}
+.rank-list li:last-child{border-bottom:0}
 
+.toast{position:fixed;bottom:1.4rem;right:1.4rem;background:var(--ink);color:#fff;padding:.8rem 1.1rem;border-radius:12px;font-size:.86rem;box-shadow:var(--shadow);z-index:200;opacity:0;transform:translateY(10px);transition:.25s}
+.toast.show{opacity:1;transform:none}
+.toast.err{background:var(--red)}
 
-/* PROCESS (was testimonials) — sin avatar redundante */
-.process{background:var(--soft)}
-.process-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.15rem}
-.process-card{background:#fff;border:1px solid var(--line);border-radius:var(--r);padding:2rem 1.8rem;display:flex;flex-direction:column;gap:1.2rem;box-shadow:var(--shadow-sm);position:relative}
-.process-icon{width:56px;height:56px;border-radius:var(--r-sm);background:var(--terracotta-soft);color:var(--terracotta);display:grid;place-items:center;flex-shrink:0;margin-bottom:.4rem}
-.process-icon svg{width:28px;height:28px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
-.process-step{font-size:.62rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted-2);margin-bottom:-.3rem}
-.process-title{font-family:'Syne';font-size:var(--h-card-md);font-weight:800;color:var(--ink);letter-spacing:-.02em;margin-bottom:.2rem}
-.process-body{font-size:.92rem;line-height:1.7;color:var(--muted)}
-.process-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-top:auto;padding-top:1rem;border-top:1px solid var(--line)}
-.process-tags span{font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:.3rem .55rem;border-radius:var(--r-pill);background:rgba(19,17,15,.04)}
+/* ───── RESPONSIVE ───── */
+.menu-btn{display:none}
+.sidebar-backdrop{display:none}
 
-/* INVEST */
-.invest{background:var(--deep);color:var(--soft);overflow:hidden;position:relative}
-.invest::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 18% 15%,rgba(201,85,58,.12),transparent 30%),radial-gradient(circle at 87% 84%,rgba(111,137,119,.16),transparent 35%);pointer-events:none}
-.invest .container{position:relative;z-index:2}
-.invest .label{color:#e6a28f}.invest .lede{color:rgba(251,248,241,.62)}
-.invest h2{color:#fff}
-.invest-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;margin-top:2.4rem}
-.invest-card{background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.10);border-radius:var(--r);padding:1.6rem;min-height:200px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .3s,background .3s,border-color .3s}
-.invest-card:hover{transform:translateY(-6px);background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18)}
-.invest-card .num{font-family:'Syne';font-weight:800;color:rgba(255,255,255,.32);letter-spacing:.14em;font-size:.72rem}
-.invest-card h3{font-family:'Syne';font-size:var(--h-card-md);letter-spacing:-.02em;margin:.7rem 0 .5rem;color:#fff}
-.invest-card .acro{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(230,162,143,.78);margin-bottom:.5rem}
-.invest-card p{color:rgba(251,248,241,.62);font-size:.86rem;line-height:1.7}
-
-/* ABOUT */
-.about{background:var(--soft);position:relative}
-.about-card{display:grid;grid-template-columns:.72fr 1.28fr;gap:2rem;border-radius:var(--r);background:#fff;border:1px solid var(--line);padding:clamp(1.2rem,3vw,2rem);box-shadow:var(--shadow)}
-.portrait{min-height:420px;border-radius:var(--r);background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.25)),url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=700&q=85&fit=crop') center 20%/cover;position:relative;overflow:hidden}
-.portrait::after{content:attr(data-portrait-note);position:absolute;bottom:1rem;left:1rem;right:1rem;font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.85);background:rgba(0,0,0,.5);backdrop-filter:blur(8px);padding:.55rem .7rem;border-radius:var(--r-sm);text-align:center}
-.about-copy{padding:clamp(.5rem,2vw,1rem);align-self:center}
-.about-copy h2{font-size:clamp(2rem,3.6vw,3.8rem)}
-.about-copy p{margin-top:1rem;color:var(--muted);line-height:1.85}
-.credential{margin-top:1.4rem;display:grid;gap:.65rem;color:rgba(19,17,15,.66);font-size:.88rem;padding:1.2rem;background:rgba(251,248,241,.6);border-radius:var(--r-sm);border-left:3px solid var(--terracotta)}
-.credential strong{color:var(--ink)}
-
-/* CONTACT */
-.contact{background:var(--soft);padding-bottom:clamp(5rem,8vw,7rem)}
-.contact-shell{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(2rem,5vw,5rem);align-items:start}
-.contact-aside{padding:2rem;border-radius:var(--r);background:var(--ink);color:var(--soft);position:sticky;top:7rem;overflow:hidden;box-shadow:0 26px 80px rgba(19,17,15,.18)}
-.contact-aside::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 20%,rgba(201,85,58,.18),transparent 30%),radial-gradient(circle at 85% 80%,rgba(111,137,119,.20),transparent 34%)}
-.contact-aside>*{position:relative;z-index:2}
-.contact-aside .label{color:#f0b09f}
-.contact-aside h2{color:#fff}
-.contact-aside p{color:rgba(251,248,241,.65);line-height:1.85;margin-top:1rem;max-width:430px}
-.contact-actions{display:grid;gap:.75rem;margin-top:1.6rem}
-.contact-action{display:flex;align-items:center;justify-content:space-between;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);border-radius:var(--r-sm);padding:1rem;color:rgba(251,248,241,.86);font-weight:700;transition:background .25s,border-color .25s}
-.contact-action:hover{background:rgba(255,255,255,.10);border-color:rgba(255,255,255,.20)}
-.contact-action small{display:block;color:rgba(251,248,241,.45);font-weight:400;margin-top:.18rem}
-.form{display:grid;gap:1rem}
-.field-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
-.field{display:grid;gap:.45rem}
-.field label{font-size:.66rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--muted-2)}
-.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);background:#fff;border-radius:var(--r-sm);padding:1rem 1.1rem;color:var(--ink);outline:none;transition:border-color .25s,box-shadow .25s}
-.field textarea{min-height:140px;resize:vertical}
-.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--terracotta);box-shadow:0 0 0 4px rgba(201,85,58,.10)}
-.form-trust{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;padding:.8rem 1rem;border-radius:var(--r-sm);background:rgba(111,137,119,.08);border:1px solid rgba(111,137,119,.18)}
-.form-trust span{display:flex;align-items:center;gap:.4rem;font-size:.72rem;color:var(--ink);font-weight:600}
-.form-trust span::before{content:'✓';color:var(--sage);font-weight:700}
-.form-note{font-size:.74rem;color:var(--muted-2);line-height:1.6}
-.submit{width:max-content}
-
-/* FOOTER */
-.footer{background:var(--deep);color:var(--soft);padding:2.4rem clamp(1.25rem,4vw,4rem) 1.6rem}
-.footer-inner{width:min(1160px,100%);margin:0 auto;display:grid;grid-template-columns:1.4fr auto;gap:1.5rem;align-items:start}
-.footer-brand-block{display:flex;flex-direction:column;gap:.4rem}
-.footer-brand{font-family:'Syne';font-weight:800;text-transform:uppercase;letter-spacing:.08em;font-size:1rem}
-.footer-brand-block p{color:rgba(251,248,241,.55);font-size:.8rem;line-height:1.7}
-.footer-brand-block .config-mark{color:#f0b09f;font-weight:700}
-.footer-links{display:flex;gap:1.2rem;flex-wrap:wrap}
-.footer-links a{color:rgba(251,248,241,.6);font-size:.74rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;transition:color .2s}
-.footer-links a:hover{color:#fff}
-.legal{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.08);padding-top:1.2rem;margin-top:.8rem;color:rgba(251,248,241,.38);font-size:.7rem;line-height:1.7;display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap}
-.legal-fair{display:flex;align-items:center;gap:.5rem}
-.legal-fair::before{content:'⚖';color:rgba(251,248,241,.5)}
-
-/* MODAL */
-.modal{position:fixed;inset:0;z-index:2000;background:rgba(18,17,15,.62);backdrop-filter:blur(12px);display:grid;place-items:center;padding:1.2rem;opacity:0;visibility:hidden;transition:opacity .25s,visibility .25s}
-.modal.open{opacity:1;visibility:visible}
-.modal-box{width:min(620px,100%);max-height:90vh;overflow:auto;background:var(--soft);border-radius:var(--r);padding:clamp(1.3rem,3vw,2.4rem);box-shadow:0 30px 100px rgba(0,0,0,.25);transform:translateY(20px) scale(.98);transition:transform .25s}
-.modal.open .modal-box{transform:translateY(0) scale(1)}
-.modal-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:1.4rem}
-.modal-head h3{font-family:'Syne';font-size:2rem;letter-spacing:-.05em}
-.close{width:42px;height:42px;border-radius:50%;background:#fff;border:1px solid var(--line);font-weight:800}
-.modal .form{margin-top:1rem}
-.modal-box.service-modal-box{width:min(1080px,100%);padding:0;background:linear-gradient(135deg,#fbf8f1,#f4eadc);border:1px solid rgba(255,255,255,.55)}
-.service-modal-shell{padding:clamp(1.2rem,3vw,2.2rem)}
-.service-modal-head{position:relative;margin:0 0 1.2rem;padding:clamp(1.2rem,2.8vw,2rem);border-radius:var(--r);background:radial-gradient(circle at 12% 12%,rgba(201,85,58,.14),transparent 30%),radial-gradient(circle at 88% 80%,rgba(111,137,119,.14),transparent 34%),rgba(255,255,255,.74);border:1px solid var(--line);box-shadow:var(--shadow-sm)}
-.service-modal-head h3{font-size:clamp(1.85rem,3.6vw,3.6rem);line-height:.95;max-width:780px}
-.modal-intro{max-width:650px;color:var(--muted);line-height:1.72;margin-top:.85rem;font-size:.96rem}
-.service-modal-layout{display:grid;grid-template-columns:.92fr 1.08fr;gap:1rem;align-items:start}
-.service-modal-info,.service-modal-form{border-radius:var(--r);background:rgba(255,255,255,.78);border:1px solid var(--line);box-shadow:var(--shadow-sm);padding:clamp(1.1rem,2.5vw,1.65rem)}
-.service-result{border-radius:var(--r-sm);padding:1.2rem;background:var(--ink);color:var(--soft);line-height:1.72;font-size:.92rem;position:relative;overflow:hidden}
-.service-result span{display:block;color:rgba(251,248,241,.78)}
-.mini-section{margin-top:1.15rem}
-.mini-section h4{font-family:'Syne';font-size:1rem;letter-spacing:-.02em;margin-bottom:.7rem}
-.flow-steps{display:grid;gap:.7rem}
-.flow-step{display:grid;grid-template-columns:34px 1fr;gap:.75rem;align-items:start;padding:.85rem;border-radius:var(--r-sm);background:rgba(251,248,241,.78);border:1px solid var(--line)}
-.flow-step b{width:34px;height:34px;border-radius:50%;display:grid;place-items:center;background:var(--terracotta-soft);color:var(--terracotta);font-family:'Syne';font-size:.72rem;font-weight:800}
-.flow-step strong{display:block;font-size:.86rem;margin-bottom:.16rem}
-.flow-step span{display:block;font-size:.8rem;color:var(--muted);line-height:1.55}
-.need-list{display:grid;gap:.55rem;list-style:none}
-.need-list li{position:relative;padding-left:1rem;color:var(--muted);font-size:.84rem;line-height:1.58}
-.need-list li::before{content:'';position:absolute;left:0;top:.58em;width:5px;height:5px;border-radius:50%;background:var(--sage)}
-.dynamic-fields{display:grid;gap:1rem}
-.service-modal-form .submit{width:100%;margin-top:.1rem}
-.service-pills{display:flex;gap:.45rem;flex-wrap:wrap;margin-top:1rem}
-.service-pill{border:1px solid var(--line);background:rgba(255,255,255,.62);border-radius:var(--r-pill);padding:.42rem .66rem;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted-2)}
-
-/* Mobile sticky CTA */
-.mobile-cta{display:none;position:fixed;left:1rem;right:1rem;bottom:1rem;z-index:999;grid-template-columns:1fr 1fr;gap:.6rem}
-.mobile-cta a,.mobile-cta button{border-radius:var(--r-pill);padding:.9rem 1rem;text-align:center;font-size:.72rem;font-weight:700;letter-spacing:.11em;text-transform:uppercase;box-shadow:0 14px 40px rgba(0,0,0,.16)}
-.mobile-cta a{background:#fff;border:1px solid var(--line)}
-.mobile-cta button{background:var(--ink);color:#fff}
-
-/* Responsive */
-@media(max-width:1040px){
-  .nav-links{gap:1rem}
-  .service-grid,.featured-grid,.process-grid,.invest-grid{grid-template-columns:repeat(2,1fr)}
-  .value-layout,.story-inner,.about-card,.contact-shell{grid-template-columns:1fr}
-  .value-intro,.contact-aside{position:relative;top:auto}
-  .proof-inner{grid-template-columns:repeat(2,1fr);gap:1.4rem}
-  .hero-inner{grid-template-columns:1fr;align-items:start;text-align:center;padding-top:7.6rem;gap:1.5rem}
-  .hero-copy{margin:0 auto;max-width:680px;text-align:center}
-  .hero-title{margin-left:auto;margin-right:auto;font-size:clamp(3.4rem,11vw,6.2rem)}
-  .hero-sub{margin-left:auto;margin-right:auto}
-  .hero-ctas{justify-content:center}
-  .hero-micro{justify-content:center}
-  .hero-visual{right:50%;transform:translateX(50%) translateY(var(--house-y,44px)) scale(var(--house-s,1));width:min(980px,108vw);bottom:-3vh;opacity:.85}
-  /* Service modal collapses to single column on tablet */
-  .service-modal-layout{grid-template-columns:1fr}
+/* Tablet y móvil: barra lateral colapsable con botón ☰ */
+@media(max-width:900px){
+  #app{grid-template-columns:1fr}
+  .sidebar{position:fixed;left:0;top:0;z-index:60;transform:translateX(-100%);transition:transform .25s;width:250px;height:100dvh;box-shadow:var(--shadow)}
+  .sidebar.open{transform:none}
+  .menu-btn{display:inline-flex}
+  .grid3,.charts{grid-template-columns:1fr}
+  .sidebar-backdrop{display:block;position:fixed;inset:0;background:rgba(19,17,15,.45);z-index:55;opacity:0;visibility:hidden;transition:.25s}
+  .sidebar-backdrop.show{opacity:1;visibility:visible}
+  .topbar{padding:.8rem 1rem}
+  .topbar h2{font-size:1.12rem}
+  #who-email{display:none}
+  .content{padding:1rem}
 }
-@media(max-width:760px){
-  .nav{padding:1rem;gap:.5rem}.brand-sub{display:none}
-  .brand{min-width:0;flex-shrink:1;overflow:hidden}
-  .brand-name{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .nav-actions{flex-shrink:0;gap:.4rem}
-  .lang-toggle{padding:.18rem}
-  .lang-option{min-width:30px;height:27px;font-size:.6rem;letter-spacing:.07em}
-  .nav-links{position:fixed;left:1rem;right:1rem;top:72px;background:rgba(251,248,241,.96);backdrop-filter:blur(20px);border:1px solid var(--line);border-radius:var(--r);padding:1rem;display:none;flex-direction:column;align-items:stretch;gap:.2rem;box-shadow:var(--shadow)}
-  .nav-links.open{display:flex}
-  .nav-links a{padding:.9rem 1rem;color:rgba(19,17,15,.7)}
-  .nav-actions .btn{display:none}.menu-btn{display:flex}
-  .hero{min-height:100vh}
-  .hero-inner{padding:6.8rem 1rem 4rem}
-  .hero-title{font-size:clamp(3rem,14.5vw,4.8rem)}
-  .hero-sub{font-size:.94rem;line-height:1.6}
-  .hero-visual{width:135vw;bottom:-1vh;opacity:.7}
-  .scroll-cue{display:none}
-  .proof-inner{grid-template-columns:1fr;gap:1rem;text-align:left}
-  .proof-strip{padding:1.4rem 1.25rem}
-  .section-top{display:grid}
-  .service-grid,.featured-grid,.process-grid,.invest-grid{grid-template-columns:1fr}
-  .service-card{grid-template-columns:1fr;min-height:auto}
-  .service-img{grid-column:1;height:178px;min-height:178px}
-  .service-img::after{top:auto;left:0;right:0;bottom:-1px;width:auto;height:46%;background:linear-gradient(to top,rgba(255,255,255,.96),transparent)}
-  .service-body{grid-column:1;padding:1.25rem 1.2rem 1.35rem}
-  .service-card h3{font-size:1.55rem}
-  .field-row{grid-template-columns:1fr}
-  .footer-inner{grid-template-columns:1fr}
-  .footer-links{justify-content:flex-start}
-  .legal{flex-direction:column}
-  .mobile-cta{display:grid}
-  .submit,.btn{width:100%}
-  .about-card{padding:1rem}
-  .portrait{min-height:300px}
-  .story-photo{min-height:330px}
-  /* Modal tighter on small screens */
-  .modal{padding:.5rem}
-  .service-modal-shell{padding:.9rem}
-  .service-modal-head{padding:1rem}
-  .service-modal-head h3{font-size:clamp(1.6rem,8vw,2.4rem)}
-  .modal-intro{font-size:.88rem}
-  .modal-box{border-radius:var(--r-sm)}
-  /* Prevent form trust badges from wrapping awkwardly */
-  .form-trust{flex-direction:column;gap:.65rem;align-items:flex-start}
+/* Tablet: 2 columnas de gráficos */
+@media(min-width:620px) and (max-width:900px){ .charts{grid-template-columns:1fr 1fr} }
+
+/* Teléfono */
+@media(max-width:560px){
+  .cards{grid-template-columns:1fr 1fr;gap:.7rem}
+  .card{padding:.85rem .9rem}
+  .card .v{font-size:1.35rem}
+  .card .v.sm{font-size:1.05rem}
+  .grid2{grid-template-columns:1fr}
+  .section-head .toolbar{width:100%}
+  .toolbar input,.toolbar select{flex:1;min-width:0}
+  .toolbar .btn{width:100%}
+  /* Formularios/modales a pantalla completa en móvil */
+  .overlay{padding:0;align-items:stretch}
+  .modal{max-width:100%;border-radius:0;min-height:100dvh;display:flex;flex-direction:column}
+  .modal-body{max-height:none;flex:1}
+  .tbl-wrap{-webkit-overflow-scrolling:touch}
+  thead th,tbody td{padding:.7rem .65rem}
+  .topbar h2{font-size:1rem}
+  .who{gap:.4rem}
 }
-@media(prefers-reduced-motion:reduce){
-  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
-  .reveal{opacity:1;transform:none}
-}
-
-/* ─── v4 PATCH ─────────────────────────────────────────────────────── */
-
-/* Scroll margin — compensates sticky header on anchor links */
-section[id]{scroll-margin-top:88px}
-#hero{scroll-margin-top:0}
-
-/* Mobile header — prevents overflow at 375-430px (iPhone SE / 14 Pro) */
-@media(max-width:430px){
-  .nav{gap:.3rem;padding:.75rem .9rem}
-  .brand{gap:.5rem;min-width:0;flex-shrink:1;overflow:hidden}
-  .brand-mark{width:33px;height:33px;font-size:.7rem;flex-shrink:0}
-  .brand-name{font-size:.78rem;letter-spacing:.01em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .nav-actions{gap:.35rem;flex-shrink:0}
-  .lang-toggle{padding:.14rem}
-  .lang-option{min-width:26px;height:24px;font-size:.57rem;letter-spacing:.06em}
-  .menu-btn{width:36px;height:36px;flex-shrink:0}
-}
-
-/* Mobile CTA — safe-area inset for iPhone notch/home-bar + prevent overlap */
-.mobile-cta{bottom:calc(1rem + env(safe-area-inset-bottom,0px))}
-@media(max-width:760px){
-  body{padding-bottom:calc(80px + env(safe-area-inset-bottom,0px))}
-  .mobile-cta a,.mobile-cta button{color:inherit}
-  .mobile-cta button{color:#fff}
-}
-
-/* Consultation block — replaces the repeated Buy/Rent/Invest cards in search section */
-.search-consult-block{
-  background:#fff;border:1px solid var(--line);border-radius:var(--r);
-  padding:clamp(2.4rem,5vw,4rem) clamp(1.5rem,5vw,3.5rem);
-  box-shadow:var(--shadow-sm);
-  display:flex;flex-direction:column;align-items:center;text-align:center;gap:1.4rem;
-  grid-column:1/-1;
-}
-.search-consult-block .search-icon{
-  width:56px;height:56px;border-radius:var(--r-sm);background:var(--terracotta-soft);
-  color:var(--terracotta);display:grid;place-items:center;font-size:1.5rem;line-height:1;
-}
-.search-consult-block h3{
-  font-family:'Syne';font-size:clamp(1.8rem,3.4vw,2.8rem);
-  letter-spacing:-.05em;color:var(--ink);line-height:1.02;text-wrap:balance
-}
-.search-consult-block p{
-  font-size:.98rem;line-height:1.78;color:var(--muted);max-width:520px
-}
-
-
-/* ─── v4b PATCH ──────────────────────────────────────── */
-
-/* Hero mobile — evita overlap de texto con imagen de casa */
-@media(max-width:760px){
-  .hero::after{height:66%}
-  .hero-visual{width:126vw;bottom:-22vw;opacity:.38}
-  .hero-inner{padding-bottom:8.5rem}
-}
-
-/* Quick consultation modal */
-.quick-modal-box{max-width:520px;padding:clamp(1.5rem,4vw,2.4rem)}
-.quick-modal-box .modal-head{margin-bottom:1.5rem}
-.quick-modal-box .modal-head h3{font-size:clamp(1.6rem,4vw,2.4rem)}
-
-/* ─── Fix: título hero en español (palabras largas no deben cortarse) ───
-   El inglés cabe ("Find/What/Moves/You"), pero "Encuentra" es más ancho.
-   Reducimos un poco el tamaño SOLO en español por breakpoint y permitimos
-   que la palabra baje de línea antes que salirse de la pantalla.          */
-h1,h2,h3,h4,.hero-title,.story-copy blockquote,.process-title,.service-card h3,.value-item h3,.invest-card h3{overflow-wrap:break-word}
-html[lang="es"] .hero-title{font-size:clamp(2.4rem,4.6vw,4.4rem)}
-@media(max-width:1040px){ html[lang="es"] .hero-title{font-size:clamp(2.3rem,7vw,4rem)} }
-@media(max-width:760px){  html[lang="es"] .hero-title{font-size:clamp(2rem,9vw,3.3rem)} }
-@media(max-width:430px){  html[lang="es"] .hero-title{font-size:clamp(1.9rem,9.5vw,2.9rem)} }
-
-/* ─── Fix: el nombre "CARLOS DELGADO" del nav no debe cortarse en móvil ───
-   Se escala con el ancho de pantalla para que quepa completo siempre.      */
-.nav .brand-name{font-size:clamp(.62rem,2.7vw,.98rem)}
-@media(max-width:430px){ .nav .brand-name{font-size:clamp(.56rem,2.5vw,.74rem)} }
-
+@media(max-width:380px){ .cards{grid-template-columns:1fr} }
 </style>
-
-<!-- Schema.org — telephone/email omitted intentionally until real values are set
-     CONFIG: re-enable telephone/email fields once values are confirmed -->
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@graph":[
-    {
-      "@type":"RealEstateAgent",
-      "@id":"https://carlosdelgado.realestate/#agent",
-      "name":"Carlos Delgado",
-      "url":"https://carlosdelgado.realestate/",
-      "areaServed":[{"@type":"City","name":"Miami"},{"@type":"AdministrativeArea","name":"Miami-Dade County"}],
-      "address":{"@type":"PostalAddress","addressLocality":"Miami","addressRegion":"FL","addressCountry":"US"},
-      "knowsLanguage":["en","es"],
-      "description":"Bilingual Miami real estate agent specialized in residential buying, selling, renting and investment."
-    },
-    {
-      "@type":"Person",
-      "@id":"https://carlosdelgado.realestate/#carlos",
-      "name":"Carlos Delgado",
-      "jobTitle":"Licensed Real Estate Agent",
-      "worksFor":{"@type":"RealEstateAgent","@id":"https://carlosdelgado.realestate/#agent"}
-    }
-  ]
-}
-</script>
 </head>
 <body>
 
-<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+<!-- ══════════ LOGIN ══════════ -->
+<div id="login-screen">
+  <form class="login-card" id="login-form" autocomplete="on">
+    <span class="login-badge">● Zona privada</span>
+    <h1>Panel de administración</h1>
+    <p class="sub">Carlos Delgado Realty · acceso solo para el equipo.</p>
+    <div class="field">
+      <label for="li-email">Email</label>
+      <input id="li-email" type="email" required autocomplete="username" placeholder="tu@email.com"/>
+    </div>
+    <div class="field">
+      <label for="li-pass">Contraseña</label>
+      <input id="li-pass" type="password" required autocomplete="current-password" placeholder="••••••••"/>
+    </div>
+    <button class="btn btn-primary" type="submit" id="li-btn">Entrar</button>
+    <div class="login-msg" id="li-msg"></div>
+  </form>
+</div>
 
-<header class="nav" id="nav">
-  <a href="#hero" class="brand" aria-label="Carlos Delgado Real Estate">
-    <div class="brand-mark">CD</div>
-    <div class="brand-text">
-      <div class="brand-name">Carlos Delgado</div>
-      <div class="brand-sub">Real Estate · Miami</div>
+<!-- ══════════ APP ══════════ -->
+<div id="app" class="hidden">
+  <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+  <aside class="sidebar" id="sidebar">
+    <div class="sb-brand">
+      <div class="sb-logo">CD</div>
+      <div><b>Carlos Delgado</b><span>Admin · Privado</span></div>
     </div>
-  </a>
-  <nav>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#services">Services</a></li>
-      <li><a href="#featured">Search</a></li>
-      <li><a href="#process">Process</a></li>
-      <li><a href="#invest">Investment</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
-  <div class="nav-actions">
-    <div aria-label="Language selector" class="lang-toggle" role="group">
-      <button aria-pressed="false" class="lang-option" data-lang="es" type="button">ES</button>
-      <button aria-pressed="true" class="lang-option active" data-lang="en" type="button">EN</button>
-    </div>
-    <a class="btn btn-light" data-config="phone" href="#contact">Contact</a>
-    <button class="btn btn-dark" data-open-modal="">Schedule 15-min call</button>
-    <button aria-label="Open menu" class="menu-btn" id="menuBtn"><span></span></button>
-  </div>
-</header>
+    <button class="nav-item active" data-view="dashboard"><span class="ic">▦</span> Dashboard</button>
+    <button class="nav-item" data-view="properties"><span class="ic">⌂</span> Propiedades</button>
+    <button class="nav-item" data-view="leads"><span class="ic">◷</span> Leads</button>
+    <button class="nav-item" data-view="reports"><span class="ic">▤</span> Reportes</button>
+    <div class="sb-foot">v1.0 · datos en Supabase</div>
+  </aside>
 
-<main>
-
-  <!-- HERO -->
-  <section class="hero" id="hero">
-    <div class="hero-inner">
-      <div class="hero-copy reveal on">
-        <div class="hero-kicker"><i></i> Bilingual Realtor · Miami, FL</div>
-        <h1 class="hero-title">Find What<br/>Moves You</h1>
-        <p class="hero-sub">Buy, sell, rent or invest in Miami with an agent who <strong>filters first, sells second</strong> — clear decisions, an organized process, direct communication through closing.</p>
-        <div class="hero-ctas">
-          <button class="btn btn-dark" data-open-modal="">Schedule 15-min call</button>
-          <a class="btn btn-ghost" href="#featured">Start search</a>
-        </div>
-        <div class="hero-micro">Response in <b>under 24h</b> · English &amp; Español · No pressure</div>
+  <div class="main">
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:.7rem">
+        <button class="btn btn-ghost btn-sm menu-btn" id="menu-btn">☰</button>
+        <h2 id="view-title">Dashboard</h2>
       </div>
-    </div>
-    <div aria-hidden="true" class="hero-visual" id="heroVisual">
-      <img alt="" class="hero-house" decoding="async" fetchpriority="high" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1600&amp;q=85&amp;fit=crop&amp;crop=bottom"/>
-    </div>
-    <div class="scroll-cue" id="scrollCue">Scroll</div>
-  </section>
-
-  <!-- SOCIAL PROOF STRIP -->
-  <section aria-label="Credentials" class="proof-strip">
-    <div class="proof-inner">
-      <div class="proof-item">
-        <div class="proof-num">Miami-Dade</div>
-        <div class="proof-label">Local market focus</div>
+      <div class="who">
+        <button class="btn btn-ghost btn-sm" id="refresh-btn" title="Actualizar datos">↻ Actualizar</button>
+        <div class="avatar" id="avatar">–</div>
+        <span id="who-email" class="row-sub"></span>
+        <button class="btn btn-ghost btn-sm" id="logout-btn">Salir</button>
       </div>
-      <div class="proof-item">
-        <div class="proof-num">EN / ES</div>
-        <div class="proof-label">Bilingual guidance</div>
-      </div>
-      <div class="proof-item">
-        <div class="proof-num" style="font-size:clamp(1rem,2vw,1.35rem);font-family:'Inter';font-weight:800;letter-spacing:.01em;">Buy · Sell · Rent</div>
-        <div class="proof-label">Residential services</div>
-      </div>
-      <div class="proof-item">
-        <div class="proof-num">Invest</div>
-        <div class="proof-label">Deal analysis focus</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- STORY -->
-  <section class="section story" id="story">
-    <div class="container story-inner">
-      <div class="story-photo reveal"></div>
-      <div class="story-copy reveal">
-        <p class="label">Your next home</p>
-        <blockquote>Home is where the <em>important</em> things happen.</blockquote>
-        <p>A home is not just an address. It is stability, memories and a new chapter for your family. My job is to help you take that step with clarity — no pressure, no noise, no closing surprises.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- SERVICES -->
-  <section class="section services" id="services">
-    <div class="container">
-      <div class="section-top reveal">
-        <div>
-          <p class="label">Core services</p>
-          <h2>What you need, with a clear strategy.</h2>
-        </div>
-        <p class="lede">From the first conversation to closing, every service is designed to give you clarity, structure and concrete next steps.</p>
-      </div>
-      <div class="service-grid">
-        <a class="service-card reveal" data-service="Compra" href="#contact">
-          <div class="service-num">01</div>
-          <div class="service-img" style="background-image:url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=700&amp;q=80&amp;fit=crop')"></div>
-          <div class="service-body"><h3>Buy</h3><p>Property filtering, showings, offer strategy, negotiation, inspection and support through closing.</p><span class="text-link">See process →</span></div>
-        </a>
-        <a class="service-card reveal" data-service="Venta" href="#contact">
-          <div class="service-num">02</div>
-          <div class="service-img" style="background-image:url('https://images.unsplash.com/photo-1613490493576-7fde63acd811?w=700&amp;q=80&amp;fit=crop')"></div>
-          <div class="service-body"><h3>Sell</h3><p>Preparation, positioning, pricing, marketing and coordination to sell with stronger presentation.</p><span class="text-link">Request valuation →</span></div>
-        </a>
-        <a class="service-card reveal" data-service="Renta" href="#contact">
-          <div class="service-num">03</div>
-          <div class="service-img" style="background-image:url('https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=700&amp;q=80&amp;fit=crop')"></div>
-          <div class="service-body"><h3>Rent</h3><p>Practical rental search by area, budget, requirements, pets and lifestyle.</p><span class="text-link">Start search →</span></div>
-        </a>
-        <a class="service-card reveal" href="#invest">
-          <div class="service-num">04</div>
-          <div class="service-img" style="background-image:url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=700&amp;q=80&amp;fit=crop')"></div>
-          <div class="service-body"><h3>Invest</h3><p>Area analysis, rent comps, exit strategy, risk and the economic logic of the deal.</p><span class="text-link">See analysis →</span></div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- PROPERTY SEARCH / FEATURED PROPERTIES -->
-  <section class="section featured" id="featured">
-    <div class="container">
-      <div class="section-top reveal">
-        <div>
-          <p class="label">Personalized property search</p>
-          <h2>Tell me what you're looking for. I'll prepare a curated search for you.</h2>
-        </div>
-        <p class="lede">Buying, renting or investing in Miami starts with the right filters: budget, area, timing, financing, lifestyle and property type.</p>
-      </div>
-      <!-- Cards are generated from data.js. If PROPERTIES is empty, this shows custom search cards. -->
-      <div class="featured-grid" id="featuredGrid" aria-live="polite"></div>
-      <p class="featured-foot">Share your criteria and I'll help you narrow the search before you waste time on the wrong options. <a href="#contact">Start my search →</a></p>
-    </div>
-  </section>
-
-  <!-- VALUE -->
-  <section class="section value" id="value">
-    <div class="container value-layout">
-      <div class="value-intro reveal">
-        <p class="label">Why work with me</p>
-        <h2>Less noise. Better decisions.</h2>
-        <p>It is not just about showing properties. It is about helping you understand price, area, costs, timing, risks and next steps.</p>
-      </div>
-      <div class="value-list">
-        <div class="value-item reveal"><div class="value-icon">01</div><div><h3>Real opportunity filtering</h3><p>Avoid wasting time on properties that do not fit your budget, conditions, location or strategy.</p></div></div>
-        <div class="value-item reveal"><div class="value-icon">02</div><div><h3>A process explained clearly</h3><p>I explain what comes next: offer, deposit, inspection, financing, title, HOA, closing or move-in.</p></div></div>
-        <div class="value-item reveal"><div class="value-icon">03</div><div><h3>Local Miami perspective</h3><p>Miami-Dade neighborhoods each have their own pricing, demand and lifestyle logic.</p></div></div>
-        <div class="value-item reveal"><div class="value-icon">04</div><div><h3>Direct communication</h3><p>Clear answers, concrete follow-up and next steps after every conversation. You always know where you stand.</p></div></div>
-      </div>
-    </div>
-  </section>
-  <!-- PROCESS — sin avatar redundante, ahora con icono temático -->
-  <section class="section process" id="process">
-    <div class="container">
-      <div class="section-top reveal">
-        <div>
-          <p class="label">How I work with you</p>
-          <h2>Clarity first. Properties second.</h2>
-        </div>
-        <p class="lede">Until real testimonials are added with client permission, this section explains the working process for buying, selling, renting and investing.</p>
-      </div>
-      <div class="process-grid">
-        <article class="process-card reveal">
-          <div class="process-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6"/><path d="M16 16l4 4"/></svg>
-          </div>
-          <span class="process-step">Step 01</span>
-          <h3 class="process-title">Initial diagnosis</h3>
-          <p class="process-body">First I clarify goal, budget, area, timing, financing and real restrictions. That helps avoid showings or conversations that go nowhere.</p>
-          <div class="process-tags"><span>Buy</span><span>Sell</span><span>Rent</span><span>Invest</span></div>
-        </article>
-        <article class="process-card reveal">
-          <div class="process-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><path d="M3 21h18"/><path d="M6 18V10"/><path d="M11 18V6"/><path d="M16 18V13"/></svg>
-          </div>
-          <span class="process-step">Step 02</span>
-          <h3 class="process-title">Analysis with judgment</h3>
-          <p class="process-body">I compare price, area, condition, HOA, costs, demand and exit potential. The goal is to understand why an option makes sense or should be discarded.</p>
-          <div class="process-tags"><span>Comps</span><span>Risk</span><span>Next steps</span></div>
-        </article>
-        <article class="process-card reveal">
-          <div class="process-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M11 12l8-8"/><path d="M16 7l3 3"/></svg>
-          </div>
-          <span class="process-step">Step 03</span>
-          <h3 class="process-title">Execution and closing</h3>
-          <p class="process-body">I support you with offer strategy, negotiation, inspection, documents, coordination and follow-up through closing or move-in.</p>
-          <div class="process-tags"><span>Offer</span><span>Inspection</span><span>Closing</span></div>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- INVEST -->
-  <section class="section invest" id="invest">
-    <div class="container">
-      <div class="section-top reveal">
-        <div>
-          <p class="label">Real estate investment</p>
-          <h2>Opportunities with numbers, not just excitement.</h2>
-        </div>
-        <p class="lede">Evaluate opportunities with a more serious lens: rent comps, costs, exit strategy, risk and margin of safety.</p>
-      </div>
-      <div class="invest-grid">
-        <a class="invest-card reveal" data-service="Inversión" href="#contact">
-          <div>
-            <span class="num">01</span>
-            <p class="acro">Long-term rental</p>
-            <h3>Long-Term Rental</h3>
-            <p>Properties with stable rental thesis, reasonable maintenance and sustained local demand.</p>
-          </div>
-        </a>
-        <a class="invest-card reveal" data-service="Inversión" href="#contact">
-          <div>
-            <span class="num">02</span>
-            <p class="acro">Buy, renovate and sell</p>
-            <h3>Fix &amp; Flip</h3>
-            <p>Entry price, rehab cost, ARV (after-repair value), expected margin and execution risk.</p>
-          </div>
-        </a>
-        <a class="invest-card reveal" data-service="Inversión" href="#contact">
-          <div>
-            <span class="num">03</span>
-            <p class="acro">Buy · Rehab · Rent · Refinance · Repeat</p>
-            <h3>BRRRR</h3>
-            <p>Recurring capital strategy: buy, rehab, rent, refinance and repeat.</p>
-          </div>
-        </a>
-        <a class="invest-card reveal" data-service="Inversión" href="#contact">
-          <div>
-            <span class="num">04</span>
-            <p class="acro">Off MLS / For sale by owner</p>
-            <h3>Off-Market / FSBO</h3>
-            <p>Opportunities outside public listings, evaluated with clearer exit potential and wider margin of safety.</p>
-          </div>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ABOUT -->
-  <section class="section about" id="about">
-    <div class="container about-card reveal">
-      <div class="portrait" data-config="portrait" data-portrait-note="Professional photo coming soon" aria-label="Professional photo coming soon"></div>
-      <div class="about-copy">
-        <p class="label">About Carlos</p>
-        <h2>One clear point of contact to move better in Miami.</h2>
-        <p>Real estate agent focused on helping buyers, sellers, renters and investors make clear decisions. The idea is simple: less confusion, a better process and direct communication at every stage.</p>
-        <div class="credential">
-          <div><strong>Licensed Real Estate Agent</strong> · Miami, FL</div>
-          <div data-config="brokerage-line" class="is-hidden"><strong>Brokerage:</strong> <span data-config="brokerage-name" style="color:var(--terracotta);font-weight:700"></span></div>
-          <div><strong>Specialty:</strong> buying, selling, renting and residential investment.</div>
-          <div><strong>Languages:</strong> English · Español</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- CONTACT -->
-  <section class="section contact" id="contact">
-    <div class="container contact-shell">
-      <aside class="contact-aside reveal">
-        <p class="label">Contact</p>
-        <h2>Let's talk about your next move.</h2>
-        <p>Tell me what you are looking for and I will respond with clear next steps for buying, selling, renting or investing in Miami.</p>
-        <div class="contact-actions">
-          <a class="contact-action is-hidden" data-config="phone" href="#contact"><span>Call now<small></small></span><strong>→</strong></a>
-          <a class="contact-action is-hidden" data-config="email" href=""><span>Direct email<small></small></span><strong>→</strong></a>
-          <a class="contact-action is-hidden" data-config="whatsapp" href="#contact"><span>WhatsApp<small>Fast response</small></span><strong>→</strong></a>
-          <div class="contact-action is-hidden" data-config="contact-hint"><span>Use the form<small>Contact details are added from data.js</small></span><strong>→</strong></div>
-        </div>
-      </aside>
-      <form class="form reveal" id="leadForm">
-        <div class="field-row"><div class="field"><label>Name</label><input autocomplete="name" name="name" placeholder="Your full name" required=""/></div><div class="field"><label>Phone or email</label><input autocomplete="email" name="contact" placeholder="Phone number or email" required=""/></div></div>
-        <div class="field-row"><div class="field"><label>I am interested in</label><select id="serviceSelect" name="service"><option value="">Select an option</option><option value="Comprar">Buy</option><option value="Vender">Sell</option><option value="Rentar">Rent</option><option value="Invertir">Invest</option></select></div><div class="field"><label>Approximate area</label><input name="area" placeholder="Ex. Brickell, Doral, Coral Gables"/></div></div>
-        <div class="field-row"><div class="field"><label>Approximate budget</label><input name="budget" placeholder="Ex. $500,000 · $3,000/mo"/></div><div class="field" id="petField" style="display:none"><label>Do you have a pet?</label><select name="pets"><option>No</option><option>Dog</option><option>Cat</option><option>Other</option></select></div></div>
-        <div class="field"><label>Message</label><textarea name="message" placeholder="Tell me what you need, your timing and any important detail…"></textarea></div>
-        <div class="form-trust"><span>Response under 24h</span><span>No pressure</span><span>Confidential information</span></div>
-        <button class="btn btn-dark submit" type="submit">Send message →</button>
-      </form>
-    </div>
-  </section>
-
-</main>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-inner">
-    <div class="footer-brand-block">
-      <div class="footer-brand">Carlos Delgado Real Estate</div>
-      <p>
-        <span data-i18n="footerLine1">Carlos Delgado · Licensed Real Estate Agent · Florida</span><br/>
-        <span data-config="footer-brokerage-line" class="is-hidden"><span data-i18n="footerBrokerageLabel">Affiliated brokerage:</span> <span class="config-mark" data-config="brokerage-name"></span><br/></span>
-        <span data-config="footer-contact-line" class="is-hidden"><span data-config="phone"></span><span data-config="footer-divider"> · </span><a data-config="email" href=""></a></span>
-      </p>
-    </div>
-    <div class="footer-links">
-      <a href="#services">Services</a>
-      <a href="#featured">Search</a>
-      <a href="#process">Process</a>
-      <a href="#contact">Contact</a>
-    </div>
-    <div class="legal">
-      <span data-i18n="legalCopy">© 2026 Carlos Delgado Real Estate. All rights reserved.</span>
-      <span class="legal-fair" data-i18n="legalFair">Equal Housing Opportunity · Fair Housing Act compliant</span>
-    </div>
-  </div>
-</footer>
-
-<!-- MODAL: SERVICE FLOW -->
-<div aria-hidden="true" class="modal" id="modal">
-  <div aria-labelledby="modalTitle" aria-modal="true" class="modal-box service-modal-box" role="dialog">
-    <div class="service-modal-shell">
-      <div class="modal-head service-modal-head">
-        <div>
-          <p class="label" id="modalLabel">Quick consultation</p>
-          <h3 id="modalTitle">Tell me what you are looking for.</h3>
-          <p class="modal-intro" id="modalIntro">Choose the service you need and I will guide you with the next steps.</p>
-          <div class="service-pills" id="modalPills"></div>
-        </div>
-        <button aria-label="Close" class="close" id="closeModal">×</button>
-      </div>
-      <div class="service-modal-layout">
-        <div class="service-modal-info">
-          <div class="service-result"><span id="modalResult">Expected result: a clear consultation with next steps and enough information to help you better.</span></div>
-          <div class="mini-section">
-            <h4 data-i18n="modalSection1">How this tab works</h4>
-            <div class="flow-steps" id="modalSteps"></div>
-          </div>
-          <div class="mini-section">
-            <h4 data-i18n="modalSection2">Useful information to have ready</h4>
-            <ul class="need-list" id="modalNeeds"></ul>
-          </div>
-        </div>
-        <form class="form service-modal-form" id="modalForm">
-          <input id="modalServiceValue" name="service" type="hidden" value="Consulta"/>
-          <div class="field-row">
-            <div class="field"><label>Name</label><input autocomplete="name" name="name" placeholder="Your name" required=""/></div>
-            <div class="field"><label>Phone or email</label><input autocomplete="email" name="contact" placeholder="How should I contact you" required=""/></div>
-          </div>
-          <div class="dynamic-fields" id="serviceDynamicFields"></div>
-          <div class="field"><label data-i18n="modalMessageLabel">Optional message</label><textarea id="modalMessage" name="message" placeholder="Tell me area, timing, questions or important details…"></textarea></div>
-          <div class="form-trust"><span>Response &lt;24h</span><span>No pressure</span></div>
-          <button class="btn btn-dark submit" id="modalSubmit" type="submit">Send consultation →</button>
-          <p class="form-note" id="modalFinePrint">Your information is used only to respond to this consultation.</p>
-        </form>
-      </div>
-    </div>
+    </header>
+    <div class="content" id="content"><!-- vistas inyectadas aquí --></div>
   </div>
 </div>
 
+<div id="modal-root"></div>
+<div class="toast" id="toast"></div>
 
-<!-- QUICK CONSULTATION MODAL ─ formulario simplificado -->
-<div class="modal" id="quickModal" aria-hidden="true">
-  <div class="modal-box quick-modal-box" role="dialog" aria-modal="true" aria-labelledby="qModalTitle">
-    <div class="modal-head">
-      <div>
-        <p class="label" id="qModalLabel">Quick consultation</p>
-        <h3 id="qModalTitle">Tell me what you&rsquo;re looking for.</h3>
-        <p class="modal-intro" id="qModalIntro">I&rsquo;ll respond with clear next steps. No noise, no pressure.</p>
-      </div>
-      <button class="close" id="closeQuickModal" aria-label="Close">&times;</button>
-    </div>
-    <form class="form" id="quickForm">
-      <input type="hidden" name="service" value="Consulta"/>
-      <div class="field-row">
-        <div class="field">
-          <label id="qLblName">Name</label>
-          <input name="name" id="qFldName" placeholder="Your name" required autocomplete="name"/>
-        </div>
-        <div class="field">
-          <label id="qLblContact">Phone or email</label>
-          <input name="contact" id="qFldContact" placeholder="How should I reach you" required autocomplete="email"/>
-        </div>
-      </div>
-      <div class="field">
-        <label id="qLblInterest">I&rsquo;m interested in</label>
-        <select name="interest" id="qFldInterest">
-          <option value="Buy">Buy</option>
-          <option value="Sell">Sell</option>
-          <option value="Rent">Rent</option>
-          <option value="Invest">Invest</option>
-          <option value="Not sure">Not sure yet</option>
-        </select>
-      </div>
-      <div class="field">
-        <label id="qLblMsg">Message (optional)</label>
-        <textarea name="message" id="qFldMsg" rows="4"
-          placeholder="Area, timing, budget or any questions…"></textarea>
-      </div>
-      <div class="form-trust" id="qTrust">
-        <span>Response under 24h</span><span>No pressure</span><span>Confidential</span>
-      </div>
-      <button class="btn btn-dark submit" id="qSubmitBtn" type="submit">
-        Send consultation &rarr;
-      </button>
-      <p class="form-note" id="qNote">
-        Your information is only used to respond to this consultation.
-      </p>
-    </form>
-  </div>
-</div>
-
-<div class="mobile-cta">
-  <a data-config="phone" href="#contact">Contact</a>
-  <button data-open-consult="">Request consultation</button>
-</div>
-
-<script src="data.js?v=2"></script>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script src="admin-config.js"></script>
 <script>
-/* Runtime behavior — design logic stays here. Editable data lives in data.js. */
-let currentLang = 'en';
+/* ════════════════ SETUP ════════════════ */
+const CFG = window.ADMIN_CONFIG;
+const sb = window.supabase.createClient(CFG.SUPABASE_URL, CFG.SUPABASE_ANON_KEY);
+const $ = (s,r=document)=>r.querySelector(s);
+const $$ = (s,r=document)=>[...r.querySelectorAll(s)];
+const state = { properties:[], leads:[], session:null, profile:null, view:'dashboard',
+  filters:{propStatus:'',propSearch:'',leadStatus:''} };
 
-function applyContactConfig(){
-  const cfg=window.SITE_CONFIG || {};
-  const clean=v=>typeof v==='string' ? v.trim() : '';
-  const phoneDisplay=clean(cfg.phoneDisplay);
-  const phoneTel=clean(cfg.phoneTel).replace(/[^+\d]/g,'');
-  const whatsapp=clean(cfg.whatsappNumber).replace(/[^\d]/g,'');
-  const email=clean(cfg.email);
-  const brokerageName=clean(cfg.brokerageName);
-  const isES = currentLang==='es';
+/* ─── Catálogos (valor → etiqueta) ─── */
+const PROP_STATUS = {activa:'Activa',pendiente:'Pendiente',bajo_contrato:'Bajo contrato',vendida:'Vendida',rentada:'Rentada',archivada:'Archivada'};
+const PROP_STATUS_BADGE = {activa:'b-green',pendiente:'b-amber',bajo_contrato:'b-blue',vendida:'b-terra',rentada:'b-blue',archivada:'b-grey'};
+const PROP_TYPE = {casa:'Casa',condo:'Condo',townhouse:'Townhouse',multifamily:'Multifamily',terreno:'Terreno',comercial:'Comercial',otro:'Otro'};
+const DEAL_NATURE = {realtor:'Realtor (comisión)',investment:'Inversión propia'};
+const LEAD_SOURCE = {website:'Website',instagram:'Instagram',facebook:'Facebook',google:'Google',referido:'Referido',zillow:'Zillow','realtor.com':'Realtor.com',llamada:'Llamada',otro:'Otro'};
+const LEAD_STATUS = {nuevo:'Nuevo',contactado:'Contactado',interesado:'Interesado',cliente_activo:'Cliente activo',cerrado:'Cerrado',perdido:'Perdido'};
+const LEAD_STATUS_BADGE = {nuevo:'b-blue',contactado:'b-amber',interesado:'b-terra',cliente_activo:'b-green',cerrado:'b-green',perdido:'b-red'};
+const INTEREST = {comprar:'Comprar',vender:'Vender',rentar:'Rentar',invertir:'Invertir'};
+const WON_STATES = ['cliente_activo','cerrado'];
 
-  const hasPhone=Boolean(phoneTel);
-  const hasWhatsApp=Boolean(whatsapp);
-  const hasEmail=Boolean(email);
+/* ─── Helpers ─── */
+const money = n => (n==null||isNaN(n)) ? '—' : '$'+Number(n).toLocaleString('en-US',{maximumFractionDigits:0});
+const money2 = n => (n==null||isNaN(n)) ? '—' : '$'+Number(n).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0});
+const numOrNull = v => (v===''||v==null) ? null : Number(v);
+const txtOrNull = v => (v===''||v==null) ? null : v;
+const fmtDate = d => d ? new Date(d+'T00:00:00').toLocaleDateString('es-ES',{day:'2-digit',month:'short',year:'numeric'}) : '—';
+const esc = s => (s==null?'':String(s)).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const initials = e => (e||'?').slice(0,2).toUpperCase();
+function toast(msg,isErr=false){const t=$('#toast');t.textContent=msg;t.className='toast show'+(isErr?' err':'');clearTimeout(t._t);t._t=setTimeout(()=>t.className='toast',2600);}
 
-  document.querySelectorAll('[data-config="phone"]').forEach(el=>{
-    if(el.tagName==='A'){
-      el.href=hasPhone ? 'tel:'+phoneTel : '#contact';
-      if(el.classList.contains('btn') || el.closest('.mobile-cta')) el.textContent=hasPhone ? (isES?'Llamar':'Call') : (isES?'Contacto':'Contact');
-    }
-    if(el.matches('.contact-action')){
-      el.classList.toggle('is-hidden', !hasPhone);
-      el.innerHTML=`<span>${isES?'Llamar ahora':'Call now'}<small>${phoneDisplay || phoneTel}</small></span><strong>→</strong>`;
-    }else if(!el.closest('.contact-action') && !el.classList.contains('btn') && !el.closest('.mobile-cta')){
-      el.textContent=hasPhone ? (phoneDisplay || phoneTel) : '';
-    }
-  });
+/* ════════════════ AUTH ════════════════ */
+$('#login-form').addEventListener('submit', async e=>{
+  e.preventDefault();
+  const btn=$('#li-btn'), msg=$('#li-msg');
+  msg.className='login-msg'; msg.textContent='';
+  btn.disabled=true; btn.textContent='Entrando…';
+  const {data,error}=await sb.auth.signInWithPassword({email:$('#li-email').value.trim(),password:$('#li-pass').value});
+  btn.disabled=false; btn.textContent='Entrar';
+  if(error){msg.className='login-msg err';msg.textContent='No se pudo entrar: '+error.message;return;}
+  await onSignedIn(data.session);
+});
 
-  document.querySelectorAll('[data-config="email"]').forEach(el=>{
-    if(el.tagName==='A') el.href=hasEmail ? 'mailto:'+email : '';
-    if(el.matches('.contact-action')){
-      el.classList.toggle('is-hidden', !hasEmail);
-      el.innerHTML=`<span>${isES?'Email directo':'Direct email'}<small>${email}</small></span><strong>→</strong>`;
-    }else{
-      el.textContent=hasEmail ? email : '';
-    }
-  });
+$('#logout-btn').addEventListener('click', async ()=>{ await sb.auth.signOut(); location.reload(); });
 
-  document.querySelectorAll('[data-config="whatsapp"]').forEach(el=>{
-    if(el.tagName==='A') el.href=hasWhatsApp ? 'https://wa.me/'+whatsapp : '#contact';
-    if(el.matches('.contact-action')){
-      el.classList.toggle('is-hidden', !hasWhatsApp);
-      el.innerHTML=`<span>WhatsApp<small>${isES?'Respuesta rápida':'Fast response'}</small></span><strong>→</strong>`;
-    }
-  });
-
-  const anyDirectContact=hasPhone || hasEmail || hasWhatsApp;
-  document.querySelectorAll('[data-config="contact-hint"]').forEach(el=>{
-    el.classList.toggle('is-hidden', anyDirectContact);
-    el.innerHTML=`<span>${isES?'Usa el formulario':'Use the form'}<small>${isES?'Agrega teléfono, WhatsApp o email real en data.js':'Add real phone, WhatsApp or email in data.js'}</small></span><strong>→</strong>`;
-  });
-
-  document.querySelectorAll('[data-config="brokerage-name"]').forEach(el=>{el.textContent=brokerageName;});
-  document.querySelectorAll('[data-config="brokerage-line"],[data-config="footer-brokerage-line"]').forEach(el=>{el.classList.toggle('is-hidden', !brokerageName);});
-
-  const footerLine=document.querySelector('[data-config="footer-contact-line"]');
-  if(footerLine){ footerLine.classList.toggle('is-hidden', !anyDirectContact); }
-  const divider=document.querySelector('[data-config="footer-divider"]');
-  if(divider){ divider.classList.toggle('is-hidden', !(hasPhone && hasEmail)); }
-}
-window.applyContactConfig = applyContactConfig;
-
-
-function textByLang(value){
-  if(value && typeof value === 'object'){
-    return currentLang === 'es' ? (value.es || value.en || '') : (value.en || value.es || '');
+async function onSignedIn(session){
+  state.session=session;
+  // Verifica que el usuario esté autorizado (existe en admin_users)
+  const {data:prof,error}=await sb.from('admin_users').select('*').eq('id',session.user.id).maybeSingle();
+  if(error || !prof){
+    $('#li-msg').className='login-msg err';
+    $('#li-msg').textContent='Tu usuario no está autorizado como administrador.';
+    await sb.auth.signOut(); state.session=null; return;
   }
-  return value || '';
+  state.profile=prof;
+  $('#login-screen').classList.add('hidden');
+  $('#app').classList.remove('hidden');
+  $('#who-email').textContent=session.user.email;
+  $('#avatar').textContent=initials(session.user.email);
+  await loadAll();
+  renderView('dashboard');
 }
-function renderProperties(){
-  const grid=document.getElementById('featuredGrid');
-  if(!grid) return;
-  const properties=(window.PROPERTIES || []).filter(p=>p.visible !== false);
-  const isES=currentLang==='es';
-  const setFeaturedCopy=(mode)=>{
-    const label=document.querySelector('#featured .label');
-    const title=document.querySelector('#featured h2');
-    const lede=document.querySelector('#featured .lede');
-    const foot=document.querySelector('.featured-foot');
-    if(mode==='empty'){
-      if(label) label.textContent=isES?'Búsqueda personalizada':'Personalized property search';
-      if(title) title.textContent=isES?'Dime qué estás buscando y preparo una selección para ti.':'Tell me what you\'re looking for. I\'ll prepare a curated search for you.';
-      if(lede) lede.textContent=isES
-        ? 'Comprar, rentar o invertir en Miami empieza con los filtros correctos: presupuesto, zona, tiempo, financiamiento, estilo de vida y tipo de propiedad.'
-        : 'Buying, renting or investing in Miami starts with the right filters: budget, area, timing, financing, lifestyle and property type.';
-      if(foot) foot.innerHTML=isES
-        ? 'Comparte tus criterios y te ayudo a reducir opciones antes de perder tiempo con propiedades que no encajan. <a href="#contact">Iniciar mi búsqueda →</a>'
-        : 'Share your criteria and I\'ll help you narrow the search before you waste time on the wrong options. <a href="#contact">Start my search →</a>';
-    }else{
-      if(label) label.textContent=isES?'Propiedades destacadas':'Featured properties';
-      if(title) title.textContent=isES?'Selección actual y cierres recientes.':'Current selection and recent closings.';
-      if(lede) lede.textContent=isES
-        ? 'Una muestra del tipo de propiedades que trabajo. Para inventario completo o búsqueda personalizada por zona, agendamos una llamada.'
-        : 'A sample of the type of properties I work with. For full inventory or a custom area search, we can schedule a call.';
-      if(foot) foot.innerHTML=isES
-        ? '¿Buscas algo específico? <a href="#contact">Cuéntame qué necesitas →</a>'
-        : 'Looking for something specific? <a href="#contact">Tell me what you need →</a>';
-    }
-  };
 
-  if(!properties.length){
-    setFeaturedCopy('empty');
-    grid.innerHTML=`<div class="search-consult-block reveal on">
-      <div class="search-icon">&#x2726;</div>
-      <h3>${isES?'Cuéntame qué estás buscando.':'Tell me what you\'re looking for.'}</h3>
-      <p>${isES
-        ?'Prepararé una búsqueda curada según tu presupuesto, zona, tiempo y objetivo inmobiliario.'
-        :'I\'ll prepare a curated search based on your budget, area, timing and real estate goals.'
-      }</p>
-      <button class="btn btn-dark" type="button" data-open-consult="">
-        ${isES?'Solicitar consulta':'Request consultation'}
-      </button>
-    </div>`;
+/* ════════════════ DATA ════════════════ */
+async function loadAll(){
+  const [p,l]=await Promise.all([
+    sb.from('properties').select('*').order('created_at',{ascending:false}),
+    sb.from('leads').select('*').order('created_at',{ascending:false})
+  ]);
+  if(p.error){toast('Error cargando propiedades',true);console.error(p.error);}
+  if(l.error){toast('Error cargando leads',true);console.error(l.error);}
+  state.properties=p.data||[];
+  state.leads=l.data||[];
+}
+$('#refresh-btn').addEventListener('click', async ()=>{ await loadAll(); renderView(state.view); toast('Datos actualizados'); });
+
+/* leads por propiedad */
+function leadCountByProp(){const m={};state.leads.forEach(l=>{if(l.property_id)m[l.property_id]=(m[l.property_id]||0)+1;});return m;}
+function propAddr(id){const p=state.properties.find(x=>x.id===id);return p?p.address:'—';}
+
+/* ════════════════ NAV ════════════════ */
+function setSidebar(open){ $('#sidebar').classList.toggle('open',open); $('#sidebar-backdrop').classList.toggle('show',open); }
+$$('.nav-item').forEach(b=>b.addEventListener('click',()=>{ renderView(b.dataset.view); setSidebar(false); }));
+$('#menu-btn').addEventListener('click',()=>setSidebar(!$('#sidebar').classList.contains('open')));
+$('#sidebar-backdrop').addEventListener('click',()=>setSidebar(false));
+const TITLES={dashboard:'Dashboard',properties:'Propiedades',leads:'Leads',reports:'Reportes y estadísticas'};
+function renderView(v){
+  state.view=v;
+  $$('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.view===v));
+  $('#view-title').textContent=TITLES[v];
+  if(v==='dashboard')renderDashboard();
+  if(v==='properties')renderProperties();
+  if(v==='leads')renderLeads();
+  if(v==='reports')renderReports();
+}
+
+/* ════════════════ DASHBOARD ════════════════ */
+function renderDashboard(){
+  const P=state.properties, L=state.leads;
+  const by=s=>P.filter(p=>p.status===s);
+  const sold=by('vendida');
+  const totalSold=sold.reduce((a,p)=>a+(+p.sold_price||0),0);
+  const totalComm=sold.reduce((a,p)=>a+(+p.commission_calc||0),0);
+  const domVals=sold.map(p=>p.days_on_market).filter(d=>d!=null&&!isNaN(d));
+  const avgDom=domVals.length?Math.round(domVals.reduce((a,b)=>a+b,0)/domVals.length):null;
+  const newLeads=L.filter(l=>l.status==='nuevo').length;
+
+  const maxSold=sold.slice().sort((a,b)=>(+b.sold_price||0)-(+a.sold_price||0))[0];
+  const withProfit=P.filter(p=>p.estimated_profit!=null);
+  const maxProfit=withProfit.slice().sort((a,b)=>(+b.estimated_profit)-(+a.estimated_profit))[0];
+  const lc=leadCountByProp();
+  const mostLeadsId=Object.keys(lc).sort((a,b)=>lc[b]-lc[a])[0];
+
+  // Fuente más efectiva = la que más leads ganados (cliente_activo/cerrado) produce; fallback: más leads
+  const wonBySrc={}, allBySrc={};
+  L.forEach(l=>{allBySrc[l.source]=(allBySrc[l.source]||0)+1; if(WON_STATES.includes(l.status))wonBySrc[l.source]=(wonBySrc[l.source]||0)+1;});
+  let bestSrc=Object.keys(wonBySrc).sort((a,b)=>wonBySrc[b]-wonBySrc[a])[0];
+  let bestSrcLabel, bestSrcSub;
+  if(bestSrc){bestSrcLabel=LEAD_SOURCE[bestSrc]||bestSrc;bestSrcSub=wonBySrc[bestSrc]+' leads ganados';}
+  else{bestSrc=Object.keys(allBySrc).sort((a,b)=>allBySrc[b]-allBySrc[a])[0];
+    bestSrcLabel=bestSrc?(LEAD_SOURCE[bestSrc]||bestSrc):'—';bestSrcSub=bestSrc?allBySrc[bestSrc]+' leads (sin cierres aún)':'';}
+
+  const card=(k,v,sub,cls='')=>`<div class="card ${cls}"><div class="k">${k}</div><div class="v ${String(v).length>9?'sm':''}">${v}</div>${sub?`<div class="sub">${sub}</div>`:''}</div>`;
+
+  if(!P.length && !L.length){
+    $('#content').innerHTML = emptyState('▦','Aún no hay datos',
+      'Empieza creando tu primera propiedad o lead para ver las métricas aquí.',
+      `<button class="btn btn-primary btn-sm" style="width:auto;margin-top:1rem" onclick="renderView('properties')">+ Crear propiedad</button>`);
     return;
   }
 
-  setFeaturedCopy('listings');
-  grid.innerHTML=properties.map(p=>{
-    const status=textByLang(p.status);
-    const statusClass=p.statusClass ? ` ${p.statusClass}` : '';
-    const price=p.price || '';
-    const area=p.area || '';
-    const type=textByLang(p.type);
-    const title=textByLang(p.title);
-    const image=p.image || '';
-    const service=p.service || 'Compra';
-    const link=p.link || '#contact';
-    const beds=p.beds || '';
-    const baths=p.baths || '';
-    const sqft=p.sqft || '';
-    const loc=[area,type].filter(Boolean).join(' · ');
-    const specs=[];
-    if(beds) specs.push(`<span><b>${beds}</b> ${isES?'hab':'beds'}</span>`);
-    if(baths) specs.push(`<span><b>${baths}</b> ${isES?'baños':'baths'}</span>`);
-    if(sqft) specs.push(`<span><b>${sqft}</b> sqft</span>`);
-    return `<a class="property-card" data-service="${service}" href="${link}">
-      <div class="property-photo" style="background-image:url('${image}')">
-        ${status?`<span class="property-status${statusClass}">${status}</span>`:''}
-        ${price?`<span class="property-price">${price}</span>`:''}
+  $('#content').innerHTML = `
+  <div class="cards">
+    ${card('Total propiedades',P.length,'En el sistema')}
+    ${card('Activas',by('activa').length,'En el mercado')}
+    ${card('Bajo contrato',by('bajo_contrato').length,'En proceso')}
+    ${card('Vendidas',sold.length,'Cerradas')}
+    ${card('Leads nuevos',newLeads,'Sin contactar')}
+  </div>
+  <div class="cards">
+    ${card('Total vendido',money(totalSold),sold.length+' propiedades','terra')}
+    ${card('Comisión estimada',money(totalComm),'Generada en ventas','accent')}
+    ${card('Días promedio en vender',avgDom!=null?avgDom+' días':'—','Sobre ventas con fechas')}
+    ${card('Venta más cara',maxSold?money(maxSold.sold_price):'—',maxSold?esc(maxSold.address):'')}
+  </div>
+  <div class="cards">
+    ${card('Mayor beneficio',maxProfit&&maxProfit.estimated_profit!=null?money(maxProfit.estimated_profit):'—',maxProfit?esc(maxProfit.address):'Solo inversiones propias')}
+    ${card('Propiedad con más leads',mostLeadsId?lc[mostLeadsId]+' leads':'—',mostLeadsId?esc(propAddr(mostLeadsId)):'')}
+    ${card('Fuente más efectiva',bestSrcLabel,bestSrcSub)}
+    ${card('Total leads',L.length,L.filter(l=>WON_STATES.includes(l.status)).length+' ganados')}
+  </div>`;
+}
+function emptyState(icon,title,desc,extra=''){
+  return `<div class="panel"><div class="state"><div class="big">${icon}</div><h4>${title}</h4><div>${desc}</div>${extra}</div></div>`;
+}
+
+/* ════════════════ PROPERTIES ════════════════ */
+function renderProperties(){
+  const f=state.filters;
+  let rows=state.properties.slice();
+  if(f.propStatus)rows=rows.filter(p=>p.status===f.propStatus);
+  if(f.propSearch){const q=f.propSearch.toLowerCase();rows=rows.filter(p=>(p.address+' '+(p.city||'')).toLowerCase().includes(q));}
+  const lc=leadCountByProp();
+  const opts=Object.entries(PROP_STATUS).map(([k,v])=>`<option value="${k}" ${f.propStatus===k?'selected':''}>${v}</option>`).join('');
+
+  const head=`<div class="section-head">
+    <h3>${rows.length} propiedad${rows.length===1?'':'es'}</h3>
+    <div class="toolbar">
+      <input id="prop-search" placeholder="Buscar dirección/ciudad…" value="${esc(f.propSearch)}"/>
+      <select id="prop-filter"><option value="">Todos los estados</option>${opts}</select>
+      <button class="btn btn-primary btn-sm" style="width:auto" onclick="openPropModal()">+ Nueva propiedad</button>
+    </div></div>`;
+
+  let body;
+  if(!rows.length){
+    body=emptyState('⌂','Sin propiedades','No hay propiedades que coincidan. Crea una nueva para empezar.');
+  }else{
+    body=`<div class="panel"><div class="tbl-wrap"><table>
+      <thead><tr><th>Dirección</th><th>Tipo</th><th>Estado</th><th>Listado</th><th>Vendido</th><th>Beneficio</th><th>Comisión</th><th>Días</th><th>Leads</th><th></th></tr></thead>
+      <tbody>${rows.map(p=>{
+        const profit=p.estimated_profit;
+        const profitCell = p.deal_nature==='realtor'&&p.sold_price==null ? '<span class="row-sub">n/a</span>'
+          : (profit==null?'—':`<span class="${profit>=0?'pos':'neg'}">${money(profit)}</span>`);
+        return `<tr>
+          <td><div class="row-main">${esc(p.address)}</div><div class="row-sub">${esc(p.city||'')}${p.city&&p.state?', ':''}${esc(p.state||'')} ${esc(p.zip||'')}</div></td>
+          <td>${PROP_TYPE[p.property_type]||p.property_type||'—'}<div class="row-sub">${DEAL_NATURE[p.deal_nature]?.split(' ')[0]||''}</div></td>
+          <td><span class="badge ${PROP_STATUS_BADGE[p.status]||'b-grey'}">${PROP_STATUS[p.status]||p.status}</span></td>
+          <td class="num">${money(p.list_price)}</td>
+          <td class="num">${money(p.sold_price)}</td>
+          <td class="num">${profitCell}</td>
+          <td class="num">${money(p.commission_calc)}</td>
+          <td class="num">${p.days_on_market!=null?p.days_on_market:'—'}</td>
+          <td class="num">${lc[p.id]||0}</td>
+          <td><div class="rowact">
+            <button class="iconbtn" onclick="openPropModal('${p.id}')">Editar</button>
+            <button class="iconbtn danger" onclick="deleteProp('${p.id}')">✕</button>
+          </div></td>
+        </tr>`;}).join('')}</tbody></table></div></div>`;
+  }
+  $('#content').innerHTML=head+body;
+  $('#prop-search').addEventListener('input',e=>{f.propSearch=e.target.value;clearTimeout(window._ps);window._ps=setTimeout(renderProperties,200);});
+  $('#prop-filter').addEventListener('change',e=>{f.propStatus=e.target.value;renderProperties();});
+}
+
+function openPropModal(id){
+  const p = id ? state.properties.find(x=>x.id===id) : {};
+  const isEdit=!!id;
+  const sel=(obj,cur)=>Object.entries(obj).map(([k,v])=>`<option value="${k}" ${cur===k?'selected':''}>${v}</option>`).join('');
+  const val=k=>p[k]??'';
+  $('#modal-root').innerHTML=`<div class="overlay" onclick="if(event.target===this)closeModal()">
+   <form class="modal" id="prop-form">
+    <div class="modal-head"><h3>${isEdit?'Editar propiedad':'Nueva propiedad'}</h3><button type="button" class="iconbtn" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="grid2">
+        <div class="field full"><label>Dirección *</label><input name="address" required value="${esc(val('address'))}"/></div>
+        <div class="field"><label>Ciudad</label><input name="city" value="${esc(val('city'))}"/></div>
+        <div class="field"><label>Estado</label><input name="state" value="${esc(p.state??'FL')}"/></div>
+        <div class="field"><label>Código postal</label><input name="zip" value="${esc(val('zip'))}"/></div>
+        <div class="field"><label>Tipo</label><select name="property_type">${sel(PROP_TYPE,p.property_type||'casa')}</select></div>
+        <div class="field"><label>Estado de la propiedad</label><select name="status">${sel(PROP_STATUS,p.status||'activa')}</select></div>
+        <div class="field"><label>Naturaleza del deal</label><select name="deal_nature">${sel(DEAL_NATURE,p.deal_nature||'realtor')}</select>
+          <div class="hint">"Inversión propia" activa el cálculo de beneficio.</div></div>
+        <div class="field"><label>Fuente del deal</label><input name="deal_source" value="${esc(val('deal_source'))}" placeholder="MLS, off-market, referido…"/></div>
       </div>
-      <div class="property-body">
-        <span class="property-loc">${loc}</span>
-        <h3 class="property-title">${title}</h3>
-        <div class="property-specs">${specs.join('')}</div>
+      <h4 style="font-family:Syne;margin:1.1rem 0 .6rem;font-size:.95rem">Precios y costos</h4>
+      <div class="grid3">
+        <div class="field"><label>Precio de compra</label><input name="purchase_price" type="number" step="any" value="${val('purchase_price')}" placeholder="solo inversión"/></div>
+        <div class="field"><label>Precio listado</label><input name="list_price" type="number" step="any" value="${val('list_price')}"/></div>
+        <div class="field"><label>Precio vendido</label><input name="sold_price" type="number" step="any" value="${val('sold_price')}"/></div>
+        <div class="field"><label>Reparaciones</label><input name="repair_costs" type="number" step="any" value="${val('repair_costs')}"/></div>
+        <div class="field"><label>Closing costs</label><input name="closing_costs" type="number" step="any" value="${val('closing_costs')}"/></div>
+        <div class="field"><label>Otros gastos</label><input name="other_costs" type="number" step="any" value="${val('other_costs')}"/></div>
+        <div class="field"><label>Comisión %</label><input name="commission_pct" type="number" step="any" value="${p.commission_pct??(isEdit?'':CFG.DEFAULT_COMMISSION_PCT)}"/></div>
+        <div class="field"><label>Comisión monto fijo</label><input name="commission_amount" type="number" step="any" value="${val('commission_amount')}" placeholder="opcional, anula %"/></div>
       </div>
-    </a>`;
-  }).join('');
-}
-window.renderProperties = renderProperties;
-
-function leadPayloadFromForm(form, source){
-  const data=Object.fromEntries(new FormData(form).entries());
-  return { source, page:'Carlos Delgado Real Estate Landing', language:document.documentElement.lang || 'en', submitted_at:new Date().toISOString(), ...data };
-}
-function leadMessage(payload){
-  const labels={name:'Name',contact:'Contact',service:'Service',area:'Area',budget:'Budget',pets:'Pets',message:'Message',interest:'Interest',property_type:'Property type',financing:'Financing',timing:'Timing',beds:'Beds',property_address:'Property address',condition:'Condition',occupancy:'Occupancy',monthly_budget:'Monthly budget',move_date:'Move-in date',parking:'Parking',capital:'Capital',strategy:'Strategy',horizon:'Horizon',risk:'Risk profile'};
-  return Object.entries(payload).map(([k,v])=>`${labels[k]||k}: ${v || '-'}`).join('\n');
-}
-/* Envía el lead al panel privado (Supabase) de forma aditiva y a prueba de fallos.
-   Nunca lanza errores ni bloquea: si falla, el flujo Make.com/Notion sigue intacto. */
-function sendLeadToSupabase(payload){
-  try{
-    const cfg=window.SITE_CONFIG||{};
-    if(!cfg.supabaseUrl||!cfg.supabaseAnonKey) return;
-    const contact=(payload.contact||'').trim();
-    const isEmail=/@/.test(contact);
-    const svcMap={Comprar:'comprar',Vender:'vender',Rentar:'rentar',Invertir:'invertir'};
-    const notes=[
-      payload.service?('Servicio: '+payload.service):'',
-      payload.area?('Zona: '+payload.area):'',
-      payload.budget?('Presupuesto: '+payload.budget):'',
-      payload.pets?('Mascota: '+payload.pets):'',
-      payload.interest?('Interés: '+payload.interest):'',
-      payload.message?('Mensaje: '+payload.message):'',
-      payload.source?('Origen form: '+payload.source):'',
-      payload.language?('Idioma: '+payload.language):''
-    ].filter(Boolean).join('\n');
-    const budgetNum=(()=>{const m=(payload.budget||'').replace(/[, ]/g,'').match(/\d+/);return m?Number(m[0]):null;})();
-    const rec={
-      name: payload.name||'(sin nombre)',
-      email: isEmail?contact:null,
-      phone: isEmail?null:(contact||null),
-      source: 'website',
-      status: 'nuevo',
-      interest_type: svcMap[payload.service]||null,
-      budget: budgetNum,
-      internal_notes: notes||null
-    };
-    fetch(cfg.supabaseUrl.replace(/\/$/,'')+'/rest/v1/leads',{
-      method:'POST',
-      headers:{'Content-Type':'application/json','apikey':cfg.supabaseAnonKey,'Authorization':'Bearer '+cfg.supabaseAnonKey,'Prefer':'return=minimal'},
-      body:JSON.stringify(rec)
-    }).catch(()=>{});
-  }catch(_){/* silencioso a propósito */}
+      <h4 style="font-family:Syne;margin:1.1rem 0 .6rem;font-size:.95rem">Fechas y extras</h4>
+      <div class="grid2">
+        <div class="field"><label>Fecha de listado</label><input name="list_date" type="date" value="${val('list_date')}"/></div>
+        <div class="field"><label>Fecha de cierre/venta</label><input name="close_date" type="date" value="${val('close_date')}"/></div>
+        <div class="field full"><label>Link público (MLS/Zillow…)</label><input name="public_link" value="${esc(val('public_link'))}"/></div>
+        <div class="field full"><label>Fotos (URLs, separadas por coma)</label><input name="photos" value="${esc(val('photos'))}"/></div>
+        <div class="field full"><label>Notas internas</label><textarea name="internal_notes" rows="2">${esc(val('internal_notes'))}</textarea></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <div>${isEdit?`<button type="button" class="iconbtn danger" onclick="deleteProp('${id}')">Eliminar</button>`:''}</div>
+      <div style="display:flex;gap:.5rem">
+        <button type="button" class="btn btn-ghost btn-sm" onclick="closeModal()">Cancelar</button>
+        <button type="submit" class="btn btn-primary btn-sm" style="width:auto">${isEdit?'Guardar cambios':'Crear propiedad'}</button>
+      </div>
+    </div>
+   </form></div>`;
+  $('#prop-form').addEventListener('submit',e=>savePropForm(e,id));
 }
 
-async function submitLead(form, source){
-  const cfg=window.SITE_CONFIG || {};
-  const payload=leadPayloadFromForm(form, source);
-  sendLeadToSupabase(payload); // aditivo: alimenta el panel /admin sin afectar el envío principal
-  const submitButton=form.querySelector('button[type="submit"]');
-  const originalText=submitButton?.textContent;
-  const isES=currentLang==='es';
-  if(submitButton){ submitButton.disabled=true; submitButton.textContent=isES?'Enviando…':'Sending…'; }
-  try{
-    if(cfg.formEndpoint){
-      const res=await fetch(cfg.formEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-      if(!res.ok) throw new Error('Lead endpoint failed');
-      alert(isES?'Mensaje enviado. Te responderé pronto.':'Message sent. I will respond soon.');
-      form.reset();
-      return true;
-    }
-    const subject=encodeURIComponent('New real estate lead · Carlos Delgado website');
-    const body=encodeURIComponent(leadMessage(payload));
-    if(!cfg.email){ alert(isES?'Conecta un email o formEndpoint en data.js antes de publicar.':'Connect an email or formEndpoint in data.js before publishing.'); return false; }
-    window.location.href=`mailto:${encodeURIComponent(cfg.email)}?subject=${subject}&body=${body}`;
-    alert(isES?'Se abrirá tu app de email con el mensaje listo. Para automatizarlo al 100%, conecta formEndpoint.':'Your email app will open with the message ready to send. To automate this 100%, connect formEndpoint.');
-    return true;
-  }catch(err){
-    console.error(err);
-    alert(isES?'No se pudo enviar automáticamente. Usa llamada, WhatsApp o email directo.':'Automatic sending failed. Please use call, WhatsApp or direct email.');
-    return false;
-  }finally{
-    if(submitButton){ submitButton.disabled=false; submitButton.textContent=originalText; }
-  }
-}
-
-/* Refs */
-const nav=document.getElementById('nav');
-const navLinks=document.getElementById('navLinks');
-const menuBtn=document.getElementById('menuBtn');
-const heroVisual=document.getElementById('heroVisual');
-const scrollCue=document.getElementById('scrollCue');
-const scrollProgress=document.getElementById('scrollProgress');
-const modal=document.getElementById('modal');
-const modalLabel=document.getElementById('modalLabel');
-const modalTitle=document.getElementById('modalTitle');
-const modalIntro=document.getElementById('modalIntro');
-const modalPills=document.getElementById('modalPills');
-const modalResult=document.getElementById('modalResult');
-const modalSteps=document.getElementById('modalSteps');
-const modalNeeds=document.getElementById('modalNeeds');
-const serviceDynamicFields=document.getElementById('serviceDynamicFields');
-const modalServiceValue=document.getElementById('modalServiceValue');
-const modalMessage=document.getElementById('modalMessage');
-const modalSubmit=document.getElementById('modalSubmit');
-const modalFinePrint=document.getElementById('modalFinePrint');
-
-function updateScroll(){
-  nav.classList.toggle('scrolled', window.scrollY>30);
-  const docH=document.documentElement.scrollHeight-window.innerHeight;
-  const p=docH>0?(window.scrollY/docH)*100:0;
-  scrollProgress.style.width=p+'%';
-}
-updateScroll(); window.addEventListener('scroll',updateScroll,{passive:true});
-
-menuBtn?.addEventListener('click',()=>navLinks.classList.toggle('open'));
-navLinks?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
-
-function clamp(n,min,max){return Math.max(min,Math.min(max,n))}
-function parallaxHero(){
-  const hero=document.getElementById('hero');
-  const max=hero.offsetHeight-window.innerHeight;
-  const p=max>0?clamp(window.scrollY/max,0,1):0;
-  if(heroVisual){
-    const y=30-(p*42);
-    const s=1+(p*.025);
-    heroVisual.style.setProperty('--house-y', y+'px');
-    heroVisual.style.setProperty('--house-s', s);
-    heroVisual.style.filter=`blur(${p*.35}px)`;
-  }
-  if(scrollCue) scrollCue.style.opacity=window.scrollY>40?'0':'1';
-  requestAnimationFrame(parallaxHero);
-}
-requestAnimationFrame(parallaxHero);
-
-const io=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('on');io.unobserve(entry.target)}})
-},{threshold:.16,rootMargin:'0px 0px -7% 0px'});
-document.querySelectorAll('.reveal').forEach(el=>{if(!el.classList.contains('on'))io.observe(el)});
-
-const sectionIds=['services','featured','process','invest','contact'];
-const sections=sectionIds.map(id=>document.getElementById(id)).filter(Boolean);
-const navMap=new Map();
-document.querySelectorAll('.nav-links a').forEach(a=>{
-  const href=a.getAttribute('href')||'';
-  if(href.startsWith('#')) navMap.set(href.slice(1),a);
-});
-function updateActiveNav(){
-  const y=window.scrollY+window.innerHeight*.32;
-  let active='';
-  for(const s of sections){if(s.offsetTop<=y) active=s.id;}
-  navMap.forEach((a,id)=>a.classList.toggle('active',id===active));
-}
-window.addEventListener('scroll',updateActiveNav,{passive:true});
-updateActiveNav();
-
-/* ═══════════════════════════════════════════════════════
-   SERVICE FLOWS — completos en EN y ES
-═══════════════════════════════════════════════════════ */
-const serviceFlowsEN={
-  Consulta:{label:'Quick consultation',title:'Tell me what you are looking for.',intro:'A general consultation to identify whether you need to buy, sell, rent or invest, and route you to the right next step.',pills:['Miami','Clear guidance','First step'],result:'Expected result: a focused initial reply with direction, next steps and the minimum information needed to help without wasting time.',cta:'Send consultation →',fine:'Your information is used only to respond to this consultation. Not shared with third parties.',steps:[['01','Understand the goal','We define what you need and how urgent it is.'],['02','Sort options','We separate buy, sell, rent or invest to avoid noise.'],['03','Next step','I tell you what data is missing and how to move forward.']],needs:['Type of service you need','Approximate area','Budget or range if you have one','Ideal timing'],fields:[{kind:'select',label:'I am interested in',name:'interest',options:['Buy','Sell','Rent','Invest','Not sure']},{kind:'text',label:'Approximate area',name:'area',placeholder:'Ex. Brickell, Doral, Coral Gables'},{kind:'text',label:'Approximate budget',name:'budget',placeholder:'Ex. $500,000 or $3,000/mo'},{kind:'select',label:'Timing',name:'timing',options:['As soon as possible','1-3 months','3-6 months','6+ months','Just exploring']}]},
-  Compra:{label:'Buyer consultation',title:'Buy with criteria, not noise.',intro:'Organize your search with real budget, preferred areas, property type, financing and clear next steps through offer and closing.',pills:['Shortlist','Showings','Offer','Closing'],result:'Expected result: a filtered search with properties that actually fit, avoiding time lost on options outside budget, area or real conditions.',cta:'Start buyer search →',fine:'Ideally you already have pre-approval or a clear sense of financing. If not, the first step is helping you sort that out.',steps:[['01','Buyer profile','We define budget, area, type, bedrooms, lifestyle and timing.'],['02','Professional filter','We separate real properties from pretty but inconvenient options based on price, HOA, condition or location.'],['03','Showings and offer','We organize visits, compare alternatives and prepare an offer with negotiating logic.'],['04','Inspection and closing','Support through inspection, contingencies, coordination and closing.']],needs:['Budget range','Preferred area or areas','Property type: condo, townhouse, single family, multifamily','Pre-approval, cash or need for a lender','Ideal date to move in or close'],fields:[{kind:'text',label:'Buyer budget',name:'budget',placeholder:'Ex. $450,000 - $700,000'},{kind:'text',label:'Preferred areas',name:'area',placeholder:'Ex. Doral, Brickell, Kendall'},{kind:'select',label:'Property type',name:'property_type',options:['Condo','Townhouse','Single family','Multifamily','Not sure']},{kind:'select',label:'Financing',name:'financing',options:['I have pre-approval','I need a lender','Cash buyer','Evaluating options']},{kind:'select',label:'Timeframe to buy',name:'timing',options:['0-30 days','1-3 months','3-6 months','6+ months','Just exploring']},{kind:'select',label:'Bedrooms',name:'beds',options:['1','2','3','4+','Flexible']}]},
-  Venta:{label:'Seller consultation',title:'Selling well starts before listing.',intro:'Begin a serious valuation with location, condition, comparable sales, likely price, preparation, marketing strategy and exit timing.',pills:['Valuation','Pricing','Marketing','Negotiation'],result:'Expected result: an initial value reading and strategy to sell with stronger presentation, better positioning and less improvisation.',cta:'Request valuation →',fine:'A real valuation requires property data and recent comparables. The final price must be validated with updated local analysis.',steps:[['01','Property diagnosis','We review location, type, condition, upgrades, HOA, photos and strong/weak points.'],['02','Comparables and pricing','We analyze recent sales, active competition and the strategic launch range.'],['03','Preparation and marketing','We define quick improvements, presentation, photos, copy, channels and calendar.'],['04','Offers and closing','We filter buyers, negotiate terms and coordinate through closing.']],needs:['Address or area of the property','Property type and bedrooms/baths','Current condition and recent upgrades','When you want to sell','If occupied, rented or vacant'],fields:[{kind:'text',label:'Address or area',name:'property_address',placeholder:'Just the area is fine'},{kind:'select',label:'Property type',name:'property_type',options:['Condo','Townhouse','Single family','Multifamily','Land','Other']},{kind:'select',label:'Condition',name:'condition',options:['Ready to show','Needs minor improvements','Needs renovation','Not sure']},{kind:'select',label:'Time to sell',name:'timing',options:['As soon as possible','1-3 months','3-6 months','Just want to know value']},{kind:'text',label:'Expected price',name:'expected_price',placeholder:'Optional: price you have in mind'},{kind:'select',label:'Occupancy',name:'occupancy',options:['Vacant','I live in it','It is rented','Other']}]},
-  Renta:{label:'Rental search',title:'Rent quickly, with clear requirements.',intro:'A clearer rental search by monthly budget, move-in date, areas, pets, landlord/condo requirements and documentation.',pills:['Move-in','Budget','Pets','Requirements'],result:'Expected result: realistic rental options by area, budget and requirements, with fewer surprises when applying.',cta:'Start rental search →',fine:'In Miami many rentals depend on landlord/association approval, income, credit, deposits, pets and exact move-in date.',steps:[['01','Rental profile','Monthly budget, move-in date, area, bedrooms, parking and pets.'],['02','Real requirements','We review income, credit, deposits, HOA/association and restrictions before applying.'],['03','Options and showings','We prioritize available properties that fit your case.'],['04','Application','I help you prepare documents and apply with less friction.']],needs:['Maximum monthly budget','Exact or approximate move-in date','Preferred areas','Pets: type, size and number','Income, credit and basic documents'],fields:[{kind:'text',label:'Monthly budget',name:'monthly_budget',placeholder:'Ex. $2,400/mo'},{kind:'text',label:'Preferred areas',name:'area',placeholder:'Ex. Brickell, Doral, Hialeah, Kendall'},{kind:'select',label:'Move-in date',name:'move_date',options:['Immediate','In 2-4 weeks','1-2 months','Flexible']},{kind:'select',label:'Bedrooms',name:'beds',options:['Studio','1','2','3','4+','Flexible']},{kind:'select',label:'Pets',name:'pets',options:['No','Dog','Cat','Multiple','Other']},{kind:'select',label:'Parking',name:'parking',options:['I need parking','Preferred','Not needed']}]},
-  'Inversión':{label:'Real estate investment',title:'Invest with numbers, exit and margin of safety.',intro:'Define your investment profile with capital, strategy, target areas, financing, horizon, expected return and risk level.',pills:['Cash flow','ARV','Rent comps','Exit'],result:'Expected result: a clear profile to evaluate opportunities by economic logic, not just emotion or appearance.',cta:'Create investment profile →',fine:'This does not replace financial, legal or tax advice. It is real estate guidance focused on the deal itself.',steps:[['01','Criteria','Available capital, strategy, horizon, risk tolerance and target areas.'],['02','Deal filter','Price, rent comps, rehab, HOA/taxes, demand and possible exit.'],['03','Base numbers','Estimated cash flow, cap rate, ARV, DSCR/LTV when applicable, margin of safety.'],['04','Action plan','We decide whether the deal is worth visiting, offering, negotiating or discarding.']],needs:['Available capital or down payment range','Strategy: rental, flip, BRRRR, off-market, multifamily','Financing: cash, loan, hard money, DSCR','Target area or market type','Expected return and acceptable risk level'],fields:[{kind:'text',label:'Available capital',name:'capital',placeholder:'Ex. $80,000 - $150,000'},{kind:'select',label:'Strategy',name:'strategy',options:['Long-term rental','Fix & Flip','BRRRR','Off-market / FSBO','Multifamily','Not sure']},{kind:'select',label:'Financing',name:'financing',options:['Cash','Conventional loan','DSCR loan','Hard money','I need options']},{kind:'text',label:'Target areas',name:'area',placeholder:'Ex. Miami-Dade, Broward, Doral, Hialeah'},{kind:'select',label:'Horizon',name:'horizon',options:['0-6 months','6-12 months','1-3 years','3+ years']},{kind:'select',label:'Risk profile',name:'risk',options:['Conservative','Moderate','Aggressive','Not sure']}]}
-};
-
-const serviceFlowsES={
-  Consulta:{label:'Consulta rápida',title:'Cuéntame qué estás buscando.',intro:'Abrimos una consulta general para identificar si necesitas comprar, vender, rentar o invertir, y así llevarte al siguiente paso correcto.',pills:['Miami','Guía clara','Primer paso'],result:'Resultado esperado: una respuesta inicial con dirección clara, próximos pasos y la información mínima para ayudarte sin perder tiempo.',cta:'Enviar consulta →',fine:'Tus datos se usan solo para responder esta consulta. No se comparten con terceros.',steps:[['01','Entender objetivo','Definimos qué necesitas y qué tan urgente es.'],['02','Ordenar opciones','Separamos compra, venta, renta o inversión para evitar ruido.'],['03','Siguiente paso','Te indico qué datos faltan y cómo avanzar.']],needs:['Tipo de servicio que buscas','Zona aproximada','Presupuesto o rango si lo tienes','Timing ideal'],fields:[{kind:'select',label:'Me interesa',name:'interest',options:['Comprar','Vender','Rentar','Invertir','No estoy seguro']},{kind:'text',label:'Zona aproximada',name:'area',placeholder:'Ej. Brickell, Doral, Coral Gables'},{kind:'text',label:'Presupuesto aproximado',name:'budget',placeholder:'Ej. $500,000 o $3,000/mes'},{kind:'select',label:'Timing',name:'timing',options:['Lo antes posible','1-3 meses','3-6 meses','6+ meses','Solo estoy explorando']}]},
-  Compra:{label:'Compra de propiedad',title:'Compra con criterio, no con ruido.',intro:'Ordena tu búsqueda con presupuesto real, zonas preferidas, tipo de propiedad, financiamiento y próximos pasos hasta oferta y cierre.',pills:['Shortlist','Visitas','Oferta','Cierre'],result:'Resultado esperado: una búsqueda filtrada con propiedades que sí encajan, evitando perder tiempo con opciones fuera de presupuesto, zona o condiciones reales.',cta:'Iniciar búsqueda de compra →',fine:'Idealmente ya tienes pre-aprobación o una idea clara de financiamiento. Si no, el primer paso es ayudarte a ordenar esa parte.',steps:[['01','Perfil de compra','Definimos presupuesto, zona, tipo, habitaciones, estilo de vida y timing.'],['02','Filtro profesional','Separamos propiedades reales de opciones bonitas pero poco convenientes por precio, HOA, condición o ubicación.'],['03','Visitas y oferta','Organizamos visitas, comparamos alternativas y preparamos una oferta con lógica negociadora.'],['04','Inspección y cierre','Acompañamiento en inspección, contingencias, coordinación y cierre.']],needs:['Rango de presupuesto','Zona o zonas preferidas','Tipo de propiedad: condo, townhouse, single family, multifamily','Pre-aprobación, cash o necesidad de lender','Fecha ideal para mudarte o cerrar'],fields:[{kind:'text',label:'Presupuesto de compra',name:'budget',placeholder:'Ej. $450,000 - $700,000'},{kind:'text',label:'Zonas preferidas',name:'area',placeholder:'Ej. Doral, Brickell, Kendall'},{kind:'select',label:'Tipo de propiedad',name:'property_type',options:['Condo','Townhouse','Single family','Multifamily','No estoy seguro']},{kind:'select',label:'Financiamiento',name:'financing',options:['Ya tengo pre-aprobación','Necesito lender','Cash buyer','Estoy evaluando opciones']},{kind:'select',label:'Tiempo para comprar',name:'timing',options:['0-30 días','1-3 meses','3-6 meses','6+ meses','Solo explorando']},{kind:'select',label:'Habitaciones',name:'beds',options:['1','2','3','4+','Flexible']}]},
-  Venta:{label:'Venta de propiedad',title:'Vender bien empieza antes de listar.',intro:'Inicia una valoración seria con ubicación, condición, comparables, precio probable, preparación, estrategia de marketing y timing de salida.',pills:['Valoración','Pricing','Marketing','Negociación'],result:'Resultado esperado: una primera lectura de valor y estrategia para vender con mejor presentación, mejor posicionamiento y menos improvisación.',cta:'Solicitar valoración →',fine:'Para una valoración real hacen falta datos de la propiedad y comparables recientes. El precio final debe validarse con análisis local actualizado.',steps:[['01','Diagnóstico','Revisamos ubicación, tipo, condición, mejoras, HOA, fotos y puntos fuertes/débiles.'],['02','Comparables y pricing','Analizamos ventas recientes, competencia activa y rango estratégico de salida.'],['03','Preparación y marketing','Definimos mejoras rápidas, presentación, fotos, descripción, canales y calendario.'],['04','Ofertas y cierre','Filtramos compradores, negociamos términos y coordinamos hasta cierre.']],needs:['Dirección o zona de la propiedad','Tipo de propiedad y habitaciones/baños','Condición actual y mejoras recientes','Cuándo quieres vender','Si está ocupada, rentada o vacía'],fields:[{kind:'text',label:'Dirección o zona',name:'property_address',placeholder:'Puedes poner solo la zona si prefieres'},{kind:'select',label:'Tipo de propiedad',name:'property_type',options:['Condo','Townhouse','Single family','Multifamily','Land','Otro']},{kind:'select',label:'Condición',name:'condition',options:['Lista para mostrar','Necesita mejoras menores','Necesita remodelación','No estoy seguro']},{kind:'select',label:'Tiempo para vender',name:'timing',options:['Lo antes posible','1-3 meses','3-6 meses','Solo quiero saber valor']},{kind:'text',label:'Precio esperado',name:'expected_price',placeholder:'Opcional: precio que tienes en mente'},{kind:'select',label:'Ocupación',name:'occupancy',options:['Vacía','Vivo en la propiedad','Está rentada','Otro']}]},
-  Renta:{label:'Búsqueda de renta',title:'Rentar rápido, pero con requisitos claros.',intro:'Haz una búsqueda de renta más clara con presupuesto mensual, fecha de mudanza, zonas, mascotas, requisitos del landlord/condo y documentación.',pills:['Move-in','Budget','Pets','Requirements'],result:'Resultado esperado: opciones de renta realistas por zona, presupuesto y requisitos, con menos sorpresas al momento de aplicar.',cta:'Iniciar búsqueda →',fine:'En Miami muchas rentas dependen de aprobación de landlord/association, ingresos, crédito, depósitos, mascotas y fecha exacta de mudanza.',steps:[['01','Perfil de renta','Presupuesto mensual, fecha de mudanza, zona, habitaciones, parking y mascotas.'],['02','Requisitos reales','Revisamos income, credit, depósitos, HOA/association y restricciones antes de aplicar.'],['03','Opciones y visitas','Priorizamos propiedades disponibles que encajan con tu caso.'],['04','Aplicación','Te ayudo a preparar documentos y aplicar con menos fricción.']],needs:['Presupuesto mensual máximo','Fecha exacta o aproximada de mudanza','Zonas preferidas','Mascotas: tipo, tamaño y cantidad','Ingresos, crédito y documentos básicos'],fields:[{kind:'text',label:'Presupuesto mensual',name:'monthly_budget',placeholder:'Ej. $2,400/mes'},{kind:'text',label:'Zonas preferidas',name:'area',placeholder:'Ej. Brickell, Doral, Hialeah, Kendall'},{kind:'select',label:'Fecha de mudanza',name:'move_date',options:['Inmediata','En 2-4 semanas','1-2 meses','Flexible']},{kind:'select',label:'Habitaciones',name:'beds',options:['Studio','1','2','3','4+','Flexible']},{kind:'select',label:'Mascotas',name:'pets',options:['No','Perro','Gato','Varios','Otro']},{kind:'select',label:'Parking',name:'parking',options:['Necesito parking','Preferible','No necesario']}]},
-  'Inversión':{label:'Inversión inmobiliaria',title:'Invertir con números, salida y margen de seguridad.',intro:'Define tu perfil de inversión con capital, estrategia, zonas objetivo, financiamiento, horizonte, retorno esperado y nivel de riesgo.',pills:['Cash flow','ARV','Rent comps','Exit'],result:'Resultado esperado: un perfil claro para evaluar oportunidades por lógica económica, no solo por emoción o apariencia.',cta:'Crear perfil de inversión →',fine:'Esto no sustituye asesoría financiera, legal o fiscal. Es asesoría inmobiliaria sobre el deal en sí.',steps:[['01','Criterios','Capital disponible, estrategia, horizonte, tolerancia al riesgo y zonas objetivo.'],['02','Filtro de deal','Precio, renta comparable, rehab, HOA/taxes, demanda y salida posible.'],['03','Números base','Cash flow estimado, cap rate, ARV, DSCR/LTV si aplica y margen de seguridad.'],['04','Plan de acción','Decidimos si vale la pena visitar, ofertar, negociar o descartar.']],needs:['Capital disponible o rango de down payment','Estrategia: renta, flip, BRRRR, off-market, multifamily','Financiamiento: cash, loan, hard money, DSCR','Zona o tipo de mercado deseado','Retorno esperado y nivel de riesgo aceptable'],fields:[{kind:'text',label:'Capital disponible',name:'capital',placeholder:'Ej. $80,000 - $150,000'},{kind:'select',label:'Estrategia',name:'strategy',options:['Long-term rental','Fix & Flip','BRRRR','Off-market / FSBO','Multifamily','No estoy seguro']},{kind:'select',label:'Financiamiento',name:'financing',options:['Cash','Conventional loan','DSCR loan','Hard money','Necesito opciones']},{kind:'text',label:'Zonas objetivo',name:'area',placeholder:'Ej. Miami-Dade, Broward, Doral, Hialeah'},{kind:'select',label:'Horizonte',name:'horizon',options:['0-6 meses','6-12 meses','1-3 años','3+ años']},{kind:'select',label:'Perfil de riesgo',name:'risk',options:['Conservador','Moderado','Agresivo','No estoy seguro']}]}
-};
-
-
-function normalizeService(service){
-  const map={Comprar:'Compra',Compra:'Compra',Vender:'Venta',Venta:'Venta',Rentar:'Renta',Renta:'Renta',Invertir:'Inversión','Inversion':'Inversión','Inversión':'Inversión'};
-  return map[service] || service || 'Consulta';
-}
-function getFlow(service){
-  const key=normalizeService(service);
-  const data = currentLang==='es' ? serviceFlowsES : serviceFlowsEN;
-  return { key, data: data[key] || data.Consulta };
-}
-function fieldHTML(field){
-  if(field.kind==='select'){
-    return `<div class="field"><label>${field.label}</label><select name="${field.name}">${field.options.map(o=>`<option>${o}</option>`).join('')}</select></div>`;
-  }
-  return `<div class="field"><label>${field.label}</label><input name="${field.name}" placeholder="${field.placeholder||''}" /></div>`;
-}
-function renderDynamicFields(fields){
-  const rows=[];
-  for(let i=0;i<fields.length;i+=2){
-    rows.push(`<div class="field-row">${fieldHTML(fields[i])}${fields[i+1]?fieldHTML(fields[i+1]):''}</div>`);
-  }
-  return rows.join('');
-}
-function setModalContent(service='Consulta', presetArea=''){
-  const {key,data}=getFlow(service);
-  const isES=currentLang==='es';
-  modalLabel.textContent=data.label;
-  modalTitle.textContent=data.title;
-  modalIntro.textContent=presetArea ? `${isES?'Zona seleccionada':'Selected area'}: ${presetArea}. ${data.intro}` : data.intro;
-  modalResult.textContent=data.result;
-  modalSubmit.textContent=data.cta;
-  modalFinePrint.textContent=data.fine;
-  modalServiceValue.value=key;
-  modalPills.innerHTML=[...data.pills, ...(presetArea?[presetArea]:[])].map(p=>`<span class="service-pill">${p}</span>`).join('');
-  modalSteps.innerHTML=data.steps.map((s)=>`<div class="flow-step"><b>${s[0]}</b><div><strong>${s[1]}</strong><span>${s[2]}</span></div></div>`).join('');
-  modalNeeds.innerHTML=data.needs.map(n=>`<li>${n}</li>`).join('');
-  serviceDynamicFields.innerHTML=renderDynamicFields(data.fields);
-  if(presetArea){
-    const areaInput=serviceDynamicFields.querySelector('[name="area"]');
-    const propertyInput=serviceDynamicFields.querySelector('[name="property_address"]');
-    if(areaInput) areaInput.value=presetArea;
-    if(propertyInput) propertyInput.value=presetArea;
-  }
-  modalMessage.placeholder = key==='Consulta'
-    ? (isES?'Cuéntame zona, timing y detalles importantes…':'Tell me area, timing and important details…')
-    : (isES?`Agrega cualquier detalle extra sobre ${data.label.toLowerCase()}…`:`Add any extra detail about ${data.label.toLowerCase()}…`);
-}
-function openModal(service='Consulta', presetArea=''){
-  setModalContent(service, presetArea);
-  modal.classList.add('open');
-  modal.setAttribute('aria-hidden','false');
-  document.body.style.overflow='hidden';
-}
-function closeModal(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow=''}
-
-renderProperties();
-
-/* Event delegation for booking buttons — opens quick booking form */
-document.addEventListener('click',e=>{
-  const btn=e.target.closest('[data-open-modal]');
-  if(!btn) return;
-  openQuickModal('book');
-});
-/* ── Quick Consultation Modal ──────────────────────────────── */
-const quickModal=document.getElementById('quickModal');
-
-let _qMode='consult';
-function syncQuickModal(mode){
-  const es=typeof currentLang!=='undefined'&&currentLang==='es';
-  const isBook=mode==='book';
-  const el=id=>document.getElementById(id);
-  const ph=(id,en,ess)=>{const e2=el(id);if(e2)e2.placeholder=es?ess:en;};
-  if(el('qModalLabel'))el('qModalLabel').textContent=isBook?(es?'Llamada de 15 min':'15-min call'):(es?'Consulta rápida':'Quick consultation');
-  if(el('qModalTitle'))el('qModalTitle').innerHTML=isBook?(es?'Agenda una llamada rápida.':'Let\'s schedule a quick call.'):(es?'Cuéntame qué estás buscando.':'Tell me what you\'re looking for.');
-  if(el('qModalIntro'))el('qModalIntro').innerHTML=isBook?(es?'Deja tu teléfono y te llamo para confirmar el horario.':'Leave your phone and I\'ll call to confirm the time.'):(es?'Te responderé con pasos claros. Sin ruido, sin presión.':'I\'ll respond with clear next steps. No noise, no pressure.');
-  if(el('qLblName'))el('qLblName').textContent=es?'Nombre':'Name';
-  ph('qFldName',es?'Tu nombre':'Your name',es?'Tu nombre':'Your name');
-  if(el('qLblContact'))el('qLblContact').textContent=isBook?(es?'Teléfono':'Phone'):(es?'Teléfono o email':'Phone or email');
-  ph('qFldContact',isBook?(es?'Tu número de teléfono':'Your phone number'):(es?'¿Cómo prefieres que te contacte?':'How should I reach you'),isBook?(es?'Tu número de teléfono':'Your phone number'):(es?'¿Cómo prefieres que te contacte?':'How should I reach you'));
-  const interestRow=el('qFldInterest')?.closest('.field');
-  if(interestRow)interestRow.style.display=isBook?'none':'';
-  if(!isBook){
-    if(el('qLblInterest'))el('qLblInterest').textContent=es?'Me interesa':'I\'m interested in';
-    const sel=el('qFldInterest');
-    if(sel){
-      const opts=es?['Comprar','Vender','Rentar','Invertir','No estoy seguro/a']:['Buy','Sell','Rent','Invest','Not sure yet'];
-      const vals=['Buy','Sell','Rent','Invest','Not sure'];
-      [...sel.options].forEach((o,i)=>{o.textContent=opts[i];o.value=vals[i];});
-    }
-  }
-  if(el('qLblMsg'))el('qLblMsg').textContent=isBook?(es?'¿Cuándo puedes? (opcional)':'When are you available? (optional)'):(es?'Mensaje (opcional)':'Message (optional)');
-  ph('qFldMsg',isBook?(es?'Ej. mañanas, entre semana después de las 5 pm…':'E.g. mornings, weekdays after 5 pm…'):(es?'Área, presupuesto, tiempo u otras preguntas…':'Area, timing, budget or any questions…'),isBook?(es?'Ej. mañanas, entre semana después de las 5 pm…':'E.g. mornings, weekdays after 5 pm…'):(es?'Área, presupuesto, tiempo u otras preguntas…':'Area, timing, budget or any questions…'));
-  if(el('qTrust'))el('qTrust').innerHTML=isBook?(es?'<span>Te llamo en menos de 24h</span><span>Sin presión</span><span>Solo 15 min</span>':'<span>I\'ll call within 24h</span><span>No pressure</span><span>Just 15 min</span>'):(es?'<span>Respuesta en menos de 24h</span><span>Sin presión</span><span>Confidencial</span>':'<span>Response under 24h</span><span>No pressure</span><span>Confidential</span>');
-  if(el('qSubmitBtn'))el('qSubmitBtn').innerHTML=isBook?(es?'Agendar llamada &rarr;':'Schedule call &rarr;'):(es?'Enviar consulta &rarr;':'Send consultation &rarr;');
-  if(el('qNote'))el('qNote').textContent=isBook?(es?'Solo te llamo para confirmar el horario. Sin venta.':'I only call to confirm the time. No sales pitch.'):(es?'Tu información solo se usa para responder esta consulta.':'Your information is only used to respond to this consultation.');
-  const svc=el('quickForm')?.querySelector('[name="service"]');
-  if(svc)svc.value=isBook?(es?'Llamada 15 min':'15-min Call'):'Consulta';
-}
-
-function openQuickModal(mode){
-  _qMode=mode||'consult';
-  syncQuickModal(_qMode);
-  if(quickModal){quickModal.classList.add('open');document.body.style.overflow='hidden';}
-}
-
-function closeQuickModal(){
-  if(quickModal){quickModal.classList.remove('open');document.body.style.overflow='';}
-}
-
-document.getElementById('closeQuickModal')?.addEventListener('click',closeQuickModal);
-quickModal?.addEventListener('click',e=>{if(e.target===quickModal)closeQuickModal();});
-document.getElementById('quickForm')?.addEventListener('submit',async e=>{
+async function savePropForm(e,id){
   e.preventDefault();
-  const form=e.currentTarget;
-  const btn=document.getElementById('qSubmitBtn');
-  const es=typeof currentLang!=='undefined'&&currentLang==='es';
-  if(btn){btn.disabled=true;btn.textContent=es?'Enviando…':'Sending…';}
-  const ok=await submitLead(form,'Quick consultation modal');
-  if(ok){closeQuickModal();form.reset();}
-  else{if(btn){btn.disabled=false;btn.innerHTML=es?'Enviar consulta &rarr;':'Send consultation &rarr;';}}
-});
+  const fd=new FormData(e.target);
+  const numFields=['purchase_price','list_price','sold_price','repair_costs','closing_costs','other_costs','commission_pct','commission_amount'];
+  const rec={};
+  ['address','city','state','zip','property_type','status','deal_nature','deal_source','public_link','photos','internal_notes'].forEach(k=>rec[k]=txtOrNull(fd.get(k)));
+  numFields.forEach(k=>rec[k]=numOrNull(fd.get(k)));
+  ['list_date','close_date'].forEach(k=>rec[k]=txtOrNull(fd.get(k)));
+  const btn=e.submitter; btn.disabled=true; btn.textContent='Guardando…';
+  let res;
+  if(id) res=await sb.from('properties').update(rec).eq('id',id);
+  else res=await sb.from('properties').insert(rec);
+  btn.disabled=false;
+  if(res.error){toast('Error: '+res.error.message,true);return;}
+  logActivity(id?'update':'create','property',id||'nueva',{address:rec.address});
+  closeModal(); await loadAll(); renderProperties(); toast(id?'Propiedad actualizada':'Propiedad creada');
+}
+async function deleteProp(id){
+  if(!confirm('¿Eliminar esta propiedad? Esta acción no se puede deshacer.\n(Sugerencia: también puedes cambiar su estado a "Archivada").'))return;
+  const {error}=await sb.from('properties').delete().eq('id',id);
+  if(error){toast('Error: '+error.message,true);return;}
+  logActivity('delete','property',id,{});
+  closeModal(); await loadAll(); renderProperties(); toast('Propiedad eliminada');
+}
 
-/* Event delegation for consultation modal buttons (always opens quick modal) */
-document.addEventListener('click',e=>{
-  const btn=e.target.closest('[data-open-consult]');
-  if(!btn) return;
-  openQuickModal();
-});
-document.addEventListener('click',e=>{const el=e.target.closest('[data-service]');if(!el)return;e.preventDefault();openModal(el.dataset.service);});
-document.getElementById('closeModal')?.addEventListener('click',closeModal);
-modal?.addEventListener('click',e=>{if(e.target===modal)closeModal()});
-document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();if(typeof closeQuickModal==='function')closeQuickModal();}});
-
-const serviceSelect=document.getElementById('serviceSelect');
-const petField=document.getElementById('petField');
-serviceSelect?.addEventListener('change',()=>{petField.style.display=serviceSelect.value==='Comprar'||serviceSelect.value==='Rentar'?'grid':'none'});
-
-document.getElementById('leadForm')?.addEventListener('submit',e=>{e.preventDefault();submitLead(e.currentTarget,'Main contact form');});
-document.getElementById('modalForm')?.addEventListener('submit',async e=>{e.preventDefault();const ok=await submitLead(e.currentTarget,'Consultation modal');if(ok) closeModal();});
-applyContactConfig();
-</script>
-
-<script>
-/* ═══════════════════════════════════════════════════════
-   BILINGUAL TOGGLE — HTML default EN, JS swaps to ES
-   Ahora cubre TODOS los strings (no más fugas de idioma)
-═══════════════════════════════════════════════════════ */
-(function(){
-  const langButtons=[...document.querySelectorAll('[data-lang]')];
-  const txt=(selector, en, es)=>document.querySelectorAll(selector).forEach(el=>{el.textContent=currentLang==='es'?es:en});
-  const html=(selector, en, es)=>document.querySelectorAll(selector).forEach(el=>{el.innerHTML=currentLang==='es'?es:en});
-  const ph=(selector, en, es)=>document.querySelectorAll(selector).forEach(el=>{el.setAttribute('placeholder', currentLang==='es'?es:en)});
-  const attr=(selector, name, en, es)=>document.querySelectorAll(selector).forEach(el=>{el.setAttribute(name,currentLang==='es'?es:en)});
-  const setOptionLabels=(select, options)=>{
-    if(!select) return;
-    select.innerHTML=options.map(o=>`<option value="${o.value}">${currentLang==='es'?o.es:o.en}</option>`).join('');
-  };
-  const setLeadLabel=(fieldSelector, en, es)=>{
-    const control=document.querySelector(fieldSelector);
-    const label=control?.closest('.field')?.querySelector('label');
-    if(label) label.textContent=currentLang==='es'?es:en;
-  };
-
-  function applyStaticLanguage(){
-    const isES=currentLang==='es';
-    document.documentElement.lang=isES?'es':'en';
-    document.title=isES
-      ? 'Carlos Delgado · Realtor en Miami | Compra, Venta, Renta e Inversión'
-      : 'Carlos Delgado · Miami Realtor | Buy, Sell, Rent & Invest';
-    const meta=document.querySelector('meta[name="description"]');
-    if(meta) meta.content=isES
-      ? 'Carlos Delgado, realtor bilingüe en Miami. Asesoría clara para comprar, vender, rentar e invertir en Miami-Dade.'
-      : 'Carlos Delgado, bilingual Miami realtor. Clear real estate guidance for buyers, sellers, renters and investors across Miami-Dade.';
-
-    /* NAV */
-    txt('.nav-links a[href="#services"]','Services','Servicios');
-    txt('.nav-links a[href="#featured"]','Search','Búsqueda');
-    txt('.nav-links a[href="#process"]','Process','Proceso');
-    txt('.nav-links a[href="#invest"]','Investment','Inversión');
-    txt('.nav-links a[href="#contact"]','Contact','Contacto');
-    txt('.nav-actions .btn-light','Call','Llamar');
-    txt('[data-open-modal]','Schedule 15-min call','Agendar llamada de 15 min');
-    txt('.mobile-cta button','Request consultation','Solicitar consulta');
-    txt('.mobile-cta a','Call','Llamar');
-    attr('#menuBtn','aria-label','Open menu','Abrir menú');
-
-    /* HERO */
-    html('.hero-title','Find What<br/>Moves You','Encuentra<br/>lo que<br/>te mueve');
-    html('.hero-kicker','<i></i> Bilingual Realtor · Miami, FL','<i></i> Realtor bilingüe · Miami, FL');
-    html('.hero-sub',
-      'Buy, sell, rent or invest in Miami with an agent who <strong>filters first, sells second</strong> — clear decisions, an organized process, direct communication through closing.',
-      'Compra, vende, renta o invierte en Miami con un agente que <strong>filtra primero, vende después</strong> — decisiones claras, proceso ordenado, comunicación directa hasta el cierre.'
-    );
-    txt('.hero-ctas .btn-ghost','Start search','Iniciar búsqueda');
-    html('.hero-micro','Response in <b>under 24h</b> · English &amp; Español · No pressure','Respondo en <b>menos de 24h</b> · English &amp; Español · Sin presión');
-    txt('#scrollCue','Scroll','Scroll');
-
-    /* PROOF STRIP */
-    txt('.proof-item:nth-child(1) .proof-num','Miami-Dade','Miami-Dade');
-    txt('.proof-item:nth-child(1) .proof-label','Local market focus','Enfoque local de mercado');
-    txt('.proof-item:nth-child(2) .proof-num','EN / ES','EN / ES');
-    txt('.proof-item:nth-child(2) .proof-label','Bilingual guidance','Asesoría bilingüe');
-    txt('.proof-item:nth-child(3) .proof-num','Buy · Sell · Rent','Compra · Venta · Renta');
-    txt('.proof-item:nth-child(3) .proof-label','Residential services','Servicios residenciales');
-    txt('.proof-item:nth-child(4) .proof-num','Invest','Inversión');
-    txt('.proof-item:nth-child(4) .proof-label','Deal analysis focus','Análisis de oportunidades');
-
-    /* STORY */
-    txt('#story .label','Your next home','Tu próximo hogar');
-    html('.story-copy blockquote','Home is where the <em>important</em> things happen.','Tu hogar es donde pasan las cosas <em>importantes.</em>');
-    txt('.story-copy p:last-child','A home is not just an address. It is stability, memories and a new chapter for your family. My job is to help you take that step with clarity — no pressure, no noise, no closing surprises.','Un hogar propio no es solo una dirección. Es estabilidad, recuerdos y una nueva etapa para tu familia. Mi trabajo es que ese paso lo des con claridad — sin presión, sin ruido, sin sorpresas en el cierre.');
-
-    /* SERVICES */
-    txt('#services .label','Core services','Servicios principales');
-    txt('#services h2','What you need, with a clear strategy.','Lo que necesitas, con una estrategia clara.');
-    txt('#services .lede','From the first conversation to closing, every service is designed to give you clarity, structure and concrete next steps.','Desde la primera conversación hasta el cierre, cada servicio está pensado para darte claridad, orden y próximos pasos concretos.');
-    txt('.service-grid .service-card:nth-child(1) h3','Buy','Comprar');
-    txt('.service-grid .service-card:nth-child(1) p','Property filtering, showings, offer strategy, negotiation, inspection and support through closing.','Filtrado de propiedades, visitas, oferta, negociación, inspección y acompañamiento hasta el cierre.');
-    txt('.service-grid .service-card:nth-child(1) .text-link','See process →','Ver proceso →');
-    txt('.service-grid .service-card:nth-child(2) h3','Sell','Vender');
-    txt('.service-grid .service-card:nth-child(2) p','Preparation, positioning, pricing, marketing and coordination to sell with stronger presentation.','Preparación, posicionamiento, pricing, marketing y coordinación para vender con mejor presentación.');
-    txt('.service-grid .service-card:nth-child(2) .text-link','Request valuation →','Solicitar valoración →');
-    txt('.service-grid .service-card:nth-child(3) h3','Rent','Rentar');
-    txt('.service-grid .service-card:nth-child(3) p','Practical rental search by area, budget, requirements, pets and lifestyle.','Búsqueda práctica por zona, presupuesto, requisitos, mascotas y estilo de vida.');
-    txt('.service-grid .service-card:nth-child(3) .text-link','Start search →','Iniciar búsqueda →');
-    txt('.service-grid .service-card:nth-child(4) h3','Invest','Invertir');
-    txt('.service-grid .service-card:nth-child(4) p','Area analysis, rent comps, exit strategy, risk and the economic logic of the deal.','Análisis de zona, renta comparable, salida posible, riesgo y lógica económica del deal.');
-    txt('.service-grid .service-card:nth-child(4) .text-link','See investment options →','Ver oportunidades de inversión →');
-
-    /* PROPERTY SEARCH / FEATURED PROPERTIES */
-    txt('#featured .label','Personalized property search','Búsqueda personalizada');
-    txt('#featured h2','Tell me what you\'re looking for. I\'ll prepare a curated search for you.','Dime qué estás buscando y preparo una selección para ti.');
-    txt('#featured .lede','Buying, renting or investing in Miami starts with the right filters: budget, area, timing, financing, lifestyle and property type.','Comprar, rentar o invertir en Miami empieza con los filtros correctos: presupuesto, zona, tiempo, financiamiento, estilo de vida y tipo de propiedad.');
-    html('.featured-foot','Share your criteria and I\'ll help you narrow the search before you waste time on the wrong options. <a href="#contact">Start my search →</a>','Comparte tus criterios y te ayudo a reducir opciones antes de perder tiempo con propiedades que no encajan. <a href="#contact">Iniciar mi búsqueda →</a>');
-    if (typeof renderProperties === 'function') renderProperties();
-
-    /* VALUE */
-    txt('#value .label','Why work with me','Por qué trabajar conmigo');
-    txt('#value h2','Less noise. Better decisions.','Menos ruido. Mejores decisiones.');
-    txt('.value-intro p:last-child','It is not just about showing properties. It is about helping you understand price, area, costs, timing, risks and next steps.','No se trata solo de mostrar propiedades. Se trata de ayudarte a entender precio, zona, costos, timing, riesgos y próximos pasos.');
-    txt('.value-item:nth-child(1) h3','Real opportunity filtering','Filtro real de oportunidades');
-    txt('.value-item:nth-child(1) p','Avoid wasting time on properties that do not fit your budget, conditions, location or strategy.','Evita perder tiempo con propiedades que no encajan por presupuesto, condiciones, ubicación o estrategia.');
-    txt('.value-item:nth-child(2) h3','A process explained clearly','Proceso explicado sin confusión');
-    txt('.value-item:nth-child(2) p','I explain what comes next: offer, deposit, inspection, financing, title, HOA, closing or move-in.','Te explico qué viene después: oferta, depósito, inspección, financiamiento, title, HOA, cierre o move-in.');
-    txt('.value-item:nth-child(3) h3','Local Miami perspective','Visión local de Miami');
-    txt('.value-item:nth-child(3) p','Miami-Dade neighborhoods each have their own pricing, demand and lifestyle logic.','Brickell, Coral Gables, Doral, Kendall, Miami Beach, Coconut Grove. Cada zona tiene su lógica de precio, demanda y estilo de vida.');
-    txt('.value-item:nth-child(4) h3','Direct communication','Comunicación directa');
-    txt('.value-item:nth-child(4) p','Clear answers, concrete follow-up and next steps after every conversation. You always know where you stand.','Respuestas claras, seguimiento concreto y próximos pasos al final de cada contacto. Siempre sabes dónde estás parado.');
-
-    /* AREAS */
-
-    /* PROCESS */
-    txt('#process .label','How I work with you','Cómo trabajo contigo');
-    txt('#process h2','Clarity first. Properties second.','Primero claridad. Después propiedades.');
-    txt('#process .lede','Until real testimonials are added with client permission, this section explains the working process for buying, selling, renting and investing.','Mientras se cargan testimonios reales con consentimiento, esta sección explica el proceso de trabajo para compra, venta, renta e inversión.');
-    txt('.process-card:nth-child(1) .process-step','Step 01','Paso 01');
-    txt('.process-card:nth-child(1) .process-title','Initial diagnosis','Diagnóstico inicial');
-    txt('.process-card:nth-child(1) .process-body','First I clarify goal, budget, area, timing, financing and real restrictions. That helps avoid showings or conversations that go nowhere.','Primero aclaro objetivo, presupuesto, zona, timing, financiamiento y restricciones reales. Así evitamos visitas o conversaciones que no llevan a nada.');
-    html('.process-card:nth-child(1) .process-tags','<span>Buy</span><span>Sell</span><span>Rent</span><span>Invest</span>','<span>Compra</span><span>Venta</span><span>Renta</span><span>Inversión</span>');
-    txt('.process-card:nth-child(2) .process-step','Step 02','Paso 02');
-    txt('.process-card:nth-child(2) .process-title','Analysis with judgment','Análisis con criterio');
-    txt('.process-card:nth-child(2) .process-body','I compare price, area, condition, HOA, costs, demand and exit potential. The goal is to understand why an option makes sense or should be discarded.','Comparo precio, zona, condición, HOA, costos, demanda y salida posible. La idea es que entiendas por qué una opción conviene o se descarta.');
-    html('.process-card:nth-child(2) .process-tags','<span>Comps</span><span>Risk</span><span>Next steps</span>','<span>Comps</span><span>Riesgo</span><span>Próximos pasos</span>');
-    txt('.process-card:nth-child(3) .process-step','Step 03','Paso 03');
-    txt('.process-card:nth-child(3) .process-title','Execution and closing','Ejecución y cierre');
-    txt('.process-card:nth-child(3) .process-body','I support you with offer strategy, negotiation, inspection, documents, coordination and follow-up through closing or move-in.','Te acompaño con estrategia de oferta, negociación, inspección, documentos, coordinación y seguimiento hasta el cierre o move-in.');
-    html('.process-card:nth-child(3) .process-tags','<span>Offer</span><span>Inspection</span><span>Closing</span>','<span>Oferta</span><span>Inspección</span><span>Cierre</span>');
-
-    /* INVEST */
-    txt('#invest .label','Real estate investment','Inversión inmobiliaria');
-    txt('#invest h2','Opportunities with numbers, not just excitement.','Oportunidades con números, no solo entusiasmo.');
-    txt('#invest .lede','Evaluate opportunities with a more serious lens: rent comps, costs, exit strategy, risk and margin of safety.','Evalúa oportunidades con una mirada más seria: renta comparable, costos, estrategia de salida, riesgo y margen de seguridad.');
-    txt('.invest-card:nth-child(1) .acro','Long-term rental','Renta a largo plazo');
-    txt('.invest-card:nth-child(1) p:last-child','Properties with stable rental thesis, reasonable maintenance and sustained local demand.','Propiedades con tesis de renta estable, mantenimiento razonable y demanda local sostenida.');
-    txt('.invest-card:nth-child(2) .acro','Buy, renovate and sell','Comprar, renovar y vender');
-    txt('.invest-card:nth-child(2) p:last-child','Entry price, rehab cost, ARV (after-repair value), expected margin and execution risk.','Entrada, costo de rehab, ARV (valor después de reparaciones), margen esperado y riesgo de ejecución.');
-    txt('.invest-card:nth-child(3) .acro','Buy · Rehab · Rent · Refinance · Repeat','Comprar · Renovar · Rentar · Refinanciar · Repetir');
-    txt('.invest-card:nth-child(3) p:last-child','Recurring capital strategy: buy, rehab, rent, refinance and repeat.','Estrategia de capital recurrente: compra, renovación, renta, refinanciamiento y capacidad de repetir.');
-    txt('.invest-card:nth-child(4) .acro','Off MLS / For sale by owner','Fuera de MLS / Vendido por dueño');
-    txt('.invest-card:nth-child(4) p:last-child','Opportunities outside public listings, evaluated with clearer exit potential and wider margin of safety.','Oportunidades fuera del listado público, evaluadas con salida clara y margen de seguridad mayor.');
-
-    /* ABOUT */
-    txt('#about .label','About Carlos','Sobre Carlos');
-    txt('#about h2','One clear point of contact to move better in Miami.','Un punto de contacto claro para moverte mejor en Miami.');
-    txt('.about-copy > p:not(.label)','Real estate agent focused on helping buyers, sellers, renters and investors make clear decisions. The idea is simple: less confusion, a better process and direct communication at every stage.','Agente inmobiliario enfocado en ayudar a compradores, vendedores, renters e inversionistas a tomar decisiones claras. La idea es simple: menos confusión, mejor proceso y comunicación directa en cada etapa.');
-    txt('.credential div:nth-child(3)','Specialty: buying, selling, renting and residential investment.','Especialidad: compra, venta, renta e inversión residencial.');
-    txt('.credential div:nth-child(4)','Languages: English · Español','Idiomas: English · Español');
-
-    /* CONTACT */
-    txt('#contact .label','Contact','Contacto');
-    txt('#contact h2','Let\'s talk about your next move.','Hablemos sobre tu próximo movimiento.');
-    txt('.contact-aside > p','Tell me what you are looking for and I will respond with clear next steps for buying, selling, renting or investing in Miami.','Díme qué buscas y respondo con los próximos pasos claros para comprar, vender, rentar o invertir en Miami.');
-    txt('.contact-action[data-config="phone"] span:first-child','Call now','Llamar ahora');
-    txt('.contact-action[data-config="email"] span:first-child','Direct email','Email directo');
-    txt('.contact-action[data-config="whatsapp"] span:first-child','WhatsApp','WhatsApp');
-
-    /* LEAD FORM */
-    txt('#leadForm .field-row:nth-child(1) .field:nth-child(1) label','Name','Nombre');
-    ph('#leadForm [name="name"]','Your full name','Tu nombre completo');
-    txt('#leadForm .field-row:nth-child(1) .field:nth-child(2) label','Phone or email','Teléfono o email');
-    ph('#leadForm [name="contact"]','Phone number or email','Número de teléfono o email');
-    txt('#leadForm .field-row:nth-child(2) .field:nth-child(1) label','I am interested in','Me interesa');
-    txt('#leadForm .field-row:nth-child(2) .field:nth-child(2) label','Approximate area','Zona aproximada');
-    ph('#leadForm [name="area"]','Ex. Brickell, Doral, Coral Gables','Ej. Brickell, Doral, Coral Gables');
-    txt('#leadForm .field-row:nth-child(3) .field:nth-child(1) label','Approximate budget','Presupuesto aproximado');
-    ph('#leadForm [name="budget"]','Ex. $500,000 \xb7 $3,000/mo','Ej. $500,000 \xb7 $3,000/mes');
-    ph('#leadForm [name="message"]','Tell me what you need, your timing and any important detail…','Cuéntame qué buscas, tu timing y cualquier detalle importante…');
-    setOptionLabels(document.getElementById('serviceSelect'),[
-      {value:'',en:'Select an option',es:'Selecciona una opción'},
-      {value:'Comprar',en:'Buy',es:'Comprar'},
-      {value:'Vender',en:'Sell',es:'Vender'},
-      {value:'Rentar',en:'Rent',es:'Rentar'},
-      {value:'Invertir',en:'Invest',es:'Invertir'}
-    ]);
-    txt('#leadForm .submit','Send message →','Enviar mensaje →');
-
-    /* FOOTER */
-    txt('[data-i18n="footerLine1"]','Carlos Delgado · Licensed Real Estate Agent · Florida','Carlos Delgado · Agente Inmobiliario con Licencia · Florida');
-    txt('[data-i18n="footerBrokerageLabel"]','Affiliated brokerage:','Agencia afiliada:');
-    txt('.footer-links a[href="#services"]','Services','Servicios');
-    txt('.footer-links a[href="#featured"]','Search','Búsqueda');
-    txt('.footer-links a[href="#process"]','Process','Proceso');
-    txt('.footer-links a[href="#contact"]','Contact','Contacto');
-    txt('[data-i18n="legalCopy"]','© 2026 Carlos Delgado Real Estate. All rights reserved.','© 2026 Carlos Delgado Real Estate. Todos los derechos reservados.');
-    txt('[data-i18n="legalFair"]','Equal Housing Opportunity · Fair Housing Act compliant','Igualdad de oportunidades de vivienda · Cumple con la Ley de Vivienda Justa');
-
-    /* QUICK MODAL */
-    txt('#qModalLabel','Quick consultation','Consulta rápida');
-    txt('#qModalTitle','Tell me what you\'re looking for.','Díme qué estás buscando.');
-    txt('#qModalIntro','I\'ll respond with clear next steps. No noise, no pressure.','Respondo con los próximos pasos claros. Sin presión.');
-    txt('#qLblName','Name','Nombre');
-    ph('#qFldName','Your name','Tu nombre');
-    txt('#qLblContact','Phone or email','Teléfono o email');
-    ph('#qFldContact','How should I reach you','Cómo te contacto');
-    txt('#qLblInterest','I\'m interested in','Me interesa');
-    setOptionLabels(document.getElementById('qFldInterest'),[
-      {value:'Buy',en:'Buy',es:'Comprar'},
-      {value:'Sell',en:'Sell',es:'Vender'},
-      {value:'Rent',en:'Rent',es:'Rentar'},
-      {value:'Invest',en:'Invest',es:'Invertir'},
-      {value:'Not sure',en:'Not sure yet',es:'No estoy seguro'}
-    ]);
-    txt('#qLblMsg','Message (optional)','Mensaje (opcional)');
-    ph('#qFldMsg','Area, timing, budget or any questions…','Zona, timing, presupuesto o preguntas…');
-    txt('#qTrust span:nth-child(1)','Response under 24h','Respuesta en menos de 24h');
-    txt('#qTrust span:nth-child(2)','No pressure','Sin presión');
-    txt('#qTrust span:nth-child(3)','Confidential','Confidencial');
-    txt('#qModalSubmit','Send consultation →','Enviar consulta →');
-    txt('#qModalNote','Your information is used only to respond to this consultation.','Tu información solo se usa para responder a esta consulta.');
-
-    /* SERVICE MODAL (marco fijo — el contenido dinámico lo traduce setModalContent) */
-    attr('#closeModal','aria-label','Close','Cerrar');
-    txt('[data-i18n="modalSection1"]','How this tab works','Cómo funciona esta sección');
-    txt('[data-i18n="modalSection2"]','Useful information to have ready','Información útil para tener a mano');
-    txt('#modalForm > .field-row .field:nth-child(1) label','Name','Nombre');
-    ph('#modalForm [name="name"]','Your name','Tu nombre');
-    txt('#modalForm > .field-row .field:nth-child(2) label','Phone or email','Teléfono o email');
-    ph('#modalForm [name="contact"]','How should I contact you','Cómo te contacto');
-    txt('[data-i18n="modalMessageLabel"]','Optional message','Mensaje opcional');
-    ph('#modalMessage','Tell me area, timing, questions or important details…','Cuéntame zona, timing, preguntas o detalles importantes…');
-    txt('#modalForm .form-trust span:nth-child(1)','Response <24h','Respuesta <24h');
-    txt('#modalForm .form-trust span:nth-child(2)','No pressure','Sin presión');
-
-    /* MOBILE MENU */
-    txt('#mobileNav a[href="#services"]','Services','Servicios');
-    txt('#mobileNav a[href="#featured"]','Search','Búsqueda');
-    txt('#mobileNav a[href="#process"]','Process','Proceso');
-    txt('#mobileNav a[href="#invest"]','Investment','Inversión');
-    txt('#mobileNav a[href="#contact"]','Contact','Contacto');
-
-    /* UPDATE LANG BUTTONS */
-    langButtons.forEach(b=>{
-      b.setAttribute('aria-pressed', b.dataset.lang===currentLang ? 'true' : 'false');
-      b.classList.toggle('active', b.dataset.lang===currentLang);
-    });
+/* ════════════════ LEADS ════════════════ */
+function renderLeads(){
+  const f=state.filters;
+  let rows=state.leads.slice();
+  if(f.leadStatus)rows=rows.filter(l=>l.status===f.leadStatus);
+  const opts=Object.entries(LEAD_STATUS).map(([k,v])=>`<option value="${k}" ${f.leadStatus===k?'selected':''}>${v}</option>`).join('');
+  const head=`<div class="section-head">
+    <h3>${rows.length} lead${rows.length===1?'':'s'}</h3>
+    <div class="toolbar">
+      <select id="lead-filter"><option value="">Todos los estados</option>${opts}</select>
+      <button class="btn btn-primary btn-sm" style="width:auto" onclick="openLeadModal()">+ Nuevo lead</button>
+    </div></div>`;
+  let body;
+  if(!rows.length){
+    body=emptyState('◷','Sin leads','No hay leads que coincidan. Crea uno manualmente o llegarán desde el formulario público.');
+  }else{
+    body=`<div class="panel"><div class="tbl-wrap"><table>
+      <thead><tr><th>Nombre</th><th>Contacto</th><th>Interés</th><th>Fuente</th><th>Estado</th><th>Propiedad</th><th>Seguimiento</th><th>Creado</th><th></th></tr></thead>
+      <tbody>${rows.map(l=>`<tr>
+        <td><div class="row-main">${esc(l.name)}</div>${l.budget?`<div class="row-sub">${money(l.budget)}</div>`:''}</td>
+        <td>${l.email?`<div class="row-sub">${esc(l.email)}</div>`:''}${l.phone?`<div class="row-sub">${esc(l.phone)}</div>`:''}${!l.email&&!l.phone?'—':''}</td>
+        <td>${INTEREST[l.interest_type]||'—'}</td>
+        <td>${LEAD_SOURCE[l.source]||l.source||'—'}</td>
+        <td><span class="badge ${LEAD_STATUS_BADGE[l.status]||'b-grey'}">${LEAD_STATUS[l.status]||l.status}</span></td>
+        <td>${l.property_id?`<span class="row-sub">${esc(propAddr(l.property_id))}</span>`:'—'}</td>
+        <td class="num">${l.next_followup?fmtDate(l.next_followup):'—'}</td>
+        <td class="num row-sub">${fmtDate((l.created_at||'').slice(0,10))}</td>
+        <td><div class="rowact">
+          <button class="iconbtn" onclick="openLeadModal('${l.id}')">Editar</button>
+          <button class="iconbtn danger" onclick="deleteLead('${l.id}')">✕</button>
+        </div></td>
+      </tr>`).join('')}</tbody></table></div></div>`;
   }
+  $('#content').innerHTML=head+body;
+  $('#lead-filter').addEventListener('change',e=>{f.leadStatus=e.target.value;renderLeads();});
+}
 
-  function setLang(lang){
-    if(lang!=='en'&&lang!=='es') return;
-    currentLang=lang;
-    if(window.SITE_CONFIG) window.SITE_CONFIG.currentLang=lang;
-    try{localStorage.setItem('cd_lang',lang);}catch(e){}
-    applyStaticLanguage();
-    if(typeof applyContactConfig==='function') applyContactConfig();
-  }
+function openLeadModal(id){
+  const l = id ? state.leads.find(x=>x.id===id) : {};
+  const isEdit=!!id;
+  const sel=(obj,cur)=>Object.entries(obj).map(([k,v])=>`<option value="${k}" ${cur===k?'selected':''}>${v}</option>`).join('');
+  const propOpts=`<option value="">— Ninguna —</option>`+state.properties.map(p=>`<option value="${p.id}" ${l.property_id===p.id?'selected':''}>${esc(p.address)}</option>`).join('');
+  const val=k=>l[k]??'';
+  $('#modal-root').innerHTML=`<div class="overlay" onclick="if(event.target===this)closeModal()">
+   <form class="modal" id="lead-form">
+    <div class="modal-head"><h3>${isEdit?'Editar lead':'Nuevo lead'}</h3><button type="button" class="iconbtn" onclick="closeModal()">✕</button></div>
+    <div class="modal-body">
+      <div class="grid2">
+        <div class="field"><label>Nombre *</label><input name="name" required value="${esc(val('name'))}"/></div>
+        <div class="field"><label>Email</label><input name="email" type="email" value="${esc(val('email'))}"/></div>
+        <div class="field"><label>Teléfono</label><input name="phone" value="${esc(val('phone'))}"/></div>
+        <div class="field"><label>Presupuesto aprox.</label><input name="budget" type="number" step="any" value="${val('budget')}"/></div>
+        <div class="field"><label>Tipo de interés</label><select name="interest_type"><option value="">—</option>${sel(INTEREST,l.interest_type)}</select></div>
+        <div class="field"><label>Fuente</label><select name="source">${sel(LEAD_SOURCE,l.source||'website')}</select></div>
+        <div class="field"><label>Estado</label><select name="status">${sel(LEAD_STATUS,l.status||'nuevo')}</select></div>
+        <div class="field"><label>Próximo seguimiento</label><input name="next_followup" type="date" value="${val('next_followup')}"/></div>
+        <div class="field full"><label>Propiedad de interés</label><select name="property_id">${propOpts}</select></div>
+        <div class="field full"><label>Notas internas</label><textarea name="internal_notes" rows="3">${esc(val('internal_notes'))}</textarea></div>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <div>${isEdit?`<button type="button" class="iconbtn danger" onclick="deleteLead('${id}')">Eliminar</button>`:''}</div>
+      <div style="display:flex;gap:.5rem">
+        <button type="button" class="btn btn-ghost btn-sm" onclick="closeModal()">Cancelar</button>
+        <button type="submit" class="btn btn-primary btn-sm" style="width:auto">${isEdit?'Guardar':'Crear lead'}</button>
+      </div>
+    </div>
+   </form></div>`;
+  $('#lead-form').addEventListener('submit',e=>saveLeadForm(e,id));
+}
+async function saveLeadForm(e,id){
+  e.preventDefault();
+  const fd=new FormData(e.target);
+  const rec={
+    name:fd.get('name'), email:txtOrNull(fd.get('email')), phone:txtOrNull(fd.get('phone')),
+    budget:numOrNull(fd.get('budget')), interest_type:txtOrNull(fd.get('interest_type')),
+    source:fd.get('source')||'website', status:fd.get('status')||'nuevo',
+    next_followup:txtOrNull(fd.get('next_followup')), property_id:txtOrNull(fd.get('property_id')),
+    internal_notes:txtOrNull(fd.get('internal_notes'))
+  };
+  const btn=e.submitter; btn.disabled=true; btn.textContent='Guardando…';
+  let res;
+  if(id) res=await sb.from('leads').update(rec).eq('id',id);
+  else res=await sb.from('leads').insert(rec);
+  btn.disabled=false;
+  if(res.error){toast('Error: '+res.error.message,true);return;}
+  logActivity(id?'update':'create','lead',id||'nuevo',{name:rec.name});
+  closeModal(); await loadAll(); renderLeads(); toast(id?'Lead actualizado':'Lead creado');
+}
+async function deleteLead(id){
+  if(!confirm('¿Eliminar este lead?'))return;
+  const {error}=await sb.from('leads').delete().eq('id',id);
+  if(error){toast('Error: '+error.message,true);return;}
+  logActivity('delete','lead',id,{});
+  closeModal(); await loadAll(); renderLeads(); toast('Lead eliminado');
+}
 
-  langButtons.forEach(btn=>{
-    btn.addEventListener('click',()=>setLang(btn.dataset.lang));
-  });
+/* ════════════════ REPORTS ════════════════ */
+let charts={};
+function destroyCharts(){Object.values(charts).forEach(c=>c&&c.destroy());charts={};}
+function renderReports(){
+  const P=state.properties, L=state.leads;
+  const sold=P.filter(p=>p.status==='vendida');
+  const lc=leadCountByProp();
+  // rankings
+  const maxSold=sold.slice().sort((a,b)=>(+b.sold_price||0)-(+a.sold_price||0))[0];
+  const wp=P.filter(p=>p.estimated_profit!=null).sort((a,b)=>(+b.estimated_profit)-(+a.estimated_profit))[0];
+  const wc=P.filter(p=>p.commission_calc!=null).sort((a,b)=>(+b.commission_calc)-(+a.commission_calc))[0];
+  const mlId=Object.keys(lc).sort((a,b)=>lc[b]-lc[a])[0];
+  const domVals=sold.map(p=>p.days_on_market).filter(d=>d!=null);
+  const avgDom=domVals.length?Math.round(domVals.reduce((a,b)=>a+b,0)/domVals.length):null;
+  const listVals=P.map(p=>+p.list_price).filter(v=>v>0);
+  const soldVals=sold.map(p=>+p.sold_price).filter(v=>v>0);
+  const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:null;
+  const avgList=avg(listVals), avgSold=avg(soldVals);
+  const diffs=sold.map(p=>p.price_diff).filter(v=>v!=null);
+  const avgDiff=avg(diffs);
 
-  /* Init: restore saved language preference */
-  (function(){
-    let saved=null;
-    try{saved=localStorage.getItem('cd_lang');}catch(e){}
-    if(saved==='es'||saved==='en') currentLang=saved;
-  })();
-  applyStaticLanguage();
-  if(typeof applyContactConfig==='function') applyContactConfig();
+  $('#content').innerHTML=`
+    <div class="cards">
+      <div class="card"><div class="k">Precio listado prom.</div><div class="v sm">${money(avgList)}</div></div>
+      <div class="card"><div class="k">Precio vendido prom.</div><div class="v sm">${money(avgSold)}</div></div>
+      <div class="card"><div class="k">Dif. listado vs vendido</div><div class="v sm ${avgDiff>=0?'pos':'neg'}">${avgDiff!=null?money(avgDiff):'—'}</div></div>
+      <div class="card"><div class="k">Días promedio en mercado</div><div class="v sm">${avgDom!=null?avgDom+' días':'—'}</div></div>
+    </div>
+    <div class="charts">
+      <div class="chart-card"><h4>Total vendido por mes</h4><div class="cv"><canvas id="ch-sold"></canvas></div></div>
+      <div class="chart-card"><h4>Comisión estimada por mes</h4><div class="cv"><canvas id="ch-comm"></canvas></div></div>
+      <div class="chart-card"><h4>Leads por fuente</h4><div class="cv"><canvas id="ch-src"></canvas></div></div>
+      <div class="chart-card"><h4>Conversión de leads por estado</h4><div class="cv"><canvas id="ch-stat"></canvas></div></div>
+    </div>
+    <div class="panel" style="padding:1.3rem 1.5rem">
+      <h3 style="font-family:Syne;font-size:1.05rem;margin-bottom:.8rem">Rankings</h3>
+      <ul class="rank-list">
+        <li><span>🏆 Propiedad vendida más cara</span><span>${maxSold?esc(maxSold.address)+' · '+money(maxSold.sold_price):'—'}</span></li>
+        <li><span>📈 Mayor beneficio estimado</span><span>${wp&&wp.estimated_profit!=null?esc(wp.address)+' · '+money(wp.estimated_profit):'—'}</span></li>
+        <li><span>💵 Mayor comisión generada</span><span>${wc&&wc.commission_calc!=null?esc(wc.address)+' · '+money(wc.commission_calc):'—'}</span></li>
+        <li><span>👥 Propiedad con más leads</span><span>${mlId?esc(propAddr(mlId))+' · '+lc[mlId]+' leads':'—'}</span></li>
+      </ul>
+    </div>`;
+
+  destroyCharts();
+  const TERRA='#c9553a', SAGE='#6f8977', OLIVE='#2f4437', AMBER='#b8791f', BLUE='#3a6ea5';
+  const gridc='rgba(19,17,15,.08)';
+  const baseOpts={responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{grid:{color:gridc},beginAtZero:true}}};
+
+  // monthly sold + commission
+  const months={}, comm={};
+  sold.forEach(p=>{ if(p.close_date){const m=p.close_date.slice(0,7);months[m]=(months[m]||0)+(+p.sold_price||0);comm[m]=(comm[m]||0)+(+p.commission_calc||0);} });
+  const mk=Object.keys(months).sort();
+  const mLabels=mk.map(m=>new Date(m+'-01T00:00:00').toLocaleDateString('es-ES',{month:'short',year:'2-digit'}));
+
+  if(mk.length){
+    charts.sold=new Chart($('#ch-sold'),{type:'bar',data:{labels:mLabels,datasets:[{data:mk.map(m=>months[m]),backgroundColor:TERRA,borderRadius:6}]},options:{...baseOpts,plugins:{...baseOpts.plugins,tooltip:{callbacks:{label:c=>money(c.parsed.y)}}}}});
+    charts.comm=new Chart($('#ch-comm'),{type:'line',data:{labels:mLabels,datasets:[{data:mk.map(m=>comm[m]),borderColor:OLIVE,backgroundColor:'rgba(47,68,55,.12)',fill:true,tension:.3,pointBackgroundColor:OLIVE}]},options:{...baseOpts,plugins:{...baseOpts.plugins,tooltip:{callbacks:{label:c=>money(c.parsed.y)}}}}});
+  } else { noChart('ch-sold'); noChart('ch-comm'); }
+
+  // leads by source
+  const bySrc={}; L.forEach(l=>bySrc[l.source]=(bySrc[l.source]||0)+1);
+  const sk=Object.keys(bySrc);
+  if(sk.length){
+    charts.src=new Chart($('#ch-src'),{type:'doughnut',data:{labels:sk.map(s=>LEAD_SOURCE[s]||s),datasets:[{data:sk.map(s=>bySrc[s]),backgroundColor:[TERRA,SAGE,AMBER,BLUE,OLIVE,'#a23e29','#9a8557','#5a7a6a','#b0b0b0']}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'right',labels:{boxWidth:12,font:{size:11}}}}}});
+  } else noChart('ch-src');
+
+  // leads by status
+  const byStat={}; Object.keys(LEAD_STATUS).forEach(k=>byStat[k]=0); L.forEach(l=>byStat[l.status]=(byStat[l.status]||0)+1);
+  const stk=Object.keys(LEAD_STATUS);
+  if(L.length){
+    charts.stat=new Chart($('#ch-stat'),{type:'bar',data:{labels:stk.map(s=>LEAD_STATUS[s]),datasets:[{data:stk.map(s=>byStat[s]),backgroundColor:[BLUE,AMBER,TERRA,SAGE,OLIVE,'#b1462e'],borderRadius:6}]},options:baseOpts});
+  } else noChart('ch-stat');
+}
+function noChart(id){const c=$('#'+id);if(c)c.parentElement.innerHTML='<div class="state" style="padding:2rem 0"><div class="row-sub">Sin datos suficientes todavía</div></div>';}
+
+/* ════════════════ MISC ════════════════ */
+function closeModal(){$('#modal-root').innerHTML='';}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+async function logActivity(action,entity,entity_id,details){
+  try{ await sb.from('activity_logs').insert({actor_email:state.session?.user?.email,action,entity,entity_id:String(entity_id),details}); }catch(_){}
+}
+
+/* ════════════════ BOOT ════════════════ */
+(async()=>{
+  const {data}=await sb.auth.getSession();
+  if(data.session){ await onSignedIn(data.session); }
 })();
+window.openPropModal=openPropModal; window.deleteProp=deleteProp;
+window.openLeadModal=openLeadModal; window.deleteLead=deleteLead;
+window.renderView=renderView; window.closeModal=closeModal;
 </script>
 </body>
 </html>
