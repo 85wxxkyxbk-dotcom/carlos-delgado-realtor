@@ -388,6 +388,9 @@ h2{font-family:'Syne';font-size:clamp(2.2rem,4.5vw,4.4rem);line-height:.96;lette
 
 /* ─── v4 PATCH ─────────────────────────────────────────────────────── */
 
+/* Spanish hero title — reduce font so "Encuentra" fits the ~451px desktop column */
+@media(min-width:1041px){html[lang="es"] .hero-title{font-size:clamp(3rem,6.2vw,6.5rem)}}
+
 /* Scroll margin — compensates sticky header on anchor links */
 section[id]{scroll-margin-top:88px}
 #hero{scroll-margin-top:0}
@@ -1089,31 +1092,72 @@ function sendLeadToSupabase(payload){
   }catch(_){/* silencioso a propósito */}
 }
 
+function showFormMessage(form, type, text){
+  let msg=form.querySelector('.form-msg');
+  if(!msg){
+    msg=document.createElement('div');
+    msg.className='form-msg';
+    form.appendChild(msg);
+  }
+  msg.textContent=text;
+  msg.setAttribute('role','alert');
+  msg.style.cssText=`margin-top:.85rem;padding:.85rem 1rem;border-radius:12px;font-size:.84rem;font-weight:600;line-height:1.5;${
+    type==='ok'
+      ? 'background:rgba(111,137,119,.12);border:1px solid rgba(111,137,119,.28);color:#2f4437;'
+      : 'background:rgba(201,85,58,.10);border:1px solid rgba(201,85,58,.24);color:#9b3322;'
+  }`;
+  msg.scrollIntoView({behavior:'smooth',block:'nearest'});
+  if(type==='ok') setTimeout(()=>{ msg.style.opacity='0'; msg.style.transition='opacity .4s'; setTimeout(()=>msg.remove(),450); }, 5000);
+}
+
+function validateContact(value){
+  const v=value.trim();
+  const isEmail=/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  const isPhone=/^[\+\d][\d\s\-\(\)]{6,}$/.test(v);
+  return isEmail||isPhone;
+}
+
 async function submitLead(form, source){
   const cfg=window.SITE_CONFIG || {};
+  const isES=currentLang==='es';
+
+  // Validate contact field
+  const contactField=form.querySelector('[name="contact"],[name="contact_info"]');
+  if(contactField && !validateContact(contactField.value)){
+    showFormMessage(form,'err', isES
+      ? 'Por favor ingresa un email o teléfono válido (ej. (305) 555-1234 o tu@email.com).'
+      : 'Please enter a valid email or phone number (e.g. (305) 555-1234 or you@email.com).');
+    contactField.focus();
+    return false;
+  }
+
   const payload=leadPayloadFromForm(form, source);
-  sendLeadToSupabase(payload); // aditivo: alimenta el panel /admin sin afectar el envío principal
+  sendLeadToSupabase(payload);
   const submitButton=form.querySelector('button[type="submit"]');
   const originalText=submitButton?.textContent;
-  const isES=currentLang==='es';
   if(submitButton){ submitButton.disabled=true; submitButton.textContent=isES?'Enviando…':'Sending…'; }
   try{
     if(cfg.formEndpoint){
       const res=await fetch(cfg.formEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
       if(!res.ok) throw new Error('Lead endpoint failed');
-      alert(isES?'Mensaje enviado. Te responderé pronto.':'Message sent. I will respond soon.');
+      showFormMessage(form,'ok', isES?'Mensaje enviado. Te responderé pronto.':'Message sent. I\'ll respond shortly.');
       form.reset();
       return true;
     }
     const subject=encodeURIComponent('New real estate lead · Carlos Delgado website');
     const body=encodeURIComponent(leadMessage(payload));
-    if(!cfg.email){ alert(isES?'Conecta un email o formEndpoint en data.js antes de publicar.':'Connect an email or formEndpoint in data.js before publishing.'); return false; }
+    if(!cfg.email){
+      showFormMessage(form,'err', isES?'Configura un email en data.js antes de publicar.':'Add an email in data.js before publishing.');
+      return false;
+    }
     window.location.href=`mailto:${encodeURIComponent(cfg.email)}?subject=${subject}&body=${body}`;
-    alert(isES?'Se abrirá tu app de email con el mensaje listo. Para automatizarlo al 100%, conecta formEndpoint.':'Your email app will open with the message ready to send. To automate this 100%, connect formEndpoint.');
+    showFormMessage(form,'ok', isES?'Se abrirá tu app de email con el mensaje listo.':'Your email app will open with the message ready.');
     return true;
   }catch(err){
     console.error(err);
-    alert(isES?'No se pudo enviar automáticamente. Usa llamada, WhatsApp o email directo.':'Automatic sending failed. Please use call, WhatsApp or direct email.');
+    showFormMessage(form,'err', isES
+      ? 'No se pudo enviar. Escríbeme por WhatsApp o llama directamente.'
+      : 'Could not send. Please WhatsApp or call directly.');
     return false;
   }finally{
     if(submitButton){ submitButton.disabled=false; submitButton.textContent=originalText; }
@@ -1153,7 +1197,10 @@ menuBtn?.addEventListener('click',()=>navLinks.classList.toggle('open'));
 navLinks?.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
 
 function clamp(n,min,max){return Math.max(min,Math.min(max,n))}
+let _heroVisible=true;
+let _rafId=null;
 function parallaxHero(){
+  if(!_heroVisible) return;
   const hero=document.getElementById('hero');
   const max=hero.offsetHeight-window.innerHeight;
   const p=max>0?clamp(window.scrollY/max,0,1):0;
@@ -1165,9 +1212,15 @@ function parallaxHero(){
     heroVisual.style.filter=`blur(${p*.35}px)`;
   }
   if(scrollCue) scrollCue.style.opacity=window.scrollY>40?'0':'1';
-  requestAnimationFrame(parallaxHero);
+  _rafId=requestAnimationFrame(parallaxHero);
 }
-requestAnimationFrame(parallaxHero);
+const _heroObserver=new IntersectionObserver(([e])=>{
+  _heroVisible=e.isIntersecting;
+  if(_heroVisible&&!_rafId){ _rafId=requestAnimationFrame(parallaxHero); }
+  if(!_heroVisible&&_rafId){ cancelAnimationFrame(_rafId); _rafId=null; }
+},{threshold:0});
+_heroObserver.observe(document.getElementById('hero'));
+_rafId=requestAnimationFrame(parallaxHero);
 
 const io=new IntersectionObserver(entries=>{
   entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('on');io.unobserve(entry.target)}})
@@ -1396,7 +1449,7 @@ applyContactConfig();
     attr('#menuBtn','aria-label','Open menu','Abrir menú');
 
     /* HERO */
-    html('.hero-title','Find What<br/>Moves You','Encuentra lo que<br/>te mueve');
+    html('.hero-title','Find What<br/>Moves You','Encuentra<br/>lo que<br/>te mueve');
     html('.hero-kicker','<i></i> Bilingual Realtor · Miami, FL','<i></i> Realtor bilingüe · Miami, FL');
     html('.hero-sub',
       'Buy, sell, rent or invest in Miami with an agent who <strong>filters first, sells second</strong> — clear decisions, an organized process, direct communication through closing.',
