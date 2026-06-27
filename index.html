@@ -313,14 +313,22 @@ h2{font-family:'Syne';font-size:clamp(2.2rem,4.5vw,4.4rem);line-height:.96;lette
 
 /* Responsive */
 @media(max-width:1040px){
-  .nav-links{gap:1rem}
-  .service-grid,.featured-grid,.process-grid,.invest-grid{grid-template-columns:repeat(2,1fr)}
+  /* ── NAV: hamburger from 1040px down ── */
+  .nav-actions .btn{display:none}
+  .menu-btn{display:flex}
+  .nav-links{position:fixed;left:1rem;right:1rem;top:72px;background:rgba(251,248,241,.96);backdrop-filter:blur(20px);border:1px solid var(--line);border-radius:var(--r);padding:1rem;display:none;flex-direction:column;align-items:stretch;gap:.2rem;box-shadow:var(--shadow)}
+  .nav-links.open{display:flex}
+  .nav-links a{padding:.9rem 1rem;color:rgba(19,17,15,.7)}
+  /* ── GRIDS ── */
+  .service-grid,.featured-grid,.invest-grid{grid-template-columns:repeat(2,1fr)}
+  /* Process: 3 cards → keep 3 cols until mobile so no orphan */
+  .process-grid{grid-template-columns:repeat(3,1fr)}
   .value-layout,.story-inner,.about-card,.contact-shell{grid-template-columns:1fr}
   .value-intro,.contact-aside{position:relative;top:auto}
   .proof-inner{grid-template-columns:repeat(2,1fr);gap:1.4rem}
   .hero-inner{grid-template-columns:1fr;align-items:start;text-align:center;padding-top:7.6rem;gap:1.5rem}
   .hero-copy{margin:0 auto;max-width:680px;text-align:center}
-  .hero-title{margin-left:auto;margin-right:auto;font-size:clamp(3.4rem,11vw,6.2rem)}
+  .hero-title{margin-left:auto;margin-right:auto;font-size:clamp(3.4rem,11vw,6.2rem);max-width:100%}
   .hero-sub{margin-left:auto;margin-right:auto}
   .hero-ctas{justify-content:center}
   .hero-micro{justify-content:center}
@@ -1543,4 +1551,23 @@ applyContactConfig();
       {value:'Invest',en:'Invest',es:'Invertir'},
       {value:'Not sure',en:'Not sure yet',es:'No estoy seguro'}
     ]);
-    
+
+    langButtons.forEach(b=>{const active=b.dataset.lang===currentLang;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
+    if(window.applyContactConfig) window.applyContactConfig();
+    if(typeof renderProperties==='function') renderProperties();
+  }
+
+  langButtons.forEach(btn=>btn.addEventListener('click',()=>{
+    currentLang=btn.dataset.lang||'en';
+    applyStaticLanguage();
+    if(typeof syncQuickModal==='function') syncQuickModal(typeof _qMode!=='undefined'?_qMode:'consult');
+    if(document.getElementById('modal')?.classList.contains('open')){
+      if(typeof setModalContent==='function') setModalContent(document.getElementById('modalServiceValue')?.value||'Consulta');
+    }
+  }));
+
+  applyStaticLanguage();
+})();
+</script>
+</body>
+</html>
