@@ -109,13 +109,4 @@ window.SITE_CONFIG = {
      area: 'Brickell',
      type: { en: 'Condo', es: 'Condo' },
      title: { en: '2BD Modern Condo · Bay Views', es: 'Condo 2H · Vistas a la Bahía' },
-     image: 'https://images.unsplash.com/photo-REPLACE?w=900&q=80&fit=crop',
-     beds: '2', baths: '2', sqft: '980',
-     service: 'Compra',
-     link: '#contact'
-   }
-   ─────────────────────────────────────────────────────────────
-═══════════════════════════════════════════════════════════════ */
-window.PROPERTIES = [
-  /* Add real listings here when ready. */
-];
+     image: 'https://images.unspla
