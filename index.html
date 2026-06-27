@@ -388,8 +388,10 @@ h2{font-family:'Syne';font-size:clamp(2.2rem,4.5vw,4.4rem);line-height:.96;lette
 
 /* ─── v4 PATCH ─────────────────────────────────────────────────────── */
 
-/* Spanish hero title — reduce font so "Encuentra" fits the ~451px desktop column */
-@media(min-width:1041px){html[lang="es"] .hero-title{font-size:clamp(3rem,6.2vw,6.5rem)}}
+/* Spanish hero title — scale down at every breakpoint (Spanish words are longer) */
+html[lang="es"] .hero-title{font-size:clamp(2.8rem,5.8vw,6rem)}
+@media(max-width:1040px){html[lang="es"] .hero-title{font-size:clamp(2.6rem,8.5vw,5.4rem)}}
+@media(max-width:760px){html[lang="es"] .hero-title{font-size:clamp(2.4rem,12vw,4rem)}}
 
 /* Scroll margin — compensates sticky header on anchor links */
 section[id]{scroll-margin-top:88px}
