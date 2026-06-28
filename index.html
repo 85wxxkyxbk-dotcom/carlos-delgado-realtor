@@ -19,13 +19,13 @@
 <meta content="Carlos Delgado · Miami Realtor" property="og:title"/>
 <meta content="Buy, sell, rent or invest in Miami with a bilingual realtor. Clear decisions, organized process and direct communication." property="og:description"/>
 <meta content="https://carlosdelgadorealty.com/" property="og:url"/>
-<meta content="https://carlosdelgadorealty.com/og-image.jpg" property="og:image"/>
+<meta content="https://carlosdelgadorealty.com/og-image.svg" property="og:image"/>
 <meta content="1200" property="og:image:width"/>
 <meta content="630" property="og:image:height"/>
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Carlos Delgado · Miami Realtor" />
 <meta name="twitter:description" content="Buy, sell, rent or invest in Miami with a bilingual realtor. Clear decisions, organized process and direct communication." />
-<meta name="twitter:image" content="https://carlosdelgadorealty.com/og-image.jpg" />
+<meta name="twitter:image" content="https://carlosdelgadorealty.com/og-image.svg" />
 
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
@@ -252,6 +252,7 @@ h2{font-family:'Syne';font-size:clamp(2.2rem,4.5vw,4.4rem);line-height:.96;lette
 .field input,.field select,.field textarea{width:100%;border:1px solid var(--line);background:#fff;border-radius:var(--r-sm);padding:1rem 1.1rem;color:var(--ink);outline:none;transition:border-color .25s,box-shadow .25s}
 .field textarea{min-height:140px;resize:vertical}
 .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--terracotta);box-shadow:0 0 0 4px rgba(201,85,58,.10)}
+.hp-field{position:absolute!important;left:-10000px!important;width:1px!important;height:1px!important;overflow:hidden!important;opacity:0!important;pointer-events:none!important}
 .form-trust{display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;padding:.8rem 1rem;border-radius:var(--r-sm);background:rgba(111,137,119,.08);border:1px solid rgba(111,137,119,.18)}
 .form-trust span{display:flex;align-items:center;gap:.4rem;font-size:.72rem;color:var(--ink);font-weight:600}
 .form-trust span::before{content:'✓';color:var(--sage);font-weight:700}
@@ -765,6 +766,7 @@ section[id]{scroll-margin-top:88px}
         <div class="field"><label>Message</label><textarea name="message" placeholder="Tell me what you need, your timing and any important detail…"></textarea></div>
         <div class="form-trust"><span>Response under 24h</span><span>No pressure</span><span>Confidential information</span></div>
         <button class="btn btn-dark submit" type="submit">Send message →</button>
+        <input class="hp-field" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"/>
       </form>
     </div>
   </section>
@@ -830,6 +832,7 @@ section[id]{scroll-margin-top:88px}
           <div class="field"><label data-i18n="modalMessageLabel">Optional message</label><textarea id="modalMessage" name="message" placeholder="Tell me area, timing, questions or important details…"></textarea></div>
           <div class="form-trust"><span>Response &lt;24h</span><span>No pressure</span></div>
           <button class="btn btn-dark submit" id="modalSubmit" type="submit">Send consultation →</button>
+          <input class="hp-field" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"/>
           <p class="form-note" id="modalFinePrint">Your information is used only to respond to this consultation.</p>
         </form>
       </div>
@@ -885,6 +888,7 @@ section[id]{scroll-margin-top:88px}
       <p class="form-note" id="qNote">
         Your information is only used to respond to this consultation.
       </p>
+      <input class="hp-field" name="website" tabindex="-1" autocomplete="off" aria-hidden="true"/>
     </form>
   </div>
 </div>
@@ -900,11 +904,66 @@ section[id]{scroll-margin-top:88px}
 /* Runtime behavior — design logic stays here. Editable data lives in data.js. */
 let currentLang = 'en';
 
+function trackEvent(name, params={}){
+  const payload=params && typeof params==='object' ? params : {};
+  try{
+    if(window.dataLayer) window.dataLayer.push({event:name,...payload});
+    if(typeof window.gtag==='function') window.gtag('event',name,payload);
+    if(typeof window.fbq==='function') window.fbq('trackCustom',name,payload);
+  }catch(err){
+    console.warn('Tracking event failed',err);
+  }
+}
+window.trackEvent = trackEvent;
+
+function injectScript(src,id){
+  if(id && document.getElementById(id)) return;
+  const script=document.createElement('script');
+  script.async=true;
+  if(id) script.id=id;
+  script.src=src;
+  document.head.appendChild(script);
+}
+
+function loadAnalyticsConfig(){
+  const cfg=window.SITE_CONFIG || {};
+  const analytics=cfg.analytics || {};
+  const gaId=(analytics.gaMeasurementId || '').trim();
+  const gtmId=(analytics.gtmId || '').trim();
+  const metaId=(analytics.metaPixelId || '').trim();
+
+  if(gtmId){
+    window.dataLayer=window.dataLayer || [];
+    window.dataLayer.push({'gtm.start':Date.now(),event:'gtm.js'});
+    injectScript('https://www.googletagmanager.com/gtm.js?id='+encodeURIComponent(gtmId),'gtm-loader');
+  }
+
+  if(gaId){
+    window.dataLayer=window.dataLayer || [];
+    window.gtag=window.gtag || function(){window.dataLayer.push(arguments);};
+    window.gtag('js',new Date());
+    window.gtag('config',gaId);
+    injectScript('https://www.googletagmanager.com/gtag/js?id='+encodeURIComponent(gaId),'ga-loader');
+  }
+
+  if(metaId && typeof window.fbq!=='function'){
+    window.fbq=function(){window.fbq.callMethod ? window.fbq.callMethod.apply(window.fbq,arguments) : window.fbq.queue.push(arguments);};
+    window.fbq.queue=[];
+    window.fbq.loaded=true;
+    window.fbq.version='2.0';
+    injectScript('https://connect.facebook.net/en_US/fbevents.js','meta-pixel-loader');
+    window.fbq('init',metaId);
+    window.fbq('track','PageView');
+  }
+}
+
 function applyContactConfig(){
   const cfg=window.SITE_CONFIG || {};
   const clean=v=>typeof v==='string' ? v.trim() : '';
   const phoneDisplay=clean(cfg.phoneDisplay);
+  const phoneHref=clean(cfg.phoneHref);
   const phoneTel=clean(cfg.phoneTel).replace(/[^+\d]/g,'');
+  const whatsappHref=clean(cfg.whatsappHref);
   const whatsapp=clean(cfg.whatsappNumber).replace(/[^\d]/g,'');
   const email=clean(cfg.email);
   const brokerageName=clean(cfg.brokerageName);
@@ -916,7 +975,7 @@ function applyContactConfig(){
 
   document.querySelectorAll('[data-config="phone"]').forEach(el=>{
     if(el.tagName==='A'){
-      el.href=hasPhone ? 'tel:'+phoneTel : '#contact';
+      el.href=hasPhone ? (phoneHref || 'tel:'+phoneTel) : '#contact';
       if(el.classList.contains('btn') || el.closest('.mobile-cta')) el.textContent=hasPhone ? (isES?'Llamar':'Call') : (isES?'Contacto':'Contact');
     }
     if(el.matches('.contact-action')){
@@ -938,7 +997,7 @@ function applyContactConfig(){
   });
 
   document.querySelectorAll('[data-config="whatsapp"]').forEach(el=>{
-    if(el.tagName==='A') el.href=hasWhatsApp ? 'https://wa.me/'+whatsapp : '#contact';
+    if(el.tagName==='A') el.href=hasWhatsApp ? (whatsappHref || 'https://wa.me/'+whatsapp) : '#contact';
     if(el.matches('.contact-action')){
       el.classList.toggle('is-hidden', !hasWhatsApp);
       el.innerHTML=`<span>WhatsApp<small>${isES?'Respuesta rápida':'Fast response'}</small></span><strong>→</strong>`;
@@ -1051,7 +1110,21 @@ window.renderProperties = renderProperties;
 
 function leadPayloadFromForm(form, source){
   const data=Object.fromEntries(new FormData(form).entries());
+  delete data.website;
   return { source, page:'Carlos Delgado Real Estate Landing', language:document.documentElement.lang || 'en', submitted_at:new Date().toISOString(), ...data };
+}
+function isSpamLikeLead(form, payload){
+  const trap=(form.querySelector('[name="website"]')?.value || '').trim();
+  if(trap) return true;
+  const signature=[payload.name,payload.contact,payload.service,payload.interest,payload.message].map(v=>(v || '').trim().toLowerCase()).join('|');
+  if(!signature.replace(/\|/g,'')) return false;
+  try{
+    const now=Date.now();
+    const last=JSON.parse(sessionStorage.getItem('cdr_last_lead') || '{}');
+    if(last.signature===signature && now-last.time<45000) return true;
+    sessionStorage.setItem('cdr_last_lead',JSON.stringify({signature,time:now}));
+  }catch(_){}
+  return false;
 }
 function leadMessage(payload){
   const labels={name:'Name',contact:'Contact',service:'Service',area:'Area',budget:'Budget',pets:'Pets',message:'Message',interest:'Interest',property_type:'Property type',financing:'Financing',timing:'Timing',beds:'Beds',property_address:'Property address',condition:'Condition',occupancy:'Occupancy',monthly_budget:'Monthly budget',move_date:'Move-in date',parking:'Parking',capital:'Capital',strategy:'Strategy',horizon:'Horizon',risk:'Risk profile'};
@@ -1135,6 +1208,10 @@ async function submitLead(form, source){
   }
 
   const payload=leadPayloadFromForm(form, source);
+  if(isSpamLikeLead(form,payload)){
+    showFormMessage(form,'ok', isES?'Ya recibí tu solicitud. Te responderé pronto.':'I already received your request. I\'ll respond shortly.');
+    return false;
+  }
   sendLeadToSupabase(payload);
   const submitButton=form.querySelector('button[type="submit"]');
   const originalText=submitButton?.textContent;
@@ -1143,6 +1220,8 @@ async function submitLead(form, source){
     if(cfg.formEndpoint){
       const res=await fetch(cfg.formEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
       if(!res.ok) throw new Error('Lead endpoint failed');
+      trackEvent('form_submit',{source,service:payload.service || payload.interest || 'lead'});
+      trackEvent('lead_created',{destination:'crm',source:'website',service:payload.service || payload.interest || 'lead'});
       showFormMessage(form,'ok', isES?'Mensaje enviado. Te responderé pronto.':'Message sent. I\'ll respond shortly.');
       form.reset();
       return true;
@@ -1154,6 +1233,7 @@ async function submitLead(form, source){
       return false;
     }
     window.location.href=`mailto:${encodeURIComponent(cfg.email)}?subject=${subject}&body=${body}`;
+    trackEvent('form_submit',{source,fallback:'mailto',service:payload.service || payload.interest || 'lead'});
     showFormMessage(form,'ok', isES?'Se abrirá tu app de email con el mensaje listo.':'Your email app will open with the message ready.');
     return true;
   }catch(err){
@@ -1322,10 +1402,18 @@ function closeModal(){modal.classList.remove('open');modal.setAttribute('aria-hi
 
 renderProperties();
 
-/* Event delegation for booking buttons — opens quick booking form */
+/* Event delegation for booking buttons */
 document.addEventListener('click',e=>{
   const btn=e.target.closest('[data-open-modal]');
   if(!btn) return;
+  const cfg=window.SITE_CONFIG || {};
+  const booking=(cfg.bookingLink || cfg.bookingUrl || '').trim();
+  trackEvent('calendly_click',{provider:booking?'google_calendar':'quick_modal'});
+  if(booking){
+    const opened=window.open(booking,'_blank','noopener,noreferrer');
+    if(!opened) window.location.href=booking;
+    return;
+  }
   openQuickModal('book');
 });
 /* ── Quick Consultation Modal ──────────────────────────────── */
@@ -1394,6 +1482,17 @@ document.addEventListener('click',e=>{
   openQuickModal();
 });
 document.addEventListener('click',e=>{const el=e.target.closest('[data-service]');if(!el)return;e.preventDefault();openModal(el.dataset.service);});
+document.addEventListener('click',e=>{
+  const target=e.target.closest('a,button');
+  if(!target) return;
+  const href=target.getAttribute('href') || '';
+  const label=(target.textContent || '').trim().replace(/\s+/g,' ').slice(0,80);
+  if(target.closest('[data-config="phone"]') || href.startsWith('tel:')) trackEvent('phone_click',{label});
+  if(target.closest('[data-config="email"]') || href.startsWith('mailto:')) trackEvent('email_click',{label});
+  if(target.closest('[data-config="whatsapp"]') || href.includes('wa.me')) trackEvent('whatsapp_click',{label});
+  const property=target.closest('.property-card');
+  if(property) trackEvent('property_view',{service:property.dataset.service || '',label});
+});
 document.getElementById('closeModal')?.addEventListener('click',closeModal);
 modal?.addEventListener('click',e=>{if(e.target===modal)closeModal()});
 document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeModal();if(typeof closeQuickModal==='function')closeQuickModal();}});
@@ -1405,6 +1504,7 @@ serviceSelect?.addEventListener('change',()=>{petField.style.display=serviceSele
 document.getElementById('leadForm')?.addEventListener('submit',e=>{e.preventDefault();submitLead(e.currentTarget,'Main contact form');});
 document.getElementById('modalForm')?.addEventListener('submit',async e=>{e.preventDefault();const ok=await submitLead(e.currentTarget,'Consultation modal');if(ok) closeModal();});
 applyContactConfig();
+loadAnalyticsConfig();
 </script>
 
 <script>

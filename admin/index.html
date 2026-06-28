@@ -325,7 +325,7 @@ async function onSignedIn(session){
   $('#who-email').textContent=session.user.email;
   $('#avatar').textContent=initials(session.user.email);
   await loadAll();
-  renderView('dashboard');
+  renderView(viewFromLocation());
 }
 
 /* ════════════════ DATA ════════════════ */
@@ -347,11 +347,22 @@ function propAddr(id){const p=state.properties.find(x=>x.id===id);return p?p.add
 
 /* ════════════════ NAV ════════════════ */
 function setSidebar(open){ $('#sidebar').classList.toggle('open',open); $('#sidebar-backdrop').classList.toggle('show',open); }
-$$('.nav-item').forEach(b=>b.addEventListener('click',()=>{ renderView(b.dataset.view); setSidebar(false); }));
+const TITLES={dashboard:'Dashboard',properties:'Propiedades',leads:'Leads',reports:'Reportes y estadísticas'};
+function viewFromLocation(){
+  const hash=(location.hash || '').replace(/^#/,'');
+  const path=(location.pathname || '').replace(/\/+$/,'').split('/').pop();
+  const candidate=hash || path;
+  return TITLES[candidate] ? candidate : 'dashboard';
+}
+function setViewLocation(v){
+  if((location.hash || '').replace(/^#/,'') !== v) history.replaceState(null,'','#'+v);
+}
+$$('.nav-item').forEach(b=>b.addEventListener('click',()=>{ setViewLocation(b.dataset.view); renderView(b.dataset.view); setSidebar(false); }));
+window.addEventListener('hashchange',()=>renderView(viewFromLocation()));
 $('#menu-btn').addEventListener('click',()=>setSidebar(!$('#sidebar').classList.contains('open')));
 $('#sidebar-backdrop').addEventListener('click',()=>setSidebar(false));
-const TITLES={dashboard:'Dashboard',properties:'Propiedades',leads:'Leads',reports:'Reportes y estadísticas'};
 function renderView(v){
+  v=TITLES[v] ? v : 'dashboard';
   state.view=v;
   $$('.nav-item').forEach(b=>b.classList.toggle('active',b.dataset.view===v));
   $('#view-title').textContent=TITLES[v];

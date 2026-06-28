@@ -1,0 +1,6 @@
+.env
+.env.*
+.ig_session
+*.log
+admin/README-ADMIN.md
+admin/schema.sql
