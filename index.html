@@ -519,8 +519,11 @@ html[lang="es"] .hero-title{font-size:5.25rem;max-width:10ch}
 .hero-micro b{color:#fff}
 .hero-visual{position:absolute;inset:0;z-index:5;width:100%;height:100%;transform:none;opacity:1;overflow:hidden}
 .hero-house{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 58%;filter:saturate(.78) contrast(1.02) brightness(.78);-webkit-mask-image:none;mask-image:none;will-change:transform,opacity}
-.hero-exterior{z-index:2;opacity:var(--exterior-opacity,1);transform:scale(var(--exterior-scale,1));transform-origin:58% 54%}
-.hero-interior{z-index:1;opacity:var(--interior-opacity,0);transform:scale(var(--interior-scale,1.16));transform-origin:50% 52%;filter:saturate(.76) contrast(1.02) brightness(.68)}
+.hero-frame{opacity:0;will-change:transform,opacity}
+.hero-frame-01{z-index:4;opacity:var(--frame-01-opacity,1);transform:scale(var(--frame-01-scale,1));transform-origin:58% 54%}
+.hero-frame-02{z-index:3;opacity:var(--frame-02-opacity,0);transform:scale(var(--frame-02-scale,1.1));transform-origin:54% 54%}
+.hero-frame-03{z-index:2;opacity:var(--frame-03-opacity,0);transform:scale(var(--frame-03-scale,1.08));transform-origin:50% 52%}
+.hero-frame-04{z-index:1;opacity:var(--frame-04-opacity,0);transform:scale(var(--frame-04-scale,1.06));transform-origin:50% 52%}
 .scroll-cue{left:auto;right:clamp(1.5rem,4vw,4.5rem);bottom:2rem;transform:none;color:rgba(255,255,255,.66)}
 .scroll-cue::after{background:linear-gradient(to bottom,rgba(255,255,255,.72),transparent)}
 
@@ -616,7 +619,7 @@ h2{font-size:4.25rem;line-height:1.01}
   .hero-micro{justify-content:flex-start;font-size:.68rem}
   .hero-visual{inset:0;width:100%;height:100%;bottom:auto;opacity:1}
   .hero-house{object-position:62% center}
-  .hero-exterior{transform-origin:66% 52%}
+  .hero-frame-01{transform-origin:66% 52%}
   .proof-inner{grid-template-columns:1fr 1fr;text-align:left}
   .proof-strip{padding:1.6rem 1.15rem}
   .section{padding:5.5rem 1.15rem}
@@ -646,8 +649,8 @@ h2{font-size:4.25rem;line-height:1.01}
 @media(prefers-reduced-motion:reduce){
   .hero{height:100svh;min-height:680px}
   .hero-stage{position:relative}
-  .hero-exterior{opacity:1!important;transform:none!important}
-  .hero-interior{display:none}
+  .hero-frame-01{opacity:1!important;transform:none!important}
+  .hero-frame-02,.hero-frame-03,.hero-frame-04{display:none}
 }
 
 </style>
@@ -729,8 +732,10 @@ h2{font-size:4.25rem;line-height:1.01}
         </div>
       </div>
       <div aria-hidden="true" class="hero-visual" id="heroVisual">
-        <img alt="" class="hero-house hero-exterior" decoding="async" fetchpriority="high" src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=1800&amp;q=88&amp;fit=crop&amp;crop=bottom"/>
-        <img alt="" class="hero-house hero-interior" decoding="async" loading="eager" src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=1800&amp;q=88&amp;fit=crop"/>
+        <img alt="" class="hero-house hero-frame hero-frame-01" decoding="async" fetchpriority="high" src="assets/hero-sequence/hero-miami-01-exterior.webp"/>
+        <img alt="" class="hero-house hero-frame hero-frame-02" decoding="async" loading="eager" src="assets/hero-sequence/hero-miami-02-terrace.webp"/>
+        <img alt="" class="hero-house hero-frame hero-frame-03" decoding="async" loading="eager" src="assets/hero-sequence/hero-miami-03-threshold.webp"/>
+        <img alt="" class="hero-house hero-frame hero-frame-04" decoding="async" loading="eager" src="assets/hero-sequence/hero-miami-04-interior.webp"/>
       </div>
       <div class="scroll-cue" id="scrollCue">Scroll to explore</div>
     </div>
@@ -1487,12 +1492,19 @@ function parallaxHero(){
   const max=hero.offsetHeight-window.innerHeight;
   const p=max>0?clamp(-hero.getBoundingClientRect().top/max,0,1):0;
   if(heroVisual){
-    const blend=clamp((p-.24)/.42,0,1);
-    const exteriorFade=clamp((p-.38)/.28,0,1);
-    heroVisual.style.setProperty('--exterior-scale',(1+(p*.48)).toFixed(3));
-    heroVisual.style.setProperty('--exterior-opacity',(1-exteriorFade).toFixed(3));
-    heroVisual.style.setProperty('--interior-scale',(1.16-(blend*.16)).toFixed(3));
-    heroVisual.style.setProperty('--interior-opacity',blend.toFixed(3));
+    const fade=(start,end)=>clamp((p-start)/(end-start),0,1);
+    const frame01=1-fade(.20,.42);
+    const frame02=fade(.12,.34)*(1-fade(.43,.62));
+    const frame03=fade(.36,.56)*(1-fade(.66,.84));
+    const frame04=fade(.60,.84);
+    heroVisual.style.setProperty('--frame-01-opacity',frame01.toFixed(3));
+    heroVisual.style.setProperty('--frame-02-opacity',frame02.toFixed(3));
+    heroVisual.style.setProperty('--frame-03-opacity',frame03.toFixed(3));
+    heroVisual.style.setProperty('--frame-04-opacity',frame04.toFixed(3));
+    heroVisual.style.setProperty('--frame-01-scale',(1+(p*.16)).toFixed(3));
+    heroVisual.style.setProperty('--frame-02-scale',(1.10-(fade(.12,.62)*.08)).toFixed(3));
+    heroVisual.style.setProperty('--frame-03-scale',(1.08-(fade(.36,.84)*.06)).toFixed(3));
+    heroVisual.style.setProperty('--frame-04-scale',(1.06-(fade(.60,1)*.06)).toFixed(3));
   }
   if(scrollCue) scrollCue.style.opacity=p>.08?'0':'1';
   _rafId=requestAnimationFrame(parallaxHero);
