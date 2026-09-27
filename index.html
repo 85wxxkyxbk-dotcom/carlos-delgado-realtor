@@ -1389,17 +1389,38 @@ function clamp(n,min,max){return Math.max(min,Math.min(max,n))}
 let _heroVisible=true;
 let _heroFrame=null;
 let _heroVideoDuration=0;
-let _lastHeroVideoTime=-1;
+let _heroVideoTarget=0;
+let _heroPlaybackFrame=null;
+function advanceHeroVideo(){
+  _heroPlaybackFrame=null;
+  if(!heroVideo||!_heroVisible) return;
+  const remaining=_heroVideoTarget-heroVideo.currentTime;
+  if(remaining<=.045){
+    heroVideo.pause();
+    return;
+  }
+  heroVideo.playbackRate=clamp(1+(remaining*.24),1,2.5);
+  const playAttempt=heroVideo.play();
+  if(playAttempt){
+    playAttempt.catch(()=>{
+      heroVideo.currentTime=_heroVideoTarget;
+    });
+  }
+  _heroPlaybackFrame=requestAnimationFrame(advanceHeroVideo);
+}
 function syncHeroVideo(progress){
   if(!heroVideo||!_heroVideoDuration) return;
-  const nextTime=progress*_heroVideoDuration;
-  if(Math.abs(nextTime-_lastHeroVideoTime)<.025) return;
-  heroVideo.currentTime=nextTime;
-  _lastHeroVideoTime=nextTime;
+  _heroVideoTarget=progress*_heroVideoDuration;
+  if(_heroVideoTarget<heroVideo.currentTime-.08){
+    heroVideo.pause();
+    heroVideo.currentTime=_heroVideoTarget;
+    _heroPlaybackFrame=null;
+    return;
+  }
+  if(_heroPlaybackFrame===null) _heroPlaybackFrame=requestAnimationFrame(advanceHeroVideo);
 }
 heroVideo?.addEventListener('loadedmetadata',()=>{
   _heroVideoDuration=Number.isFinite(heroVideo.duration)?heroVideo.duration:0;
-  _lastHeroVideoTime=-1;
   requestHeroSync();
 },{once:true});
 function parallaxHero(){
